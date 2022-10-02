@@ -73,3 +73,9 @@ crashlytics-build.properties
 
 # I dont think this needs to be included-Onyx
 /.vscode
+
+# MacOS sure is cool - Roman
+.DS_Store
+
+## User settings - Roman - I have to use Xcode to build for iOS and stuff
+Xcode/xcuserdata/
