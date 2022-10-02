@@ -40,7 +40,8 @@ public class BoxClicked : MonoBehaviour
 	    {
 		    UpdateTracking();
         	
-		    Debug.Log(gameObject.name + gameObject.transform.parent.parent.name);
+		    //I don't think we still need to log this, do we?
+		    //Debug.Log(gameObject.name + gameObject.transform.parent.parent.name);
 	        
 		    SpawnXorO();
 	        
