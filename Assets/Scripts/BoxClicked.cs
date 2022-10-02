@@ -29,10 +29,10 @@ public class BoxClicked : MonoBehaviour
 
 
     private void OnMouseDown() {
-        clickStartedHere = true;
+	    clickStartedHere = true;
     }
     private void OnMouseExit() {
-        clickStartedHere = false;
+	    clickStartedHere = false;
     }
     void OnMouseOver()
     {
