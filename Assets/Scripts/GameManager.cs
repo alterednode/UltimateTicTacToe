@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
 	{
-		ScreenCapture. CaptureScreenshot("Icon.png");
 		xPlayerTurn = Random.value > 0.5f;
 		c_xPlayerTurn = !xPlayerTurn;
 		restartButton = GameObject.Find("RestartButton");
