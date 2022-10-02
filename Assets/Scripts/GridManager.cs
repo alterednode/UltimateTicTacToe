@@ -15,23 +15,14 @@ public class GridManager : MonoBehaviour
 	    gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+	public void SetScoreOfThisThing(int	where, int whatScore) // update the scoreTracking
 	{
-
-	    
-    }
-    
-	public void SetScoreOfThisThing(int	where, int whatScore)
-	{
-		
-		
 		scoreTracking[where] = whatScore;
 		thisGridPlayable=GameManager.CheckPlayable(scoreTracking);
-		if (GameManager.CheckForWin(scoreTracking)!=0)
+		if (GameManager.CheckForWin(scoreTracking)!=0) // check for a win
 		{
-			ThisGameWon(GameManager.CheckForWin(scoreTracking));
-			thisGridPlayable=false;
+			ThisGameWon(GameManager.CheckForWin(scoreTracking)); //inform big grid that this game was won
+			thisGridPlayable=false; // no more playing here
 		}
 		
 		
@@ -41,10 +32,10 @@ public class GridManager : MonoBehaviour
 	
 	
 	
-	public void ThisGameWon(int	winningInt)
+	public void ThisGameWon(int	winningInt) 
 	{
-		GameObject WinningSymbol;
-		triggers.SetActive(false);
+		GameObject WinningSymbol; // winning symbol will be the thing that shows up to show the player if X or O won that small game
+		triggers.SetActive(false); // no more playing here
 		if (winningInt == 3)
 		{
 			WinningSymbol= Instantiate(gameManager.prefabXO[1]);
@@ -56,8 +47,8 @@ public class GridManager : MonoBehaviour
 			
 			GameObject.Find("BigGrid").GetComponent<BigGridManager>().SetScoreOfThisThing(transform.GetSiblingIndex(),-1);
 		}
-		WinningSymbol.transform.localScale *=4;
-		WinningSymbol.transform.position = transform.position;
+		WinningSymbol.transform.localScale *=4; // make the thing bigger
+		WinningSymbol.transform.position = transform.position; //reposition it to the right spot
 	}
 	
     

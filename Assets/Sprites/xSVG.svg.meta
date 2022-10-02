@@ -17,12 +17,12 @@ ScriptedImporter:
   generatePhysicsShape: 0
   viewportOptions: 0
   preserveViewport: 0
-  advancedMode: 0
+  advancedMode: 1
   predefinedResolutionIndex: 0
   targetResolution: 2160
   resolutionMultiplier: 1
-  stepDistance: 10
-  samplingStepDistance: 100
+  stepDistance: 2.18
+  samplingStepDistance: 201.3
   maxCordDeviationEnabled: 0
   maxCordDeviation: 1
   maxTangentAngleEnabled: 0

@@ -15,34 +15,31 @@ public class BigGridManager : MonoBehaviour
 	    gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 	public void SetScoreOfThisThing(int	where, int whatScore)
 	{
 		GameObject WinningSymbol;
-		isGameNotWon=GameManager.CheckPlayable(scoreTracking);
-		scoreTracking[where] = whatScore;
-		if (GameManager.CheckForWin(scoreTracking)!=0)
+		scoreTracking[where] = whatScore;//update scoretracking 
+		
+		isGameNotWon=GameManager.CheckPlayable(scoreTracking); // detect if the game is won
+		
+		if (GameManager.CheckForWin(scoreTracking)!=0) //detect if a player has won
 		{
-			Debug.Log(GameManager.CheckForWin(scoreTracking) + "WON!!!!!!!     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			//Debug.Log(GameManager.CheckForWin(scoreTracking) + "WON!!!!!!!     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			
-			if (GameManager.CheckForWin(scoreTracking) == -3)
+			if (GameManager.CheckForWin(scoreTracking) == -3) //if O won
 			{
 				WinningSymbol= Instantiate(gameManager.prefabXO[0]);
-			}else
+			}else// if X won
 			{
 				WinningSymbol= Instantiate(gameManager.prefabXO[1]);
 			}
-			WinningSymbol.transform.localScale *=16;
-			WinningSymbol.transform.position = transform.position;
-			foreach (Transform child in GameObject.Find("Small Grids").transform)
+			WinningSymbol.transform.localScale *=16; // scale up to the size of the big grid
+			WinningSymbol.transform.position = transform.position + new Vector3(0,0,-8.5f); // center the thing and move in front of everything
+			foreach (Transform child in GameObject.Find("Small Grids").transform) // player canot play anymore
 			{
 				child.GetChild(2).gameObject.SetActive(false);
 			}
-			gameManager.restartButton.SetActive(true);
+			gameManager.restartButton.SetActive(true); // show reset button
 			
 		}
 		

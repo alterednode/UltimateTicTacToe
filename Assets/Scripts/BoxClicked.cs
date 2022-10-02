@@ -19,16 +19,21 @@ public class BoxClicked : MonoBehaviour
     }
 
 
+
+
+	/// <summary>
+	/// This shit makes it so that the player can only play on a trigger where 
+	/// they both start and end their click there without leaving the trigger
+	/// </summary>
+
+
+
     private void OnMouseDown() {
         clickStartedHere = true;
     }
     private void OnMouseExit() {
         clickStartedHere = false;
     }
-
-    /// <summary>
-    /// Called every frame while the mouse is over the GUIElement or Collider.
-    /// </summary>
     void OnMouseOver()
     {
 	    if(Input.GetMouseButtonUp(0) && clickStartedHere)
@@ -48,13 +53,7 @@ public class BoxClicked : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-	   
-    }
-	
-	void SpawnXorO()
+	void SpawnXorO() // Instantiates a new O or X based on which player's turn it is and changes who's turn it is
 	{
 		GameObject newPiece = Instantiate(gameManager.prefabXO[Convert.ToInt32(gameManager.xPlayerTurn)]);
 		newPiece.transform.position = gameObject.transform.position;
@@ -65,7 +64,7 @@ public class BoxClicked : MonoBehaviour
         gameObject.SetActive(false);
 	}
     
-	void UpdateTracking()
+	void UpdateTracking() // tells the Grid Manager which thing was clicked
 	{
 		int intOfThis = transform.GetSiblingIndex();
 		

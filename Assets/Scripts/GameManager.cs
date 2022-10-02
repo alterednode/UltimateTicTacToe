@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 	
     void Update()
     {
-	    AnimateIndicator();
+	    AnimateIndicator(); //idgaf about your pc, animate the indicator of which player's turn it is
 	    
     }
     
@@ -51,19 +51,27 @@ public class GameManager : MonoBehaviour
 	void AnimateIndicator()
 	{
 		
+		//move the indicator based on screen width / height
+		
 		if (Screen.width > Screen.height)
 		{
-			indicator.transform.position = Vector3.Lerp(new Vector3(-5.62f, 0,0), indicator.transform.position, 0.06f);
+			indicator.transform.position = Vector3.Lerp(new Vector3(-5.62f, 0,0), indicator.transform.position, 0.5f); // if screen wider than tall, indicator on the left
 		}else
 		{
-			indicator.transform.position = Vector3.Lerp(new Vector3(0, 5.4f,0), indicator.transform.position, 0.06f);
+			indicator.transform.position = Vector3.Lerp(new Vector3(0, 5.4f,0), indicator.transform.position, 0.5f); // if screen taller than wide, indicator on right
 		}
 		
 		
 		
-		
+		// check to see if the player's turn has changed
 		if(c_xPlayerTurn!=xPlayerTurn){
 
+
+
+			/*
+			dumb FUCKING logic to change the big / small one
+			
+			*/
 			if(xPlayerTurn){
 				notCurrentPlayerThing=
 					indicator.transform.Find("O").gameObject;
@@ -77,10 +85,12 @@ public class GameManager : MonoBehaviour
 					indicator.transform.Find("X").gameObject;
 			}
 		}
+		
+		// weird lerps to change position and scale
 		currentPlayerThing.transform.position = Vector3.Lerp(currentPlayerThing.transform.position, (indicator.transform.position + new Vector3(-.5f,0,0)),0.08f);
 		if (currentPlayerThing.transform.localScale.x	 < 2)
 		{
-			currentPlayerThing.transform.localScale *= 1.01f;
+			currentPlayerThing.transform.localScale *= 1.2f;
 		}
 		notCurrentPlayerThing.transform.position = Vector3.Lerp(notCurrentPlayerThing.transform.position, (indicator.transform.position + new Vector3(.5f,0,0)), 0.08f);
 		c_xPlayerTurn = xPlayerTurn;
@@ -89,10 +99,7 @@ public class GameManager : MonoBehaviour
 			notCurrentPlayerThing.transform.localScale *= .9f;
 			
 		}
-		{
-			
-		}
-		}
+	}
 	
     
     
@@ -101,15 +108,15 @@ public class GameManager : MonoBehaviour
 	{
 		foreach (int x in checkThis)
 		{
-			if (x.Equals (0))
+			if (x.Equals (0)) //see if there is any empty spaces in the array
 			{
-				return true;
+				return true;// if there is > 0 empty spaces this space is playable
 			}
 		}
-		return false;
+		return false; // if there are no playable spaces return unplable
 	}
 	
-	public static int CheckForWin(int[] checkThis)
+	public static int CheckForWin(int[] checkThis) //checks collums, rows and diagonals to find three 1 or -1 in a row
 	{
 		int checkValue=0;
 		
