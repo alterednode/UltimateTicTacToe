@@ -51,6 +51,8 @@ public class GridManager : MonoBehaviour
 		WinningSymbol.transform.position = transform.position; //reposition it to the right spot
 	}
 	
+	
+	
     
     
 }

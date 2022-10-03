@@ -15,17 +15,17 @@ public class GameManager : MonoBehaviour
 	GameObject notCurrentPlayerThing;
 	
 	public GameObject restartButton;
-
+	
 	private bool c_xPlayerTurn;
 
     // Start is called before the first frame update
     void Start()
-	{
+	{ 
 		xPlayerTurn = Random.value > 0.5f;
 		c_xPlayerTurn = !xPlayerTurn;
 		restartButton = GameObject.Find("RestartButton");
 		restartButton.SetActive(false);
-		
+				
 		//set framerate to 60. iOS will often default to 30fps if you don't set this value.
 		if (Application.platform == RuntimePlatform.IPhonePlayer)
 		{

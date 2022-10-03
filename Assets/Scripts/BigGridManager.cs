@@ -25,7 +25,7 @@ public class BigGridManager : MonoBehaviour
 		if (GameManager.CheckForWin(scoreTracking)!=0) //detect if a player has won
 		{
 			//Debug.Log(GameManager.CheckForWin(scoreTracking) + "WON!!!!!!!     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-			
+			isGameNotWon = false;
 			if (GameManager.CheckForWin(scoreTracking) == -3) //if O won
 			{
 				WinningSymbol= Instantiate(gameManager.prefabXO[0]);
@@ -39,7 +39,12 @@ public class BigGridManager : MonoBehaviour
 			{
 				child.GetChild(2).gameObject.SetActive(false);
 			}
-			gameManager.restartButton.SetActive(true); // show reset button
+			
+			if (!isGameNotWon)
+			{
+				
+				gameManager.restartButton.SetActive(true); // show reset button
+			}
 			
 		}
 		
