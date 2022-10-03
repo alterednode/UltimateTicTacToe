@@ -50,6 +50,26 @@ public class BigGridManager : MonoBehaviour
 		
 		
 	}
+	
+	
+	public void checkForTie()
+	{
+		int counter=0;
+		foreach (Transform child in transform.Find("Small Grids")) // player canot play anymore
+		{
+			if(!child.gameObject.GetComponent<GridManager>().thisGridPlayable)
+			{
+				counter ++;
+			}
+			
+			if(counter == 9)
+			{
+				gameManager.restartButton.SetActive(true); // show reset button
+			}
+		}
+	}
+	
+	
     
 	/*
 	
@@ -57,6 +77,4 @@ public class BigGridManager : MonoBehaviour
 	
 	
 	*/
-	
-	//ohhhh im gonna ask about the fucking formatting >:)
 }
