@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-//using ;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,12 +24,6 @@ public class GameManager : MonoBehaviour
 		c_xPlayerTurn = !xPlayerTurn;
 		restartButton = GameObject.Find("RestartButton");
 		restartButton.SetActive(false);
-				
-		//set framerate to 60. iOS will often default to 30fps if you don't set this value.
-		if (Application.platform == RuntimePlatform.IPhonePlayer)
-		{
-			Application.targetFrameRate = 60;
-		}
     }
 
     // Update is called once per frame

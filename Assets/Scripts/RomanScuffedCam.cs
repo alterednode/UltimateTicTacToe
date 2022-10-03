@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//script i found to set a "safe zone" for the camera for better managing funny aspect ratios
 public class RomanScuffedCam : MonoBehaviour
 {
 	public Bounds targetBounds;
