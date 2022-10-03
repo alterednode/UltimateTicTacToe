@@ -52,4 +52,6 @@ public class BigGridManager : MonoBehaviour
 	
 	
 	*/
+	
+	//ohhhh im gonna ask about the fucking formatting >:)
 }
