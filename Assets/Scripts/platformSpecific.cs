@@ -5,6 +5,8 @@ using UnityEngine;
 //this script is for all the platform specific tweaks required for this game. 60fps for iOS, and whatever else we run into later.
 public class platformSpecific : MonoBehaviour
 {
+	public bool gamepadSupport = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,5 +15,11 @@ public class platformSpecific : MonoBehaviour
 	    {
 		    Application.targetFrameRate = 60;
 	    }
+
+		if (gamepadSupport){
+			GameObject.Find("Cursor").SetActive(true);
+		}else{
+			GameObject.Find("Cursor").SetActive(false);
+		}
     }
 }

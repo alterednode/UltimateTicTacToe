@@ -7,7 +7,6 @@ using UnityEngine;
 public class BoxClicked : MonoBehaviour
 {
 	GameManager gameManager;
-	bool clickStartedHere = false;
 	GameObject smallGridHolder;
 	
 
@@ -19,24 +18,15 @@ public class BoxClicked : MonoBehaviour
     }
 
 
-
-
 	/// <summary>
 	/// This shit makes it so that the player can only play on a trigger where 
 	/// they both start and end their click there without leaving the trigger
 	/// </summary>
 
 
-
-    private void OnMouseDown() {
-	    clickStartedHere = true;
-    }
-    private void OnMouseExit() {
-	    clickStartedHere = false;
-    }
     void OnMouseOver()
     {
-	    if(Input.GetMouseButtonUp(0) && clickStartedHere)
+	    if(Input.GetMouseButtonDown(0))
 	    {
 		    UpdateTracking();
         	
@@ -47,10 +37,22 @@ public class BoxClicked : MonoBehaviour
 	        
 		    GameObject.Find("WhereToPlay").GetComponent<WhereToPlay>().
 			    SetLocationAndScale((smallGridHolder.transform.GetChild(transform.GetSiblingIndex())).transform);
-			    
+        }
+    }
+
+	void VOnMouseOver()
+    {
+	    if(Input.GetButtonDown("Fire1"))
+	    {
+		    UpdateTracking();
+        	
+		    //I don't think we still need to log this, do we?
+		    //Debug.Log(gameObject.name + gameObject.transform.parent.parent.name);
 	        
+		    SpawnXorO();
 	        
-	        
+		    GameObject.Find("WhereToPlay").GetComponent<WhereToPlay>().
+			    SetLocationAndScale((smallGridHolder.transform.GetChild(transform.GetSiblingIndex())).transform);
         }
     }
 
