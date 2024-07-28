@@ -6,6 +6,7 @@ public class VirtualMouse : MonoBehaviour {
 	public float speed = 20f; // Speed of the cursor movement
 	public string horizAxisName;
 	public string vertAxisName;
+	public bool inUse = false;
 	
     private Vector3 cursorPosition;
 	// Use this for initialization
@@ -17,7 +18,10 @@ public class VirtualMouse : MonoBehaviour {
 	void Update () {
 		// Get input from the left stick
         float horizontal = Input.GetAxis(horizAxisName);
-        float vertical = Input.GetAxis(vertAxisName);
+		float vertical = Input.GetAxis(vertAxisName);
+        
+		if(horizontal!=0||vertical!=0) {inUse = true;}
+		transform.GetChild(0).gameObject.SetActive(inUse);
 
         // Update the cursor position based on input
         cursorPosition += new Vector3(horizontal, vertical, 0) * speed * Time.deltaTime;
