@@ -3,14 +3,17 @@ using System.Collections;
 
 public class VirtualMouse : MonoBehaviour {
 
+	public bool isPlayer1; 
 	public float speed = 20f; // Speed of the cursor movement
 	public string horizAxisName;
 	public string vertAxisName;
 	public bool inUse = false;
+	GameManager gameManager;
 	
     private Vector3 cursorPosition;
 	// Use this for initialization
 	void Start () {
+		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		cursorPosition = transform.position;
 	}
 	
@@ -41,7 +44,15 @@ public class VirtualMouse : MonoBehaviour {
 
 
         // Apply the new position to the cursor GameObject
-        transform.position = cursorPosition;
+		transform.position = cursorPosition;
+        
+		if(gameManager.controller1.inUse&&gameManager.controller2.inUse)
+		{
+			if(isPlayer1!=gameManager.xPlayerTurn)
+			{
+				return;
+			}
+		}
 
 		RaycastHit hit = new RaycastHit();
 		Ray ray = new Ray(this.transform.position, Vector3.forward * 10);

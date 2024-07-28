@@ -11,15 +11,16 @@ public class BoxClicked : MonoBehaviour
     bool clickStartedHere = false;
 	GameObject smallGridHolder;
     
-
+	private VirtualMouse controller1;
+	private VirtualMouse controller2;
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 	    smallGridHolder = GameObject.Find("Small Grids");
-	    // controller1 = GameObject.Find("Controller Cursor 1").GetComponent<VirtualMouse>();
-	    // controller2 = GameObject.Find("Controller Cursor 1").GetComponent<VirtualMouse>();
+	     controller1 = GameObject.Find("Controller Cursor 1").GetComponent<VirtualMouse>();
+	     controller2 = GameObject.Find("Controller Cursor 1").GetComponent<VirtualMouse>();
     }
 
     /// <summary>
@@ -57,19 +58,25 @@ public class BoxClicked : MonoBehaviour
         }
     }
 
-    void VOnMouseOver()
+	void VOnMouseOver()
 	{
 		bool xturn = gameManager.xPlayerTurn;
 	
 		bool fireController1 = Input.GetButtonDown("Fire1");
 		bool fireController2 = Input.GetButtonDown("Fire1Alt");
+
 		
 		
 		
+		bool canWeContinueTheGame = 	
 		
+			//check if either controller clicked at the same time as its turn, and also if both are being used
+		((xturn&&fireController1)||((!xturn)&&fireController2) && (controller1.inUse&&controller2.inUse))
+			
+			// check if either clicked and also if only one controller is being used
+			||(fireController2||fireController2)&&!(controller1.inUse==controller2.inUse);
 		
-		
-		if ((xturn&&fireController1)||((!xturn)&&fireController2))
+		if (canWeContinueTheGame)
         {
             UpdateTracking();
 

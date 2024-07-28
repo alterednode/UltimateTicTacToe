@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
 	public GameObject restartButton;
 	
 	private bool c_xPlayerTurn;
+	
+	public VirtualMouse controller1;
+	public VirtualMouse controller2;
 
     // Start is called before the first frame update
     void Start()

@@ -479,6 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65fba1305a68bda46bdff3196e9f5978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer1: 1
   speed: 10
   horizAxisName: Horizontal
   vertAxisName: Vertical
@@ -1680,7 +1681,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: dfa83ea0a79d1cb4781d252d6884daf6, type: 3}
+  m_Texture: {fileID: 2800000, guid: 561889d994690aa4683eb4d6dacc9929, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1827,6 +1828,8 @@ MonoBehaviour:
   - {fileID: 8825481732868807318, guid: c43c42e9751ec83449818580717d743a, type: 3}
   - {fileID: 1154290586780083843, guid: b5825c5ee87f1e5489777c34f58aa320, type: 3}
   restartButton: {fileID: 0}
+  controller1: {fileID: 182328765}
+  controller2: {fileID: 1910176106}
 --- !u!114 &1166276016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1839,8 +1842,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f96e3fea12c02f44977fe726ce4a7b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ControllerCursor1: {fileID: 182328765}
-  ControllerCursor2: {fileID: 1910176106}
 --- !u!1 &1187966682
 GameObject:
   m_ObjectHideFlags: 0
@@ -2694,6 +2695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65fba1305a68bda46bdff3196e9f5978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer1: 0
   speed: 10
   horizAxisName: HorizontalAlt
   vertAxisName: VerticalAlt

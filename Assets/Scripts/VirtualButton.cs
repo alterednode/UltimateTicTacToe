@@ -10,7 +10,7 @@ public class VirtualButton : MonoBehaviour
         buttonScript = GetComponent<Button>();
     }
 
-    void VOnMouseOver()
+	void VOnMouseOver()
 	{
     	
     	
