@@ -4,6 +4,9 @@ using System.Collections;
 public class VirtualMouse : MonoBehaviour {
 
 	public float speed = 20f; // Speed of the cursor movement
+	public string horizAxisName;
+	public string vertAxisName;
+	
     private Vector3 cursorPosition;
 	// Use this for initialization
 	void Start () {
@@ -13,8 +16,8 @@ public class VirtualMouse : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Get input from the left stick
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxis(horizAxisName);
+        float vertical = Input.GetAxis(vertAxisName);
 
         // Update the cursor position based on input
         cursorPosition += new Vector3(horizontal, vertical, 0) * speed * Time.deltaTime;

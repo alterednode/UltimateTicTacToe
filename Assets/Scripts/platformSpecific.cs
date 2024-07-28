@@ -9,7 +9,9 @@ public class platformSpecific : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+	{
+    	
+		Debug.Log( Input.GetJoystickNames()[0]);
 	    //set framerate to 60. iOS will often default to 30fps if you don't set this value.
 	    if (Application.platform == RuntimePlatform.IPhonePlayer)
 	    {
