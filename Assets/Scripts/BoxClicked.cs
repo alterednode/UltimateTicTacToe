@@ -9,13 +9,17 @@ public class BoxClicked : MonoBehaviour
 {
     GameManager gameManager;
     bool clickStartedHere = false;
-    GameObject smallGridHolder;
+	GameObject smallGridHolder;
+    
+
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        smallGridHolder = GameObject.Find("Small Grids");
+	    smallGridHolder = GameObject.Find("Small Grids");
+	    // controller1 = GameObject.Find("Controller Cursor 1").GetComponent<VirtualMouse>();
+	    // controller2 = GameObject.Find("Controller Cursor 1").GetComponent<VirtualMouse>();
     }
 
     /// <summary>
@@ -54,8 +58,18 @@ public class BoxClicked : MonoBehaviour
     }
 
     void VOnMouseOver()
-    {
-        if (Input.GetButtonDown("Fire1"))
+	{
+		bool xturn = gameManager.xPlayerTurn;
+	
+		bool fireController1 = Input.GetButtonDown("Fire1");
+		bool fireController2 = Input.GetButtonDown("Fire1Alt");
+		
+		
+		
+		
+		
+		
+		if ((xturn&&fireController1)||((!xturn)&&fireController2))
         {
             UpdateTracking();
 

@@ -164,7 +164,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 0
-    joyNum: 2
+    joyNum: 1
   - serializedVersion: 3
     m_Name: Vertical
     descriptiveName: 
@@ -180,7 +180,7 @@ InputManager:
     invert: 1
     type: 2
     axis: 1
-    joyNum: 2
+    joyNum: 1
   - serializedVersion: 3
     m_Name: Fire1
     descriptiveName: 
@@ -196,7 +196,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 2
+    joyNum: 1
   - serializedVersion: 3
     m_Name: Fire2
     descriptiveName: 
@@ -500,7 +500,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 0
-    joyNum: 3
+    joyNum: 2
   - serializedVersion: 3
     m_Name: VerticalAlt
     descriptiveName: 
@@ -516,9 +516,9 @@ InputManager:
     invert: 1
     type: 2
     axis: 1
-    joyNum: 3
+    joyNum: 2
   - serializedVersion: 3
-    m_Name: Fire1 Alt
+    m_Name: Fire1Alt
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -532,4 +532,4 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 3
+    joyNum: 2

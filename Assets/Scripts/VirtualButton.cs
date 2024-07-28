@@ -11,8 +11,10 @@ public class VirtualButton : MonoBehaviour
     }
 
     void VOnMouseOver()
-    {
-        if (Input.GetButtonDown("Fire1"))
+	{
+    	
+    	
+		if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire1Alt"))
         {
             buttonScript.onClick.Invoke();
         }

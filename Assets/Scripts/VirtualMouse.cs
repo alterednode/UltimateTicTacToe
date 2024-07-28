@@ -20,8 +20,11 @@ public class VirtualMouse : MonoBehaviour {
         float horizontal = Input.GetAxis(horizAxisName);
 		float vertical = Input.GetAxis(vertAxisName);
         
+        
+		// we check to see if the controller is used at all and if it is, we know that this controller is in use and make the cursor visible
 		if(horizontal!=0||vertical!=0) {inUse = true;}
 		transform.GetChild(0).gameObject.SetActive(inUse);
+		if(!inUse){return;}
 
         // Update the cursor position based on input
         cursorPosition += new Vector3(horizontal, vertical, 0) * speed * Time.deltaTime;
