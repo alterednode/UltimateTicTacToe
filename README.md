@@ -10,8 +10,10 @@ For instance, if you play in the bottom right tile of a small board, your oppone
 ## Supported operating systems
 Supported operating systems include Windows, MacOS, iOS, and Android. A web version can be found [here](https://romangarms.com/UltimateTicTacToe/index.html)
 
-### Forks
-PS3 support can be found at a fork [here](https://github.com/Romano-Garmez/UltimateTicTacToePS3), and support for older android devices lacking modern graphics features can be found at another fork [here](https://github.com/CNSeattle/UltimateTicTacToe).
+### Forks and other operating systems
+- PS3 support can be found at a fork [here](https://github.com/Romano-Garmez/UltimateTicTacToePS3)
+- Support for older android devices lacking modern graphics features can be found at another fork [here](https://github.com/CNSeattle/UltimateTicTacToe)
+- Unity 5.3 webplayer support (note: this is different from HTML5!) can be found at a branch of the PS3 fork [here](https://github.com/Romano-Garmez/UltimateTicTacToePS3/tree/unity-5.3)
 
 ## Screenshots
 | Windows/Mac     | iOS/Android       |
