@@ -14,7 +14,7 @@ public class VirtualButton : MonoBehaviour
 	{
     	
     	
-		if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire1Alt"))
+		if (Input.GetButtonUp("Fire1") || Input.GetButtonUp("Fire1Alt"))
         {
             buttonScript.onClick.Invoke();
         }

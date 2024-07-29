@@ -9,12 +9,21 @@ public class VirtualMouse : MonoBehaviour {
 	public string vertAxisName;
 	public bool inUse = false;
 	GameManager gameManager;
+	GameObject cursorIndicator;
 	
     private Vector3 cursorPosition;
 	// Use this for initialization
 	void Start () {
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		cursorPosition = transform.position;
+		cursorIndicator = GameObject.Find("CursorIndicator");
+		
+		//ensure this only happens once
+		if(isPlayer1)
+		{
+			cursorIndicator.transform.GetChild(0).gameObject.SetActive(false);
+			cursorIndicator.transform.GetChild(1).gameObject.SetActive(false);
+		}
 	}
 	
 	// Update is called once per frame
@@ -49,13 +58,33 @@ public class VirtualMouse : MonoBehaviour {
 		if(gameManager.controller1.inUse&&gameManager.controller2.inUse)
 		{
 			//	Debug.Log("two controllers in use");
-			if(isPlayer1!=gameManager.xPlayerTurn)
+			
+			
+			
+			
+			
+			
+			if(isPlayer1==gameManager.xPlayerTurn)
+			{	
+				cursorIndicator.transform.position=transform.position;
+				cursorIndicator.transform.GetChild(0).gameObject.SetActive(gameManager.xPlayerTurn);
+				cursorIndicator.transform.GetChild(1).gameObject.SetActive(!gameManager.xPlayerTurn);
+		
+			
+			}else
 			{
-				//		Debug.Log("invalid player attempting to raycast");
 				return;
 			}
 		}
-	
+		if(gameManager.controller1.inUse!=gameManager.controller2.inUse)
+		{
+			cursorIndicator.transform.position=transform.position;
+			cursorIndicator.transform.GetChild(0).gameObject.SetActive(gameManager.xPlayerTurn);
+			cursorIndicator.transform.GetChild(1).gameObject.SetActive(!gameManager.xPlayerTurn);
+		}
+		
+		
+		
 		//	Debug.Log("sending Raycast, isPlayer1: " + isPlayer1);
 		RaycastHit hit = new RaycastHit();
 		Ray ray = new Ray(this.transform.position, Vector3.forward * 10);
