@@ -48,15 +48,18 @@ public class VirtualMouse : MonoBehaviour {
         
 		if(gameManager.controller1.inUse&&gameManager.controller2.inUse)
 		{
+			//	Debug.Log("two controllers in use");
 			if(isPlayer1!=gameManager.xPlayerTurn)
 			{
+				//		Debug.Log("invalid player attempting to raycast");
 				return;
 			}
 		}
-
+	
+		//	Debug.Log("sending Raycast, isPlayer1: " + isPlayer1);
 		RaycastHit hit = new RaycastHit();
 		Ray ray = new Ray(this.transform.position, Vector3.forward * 10);
-		//Debug.DrawRay(this.transform.position, Vector3.forward * 10, Color.red);
+		Debug.DrawRay(this.transform.position, Vector3.forward * 10, Color.red);
 
 		if (Physics.Raycast(ray, out hit, 1000.0f)){
 			hit.transform.SendMessage ("VOnMouseOver");

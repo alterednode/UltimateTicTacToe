@@ -19,9 +19,11 @@ public class BoxClicked : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 	    smallGridHolder = GameObject.Find("Small Grids");
-	     controller1 = GameObject.Find("Controller Cursor 1").GetComponent<VirtualMouse>();
-	     controller2 = GameObject.Find("Controller Cursor 1").GetComponent<VirtualMouse>();
-    }
+	    
+	    controller1 = GameObject.Find("Controller Cursor 1").GetComponent<VirtualMouse>();
+	    controller2 = GameObject.Find("Controller Cursor 2").GetComponent<VirtualMouse>();
+    
+	   }
 
     /// <summary>
     /// This shit makes it so that the player can only play on a trigger where
@@ -64,17 +66,38 @@ public class BoxClicked : MonoBehaviour
 	
 		bool fireController1 = Input.GetButtonDown("Fire1");
 		bool fireController2 = Input.GetButtonDown("Fire1Alt");
+		
+	
 
 		
 		
+		Debug.Log("got to the box");
 		
-		bool canWeContinueTheGame = 	
+		bool canWeContinueTheGame = false;	
 		
-			//check if either controller clicked at the same time as its turn, and also if both are being used
-		((xturn&&fireController1)||((!xturn)&&fireController2) && (controller1.inUse&&controller2.inUse))
+		// this is bad code that can be improved, but it functions for now
+		
+		if(controller1.inUse&&controller2.inUse)
+		{
+			Debug.Log("two controllers detected");
+			if(xturn&&fireController1)
+			{
+				canWeContinueTheGame=true;
+			}
+			if((!xturn)&&fireController2)
+			{
+				canWeContinueTheGame=true;
+			}
+		}
+		if(controller1.inUse!=controller2.inUse)
+		{
+			Debug.Log("Only one controller detected");
+			if(fireController1||fireController2)
+			{
+				canWeContinueTheGame = true;
+			}
+		}
 			
-			// check if either clicked and also if only one controller is being used
-			||(fireController2||fireController2)&&!(controller1.inUse==controller2.inUse);
 		
 		if (canWeContinueTheGame)
         {
