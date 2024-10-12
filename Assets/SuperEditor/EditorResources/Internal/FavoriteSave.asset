@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FavoriteLists:
   - Name: Favorites 1
-    Objects: []
+    Objects:
+    - {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
     goIDs: []
