@@ -94,6 +94,7 @@ public class BoxClicked : MonoBehaviour
     {
         if (!gameManager.canHumanPlayerPlay)
         {
+            //TODO: add a sound effect here for if the player tries to play when they are not allowed to
             return;
         }
 
