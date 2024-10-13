@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 
 //using System.Text.RegularExpressions;
@@ -9,10 +9,10 @@ public class BoxClicked : MonoBehaviour
 {
     GameManager gameManager;
     bool clickStartedHere = false;
-	GameObject smallGridHolder;
-    
-	private VirtualMouse controller1;
-	private VirtualMouse controller2;
+    GameObject smallGridHolder;
+
+    private VirtualMouse controller1;
+    private VirtualMouse controller2;
 
     // Start is called before the first frame update
     void Start()
@@ -44,47 +44,45 @@ public class BoxClicked : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0) && clickStartedHere)
         {
-           MakeMove();
+            MakeMove();
         }
     }
 
-	void VOnMouseOver()
-	{
-		bool xturn = gameManager.xPlayerTurn;
-	
-		bool fireController1 = Input.GetButtonDown("Fire1");
-		bool fireController2 = Input.GetButtonDown("Fire1Alt");
-		
-		
-		Debug.Log("got to the box");
-		
-		bool canWeContinueTheGame = false;	
-		
-		// this is bad code that can be improved, but it functions for now
-		
-		if(controller1.inUse&&controller2.inUse)
-		{
-			Debug.Log("two controllers detected");
-			if(xturn&&fireController1)
-			{
-				canWeContinueTheGame=true;
-			}
-			if((!xturn)&&fireController2)
-			{
-				canWeContinueTheGame=true;
-			}
-		}
-		if(controller1.inUse!=controller2.inUse)
-		{
-			Debug.Log("Only one controller detected");
-			if(fireController1||fireController2)
-			{
-				canWeContinueTheGame = true;
-			}
-		}
-			
-		
-		if (canWeContinueTheGame)
+    void VOnMouseOver()
+    {
+        bool xturn = gameManager.xPlayerTurn;
+
+        bool fireController1 = Input.GetButtonDown("Fire1");
+        bool fireController2 = Input.GetButtonDown("Fire1Alt");
+
+        Debug.Log("got to the box");
+
+        bool canWeContinueTheGame = false;
+
+        // this is bad code that can be improved, but it functions for now
+
+        if (controller1.inUse && controller2.inUse)
+        {
+            Debug.Log("two controllers detected");
+            if (xturn && fireController1)
+            {
+                canWeContinueTheGame = true;
+            }
+            if ((!xturn) && fireController2)
+            {
+                canWeContinueTheGame = true;
+            }
+        }
+        if (controller1.inUse != controller2.inUse)
+        {
+            Debug.Log("Only one controller detected");
+            if (fireController1 || fireController2)
+            {
+                canWeContinueTheGame = true;
+            }
+        }
+
+        if (canWeContinueTheGame)
         {
             MakeMove();
         }
@@ -96,6 +94,8 @@ public class BoxClicked : MonoBehaviour
         {
             return;
         }
+
+        gameManager.audioManager.PlayClip("ClickSucceed");
 
         UpdateTracking();
 
@@ -123,7 +123,6 @@ public class BoxClicked : MonoBehaviour
         newPiece.transform.position = gameObject.transform.position;
         newPiece.transform.parent = gameObject.transform.parent.parent;
 
-
         gameObject.SetActive(false);
     }
 
@@ -133,14 +132,14 @@ public class BoxClicked : MonoBehaviour
 
         if (gameManager.xPlayerTurn)
         {
-            transform.parent.parent.gameObject
-                .GetComponent<GridManager>()
+            transform
+                .parent.parent.gameObject.GetComponent<GridManager>()
                 .SetScoreOfThisThing(intOfThis, 1);
         }
         else
         {
-            transform.parent.parent.gameObject
-                .GetComponent<GridManager>()
+            transform
+                .parent.parent.gameObject.GetComponent<GridManager>()
                 .SetScoreOfThisThing(intOfThis, -1);
         }
     }

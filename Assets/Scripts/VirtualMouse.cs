@@ -69,7 +69,9 @@ public class VirtualMouse : MonoBehaviour
             {
                 cursorIndicator.transform.position = transform.position;
                 cursorIndicator.transform.GetChild(0).gameObject.SetActive(gameManager.xPlayerTurn);
-                cursorIndicator.transform.GetChild(1).gameObject.SetActive(!gameManager.xPlayerTurn);
+                cursorIndicator
+                    .transform.GetChild(1)
+                    .gameObject.SetActive(!gameManager.xPlayerTurn);
             }
             else
             {
@@ -91,6 +93,17 @@ public class VirtualMouse : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 1000.0f))
         {
             hit.transform.SendMessage("VOnMouseOver");
+        }
+        else
+        {
+            bool fireController1 = Input.GetButtonDown("Fire1");
+            bool fireController2 = Input.GetButtonDown("Fire1Alt");
+
+            if (fireController1 || fireController2)
+            {
+                // if we don't hit anything when we click, we play the fail sound
+				gameManager.audioManager.PlayClip("ClickFail");
+            }
         }
     }
 }
