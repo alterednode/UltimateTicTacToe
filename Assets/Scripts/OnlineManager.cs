@@ -14,6 +14,7 @@ public class OnlineManager : MonoBehaviour
     {
         GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.multiplayerEnabled = true;
+        gameManager.canHumanPlayerPlay = false;
     }
 
     // Start is called before the first frame update
