@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 	
     void Update()
     {
-	    AnimateIndicator(); //idgaf about your pc, animate the indicator of which player's turn it is
+	    AnimateIndicator(); //animate the indicator of which player's turn it is
 	    
     }
     
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
 
 
 			/*
-			dumb FUCKING logic to change the big / small one
+			dumb logic to change the big / small one
 			
 			*/
 			if(xPlayerTurn){

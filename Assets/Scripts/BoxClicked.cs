@@ -44,19 +44,7 @@ public class BoxClicked : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0) && clickStartedHere)
         {
-            UpdateTracking();
-
-            //I don't think we still need to log this, do we?
-            //Debug.Log(gameObject.name + gameObject.transform.parent.parent.name);
-
-            SpawnXorO();
-
-            GameObject
-                .Find("WhereToPlay")
-                .GetComponent<WhereToPlay>()
-                .SetLocationAndScale(
-                    (smallGridHolder.transform.GetChild(transform.GetSiblingIndex())).transform
-                );
+           MakeMove();
         }
     }
 
@@ -66,9 +54,6 @@ public class BoxClicked : MonoBehaviour
 	
 		bool fireController1 = Input.GetButtonDown("Fire1");
 		bool fireController2 = Input.GetButtonDown("Fire1Alt");
-		
-	
-
 		
 		
 		Debug.Log("got to the box");
@@ -101,20 +86,28 @@ public class BoxClicked : MonoBehaviour
 		
 		if (canWeContinueTheGame)
         {
-            UpdateTracking();
-
-            //I don't think we still need to log this, do we?
-            //Debug.Log(gameObject.name + gameObject.transform.parent.parent.name);
-
-            SpawnXorO();
-
-            GameObject
-                .Find("WhereToPlay")
-                .GetComponent<WhereToPlay>()
-                .SetLocationAndScale(
-                    (smallGridHolder.transform.GetChild(transform.GetSiblingIndex())).transform
-                );
+            MakeMove();
         }
+    }
+
+    void MakeMove()
+    {
+        UpdateTracking();
+
+        //I don't think we still need to log this, do we?
+        //Debug.Log(gameObject.name + gameObject.transform.parent.parent.name);
+
+        SpawnXorO();
+
+        //update who's turn it is.
+        gameManager.xPlayerTurn = !gameManager.xPlayerTurn;
+
+        GameObject
+            .Find("WhereToPlay")
+            .GetComponent<WhereToPlay>()
+            .SetLocationAndScale(
+                (smallGridHolder.transform.GetChild(transform.GetSiblingIndex())).transform
+            );
     }
 
     void SpawnXorO() // Instantiates a new O or X based on which player's turn it is and changes who's turn it is
@@ -125,7 +118,6 @@ public class BoxClicked : MonoBehaviour
         newPiece.transform.position = gameObject.transform.position;
         newPiece.transform.parent = gameObject.transform.parent.parent;
 
-        gameManager.xPlayerTurn = !gameManager.xPlayerTurn;
 
         gameObject.SetActive(false);
     }
