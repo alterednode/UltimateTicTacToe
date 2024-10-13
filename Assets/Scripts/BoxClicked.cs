@@ -92,7 +92,8 @@ public class BoxClicked : MonoBehaviour
     {
         if (!gameManager.canHumanPlayerPlay)
         {
-            //TODO: add a sound effect here for if the player tries to play when they are not allowed to
+            gameManager.audioManager.PlayClip("ClickFail");
+            //TODO: add a sound effect here for if the player tries to play when they are not allowed to. check if this works once online is implemented
             return;
         }
 

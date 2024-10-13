@@ -1997,6 +1997,7 @@ GameObject:
   - component: {fileID: 1166276014}
   - component: {fileID: 1166276015}
   - component: {fileID: 1166276016}
+  - component: {fileID: 1166276017}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2030,6 +2031,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1dcb5007d103e4c970d2260293d0f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  multiplayerEnabled: 0
+  canHumanPlayerPlay: 0
   xPlayerTurn: 0
   indicator: {fileID: 1891762053}
   prefabXO:
@@ -2038,6 +2041,7 @@ MonoBehaviour:
   restartButton: {fileID: 0}
   controller1: {fileID: 182328765}
   controller2: {fileID: 1910176106}
+  audioManager: {fileID: 0}
 --- !u!114 &1166276016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2048,6 +2052,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f96e3fea12c02f44977fe726ce4a7b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1166276017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166276013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dee9d20a804e600438d9a4bda4990288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1187966682
