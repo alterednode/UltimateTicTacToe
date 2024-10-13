@@ -12,6 +12,7 @@ For instance, if you play in the bottom right tile of a small board, your oppone
 
 ## Backend
 //TODO: update this to have more information once the server is made
+
 The game uses a simple java web server coupled with a database found [here](https://github.com/alterednode/UltimateTicTacToeServer)
 
 ## Supported operating systems
