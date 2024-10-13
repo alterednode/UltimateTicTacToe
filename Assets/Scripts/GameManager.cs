@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
+	public bool multiplayerEnabled;
 	public bool canHumanPlayerPlay;
 
 	public bool xPlayerTurn;
@@ -28,8 +28,11 @@ public class GameManager : MonoBehaviour
 		canHumanPlayerPlay = true;
         xPlayerTurn = Random.value > 0.5f;
 		c_xPlayerTurn = !xPlayerTurn;
-		restartButton = GameObject.Find("RestartButton");
-		restartButton.SetActive(false);
+		if (multiplayerEnabled == false)
+		{
+			restartButton = GameObject.Find("RestartButton");
+			restartButton.SetActive(false);
+		}
     }
 
     // Update is called once per frame

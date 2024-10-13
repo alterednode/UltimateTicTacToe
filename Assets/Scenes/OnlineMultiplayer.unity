@@ -1909,6 +1909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d2f83b320b367843ba9fa1db8cbc243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canReachServer: 1
 --- !u!1001 &1652341528
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2005,6 +2006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1dcb5007d103e4c970d2260293d0f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  multiplayerEnabled: 0
   canHumanPlayerPlay: 0
   xPlayerTurn: 0
   indicator: {fileID: 1718399035}
