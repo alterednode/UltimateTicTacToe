@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
+	public bool canHumanPlayerPlay;
+
 	public bool xPlayerTurn;
 	public GameObject indicator;
 	public GameObject[] prefabXO;
@@ -22,8 +24,9 @@ public class GameManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-	{ 
-		xPlayerTurn = Random.value > 0.5f;
+	{
+		canHumanPlayerPlay = true;
+        xPlayerTurn = Random.value > 0.5f;
 		c_xPlayerTurn = !xPlayerTurn;
 		restartButton = GameObject.Find("RestartButton");
 		restartButton.SetActive(false);

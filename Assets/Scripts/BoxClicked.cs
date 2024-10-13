@@ -92,6 +92,11 @@ public class BoxClicked : MonoBehaviour
 
     void MakeMove()
     {
+        if (!gameManager.canHumanPlayerPlay)
+        {
+            return;
+        }
+
         UpdateTracking();
 
         //I don't think we still need to log this, do we?
