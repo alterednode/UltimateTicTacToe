@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
 		return false; // if there are no playable spaces return unplable
 	}
 	
-	public static int CheckForWin(int[] checkThis) //checks collums, rows and diagonals to find three 1 or -1 in a row
+	public static int CheckForWin(int[] checkThis) //checks columns, rows and diagonals to find three 1 or -1 in a row
 	{
 		int checkValue=0;
 		
