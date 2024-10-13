@@ -46,8 +46,6 @@ public class BoxClicked : MonoBehaviour
         {
             UpdateTracking();
 
-            //I don't think we still need to log this, do we?
-            //Debug.Log(gameObject.name + gameObject.transform.parent.parent.name);
 
             SpawnXorO();
 
@@ -66,9 +64,6 @@ public class BoxClicked : MonoBehaviour
 	
 		bool fireController1 = Input.GetButtonDown("Fire1");
 		bool fireController2 = Input.GetButtonDown("Fire1Alt");
-		
-	
-
 		
 		
 		Debug.Log("got to the box");

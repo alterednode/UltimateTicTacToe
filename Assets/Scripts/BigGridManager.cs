@@ -71,10 +71,4 @@ public class BigGridManager : MonoBehaviour
 	
 	
     
-	/*
-	
-	Dont ask about the fucking formatting
-	
-	
-	*/
 }
