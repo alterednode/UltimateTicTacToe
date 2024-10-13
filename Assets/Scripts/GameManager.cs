@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+	public bool multiplayerEnabled;
+	public bool canHumanPlayerPlay;
 
 	public bool xPlayerTurn;
 	public GameObject indicator;
@@ -22,11 +24,15 @@ public class GameManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-	{ 
-		xPlayerTurn = Random.value > 0.5f;
+	{
+		canHumanPlayerPlay = true;
+        xPlayerTurn = Random.value > 0.5f;
 		c_xPlayerTurn = !xPlayerTurn;
-		restartButton = GameObject.Find("RestartButton");
-		restartButton.SetActive(false);
+		if (multiplayerEnabled == false)
+		{
+			restartButton = GameObject.Find("RestartButton");
+			restartButton.SetActive(false);
+		}
     }
 
     // Update is called once per frame
@@ -112,7 +118,7 @@ public class GameManager : MonoBehaviour
 		return false; // if there are no playable spaces return unplable
 	}
 	
-	public static int CheckForWin(int[] checkThis) //checks collums, rows and diagonals to find three 1 or -1 in a row
+	public static int CheckForWin(int[] checkThis) //checks columns, rows and diagonals to find three 1 or -1 in a row
 	{
 		int checkValue=0;
 		
