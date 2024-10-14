@@ -13,8 +13,12 @@ public class OnlineManager : MonoBehaviour
 
     string serverURL = "ws://150.230.36.239:8080";
 
-    public Boolean canReachServer = true;
+    public bool canReachGoogle = true;
+    public bool canReachServer = true;
     private ClientWebSocket ws;
+    static GameManager gameManager;
+    static BigGridManager bigGridManager;
+    static GameObject smallGrids;
 
     private void Awake()
     {
@@ -23,7 +27,7 @@ public class OnlineManager : MonoBehaviour
             serverURL = "ws://localhost:8080";
         }
 
-        GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.multiplayerEnabled = true;
         gameManager.canHumanPlayerPlay = false;
 
@@ -34,6 +38,10 @@ public class OnlineManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        bigGridManager = GameObject.Find("BigGridManager").GetComponent<BigGridManager>();
+
+        smallGrids = GameObject.Find("SmallGrids");
+
         Debug.Log("checking server connection");
         checkServerConnection();
     }
@@ -104,5 +112,19 @@ public class OnlineManager : MonoBehaviour
         {
             ws.Dispose();
         }
+    }
+
+    void ForcePlace(byte location, bool isX)
+    {
+        if (gameManager.canHumanPlayerPlay) {
+            Debug.LogWarning("forcing placement while player can play, are you sure that is what is supposed to be happening?");
+                }
+
+        Transform smallGridContainingLocation = smallGrids.transform.GetChild(location/9);
+        BoxClicked box = smallGridContainingLocation.GetChild(2).GetChild(location % 9).GetComponent<BoxClicked>();
+
+        box.SpawnXorO(isX);
+        box.UpdateScoreTracking();
+        
     }
 }
