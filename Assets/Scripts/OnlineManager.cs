@@ -2,19 +2,33 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
+using System.Net.WebSockets;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Text;
 
 public class OnlineManager : MonoBehaviour
 {
+    public bool localhostoverride = false;
 
-    string serverURL = "150.230.36.239:8080";
-    
+    string serverURL = "ws://150.230.36.239:8080";
+
     public Boolean canReachServer = true;
+    private ClientWebSocket ws;
+
     private void Awake()
     {
+        if (localhostoverride)
+        {
+            serverURL = "ws://localhost:8080";
+        }
+
         GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.multiplayerEnabled = true;
         gameManager.canHumanPlayerPlay = false;
+
+        ws = new ClientWebSocket();
+        Connect();
     }
 
     // Start is called before the first frame update
@@ -27,46 +41,68 @@ public class OnlineManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        checkServerConnection();
     }
 
-    bool checkInternetConnection ()
+    async void Connect()
     {
-        //TODO: ping google or something
-        return false;
-    }
-    bool checkServerConnection()
-    {
-        //TODO: ping / check server status.
-
-        StartCoroutine( SendGetRequesst("connection"));
-
-        return false;
-    }
-
-    IEnumerator SendGetRequesst(String endpoint)
-    {
-        String url = "http://" + serverURL + "/" + endpoint;
-        Debug.Log("sending web request to " + url);
-        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        try
         {
-            yield return request.SendWebRequest();
+            await ws.ConnectAsync(new Uri(serverURL), CancellationToken.None);
+            Debug.Log("Connected to server");
+            ReceiveMessages();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Connection error: " + e.Message);
+        }
+    }
 
-            if (request.result != UnityWebRequest.Result.Success)
+    async void ReceiveMessages()
+    {
+        var buffer = new byte[1024];
+        while (ws.State == WebSocketState.Open)
+        {
+            var result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+            if (result.MessageType == WebSocketMessageType.Text)
             {
-                Debug.LogError(request.error);
-            }
-            else
-            {
-                Debug.Log("Get request send successfully");
-                Debug.Log("Results: " + request.result);
-                Debug.Log(request.downloadHandler.text);
+                var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                Debug.Log("Message from server: " + message);
             }
         }
     }
+
+    bool checkInternetConnection()
+    {
+        //TODO: ping Google or something
+        return false;
+    }
+
+    bool checkServerConnection()
+    {
+        if (ws.State == WebSocketState.Open)
+        {
+            Debug.Log("WebSocket status: open");
+            return true;
+        }
+        else
+        {
+            Debug.LogError("WebSocket status: not open");
+            return false;
+        }
+    }
+
     void LoadState(BitArray bitState)
     {
-        //TODO: maybe change the method signature to use a diffrent input
+        //TODO: maybe change the method signature to use a different input
         //TODO: implement this, just use the forcePlayMove
+    }
+
+    private void OnDestroy()
+    {
+        if (ws != null)
+        {
+            ws.Dispose();
+        }
     }
 }
