@@ -11,7 +11,7 @@ public class OnlineManager : MonoBehaviour
 {
     public bool localhostoverride = false;
 
-    string serverURL = "ws://150.230.36.239:8080";
+    string serverURL = "ws://server.ulttictactoe.com:8080";
 
     public bool canReachGoogle = true;
     public bool canReachServer = true;
