@@ -31,6 +31,8 @@ public class OnlineManager : MonoBehaviour
         gameManager.multiplayerEnabled = true;
         gameManager.canHumanPlayerPlay = false;
 
+
+
         ws = new ClientWebSocket();
         Connect();
     }
@@ -90,12 +92,12 @@ public class OnlineManager : MonoBehaviour
     {
         if (ws.State == WebSocketState.Open)
         {
-            Debug.Log("WebSocket status: open");
+         //   Debug.Log("WebSocket status: open");
             return true;
         }
         else
         {
-            Debug.LogError("WebSocket status: not open");
+          //  Debug.LogError("WebSocket status: not open");
             return false;
         }
     }
