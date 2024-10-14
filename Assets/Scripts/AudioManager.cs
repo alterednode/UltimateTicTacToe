@@ -43,7 +43,7 @@ public class AudioManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"Duplicate key '{entry.name}' found! Skipping.");
+                Debug.LogWarning("Duplicate key " + entry.name + " found! Skipping.");
             }
         }
     }
@@ -59,7 +59,7 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"Sound '{clipName}' not found!");
+            Debug.LogError("Sound " + clipName + " not found!");
         }
     }
 }
