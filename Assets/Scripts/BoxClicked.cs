@@ -99,12 +99,12 @@ public class BoxClicked : MonoBehaviour
 
         gameManager.audioManager.PlayClip("ClickSucceed");
 
-        UpdateTracking();
+        UpdateScoreTracking();
 
         //I don't think we still need to log this, do we?
         //Debug.Log(gameObject.name + gameObject.transform.parent.parent.name);
 
-        SpawnXorO();
+        SpawnXorO(gameManager.xPlayerTurn);
 
         //update who's turn it is.
         gameManager.xPlayerTurn = !gameManager.xPlayerTurn;
@@ -117,10 +117,12 @@ public class BoxClicked : MonoBehaviour
             );
     }
 
-    void SpawnXorO() // Instantiates a new O or X based on which player's turn it is and changes who's turn it is
+
+
+    public void SpawnXorO(bool xPlayerTurn) // Instantiates a new O or X 
     {
         GameObject newPiece = Instantiate(
-            gameManager.prefabXO[Convert.ToInt32(gameManager.xPlayerTurn)]
+            gameManager.prefabXO[Convert.ToInt32(xPlayerTurn)]
         );
         newPiece.transform.position = gameObject.transform.position;
         newPiece.transform.parent = gameObject.transform.parent.parent;
@@ -128,7 +130,7 @@ public class BoxClicked : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void UpdateTracking() // tells the Grid Manager which thing was clicked
+    public void UpdateScoreTracking() // tells the Grid Manager which thing was clicked
     {
         int intOfThis = transform.GetSiblingIndex();
 
