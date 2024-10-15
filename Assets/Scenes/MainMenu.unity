@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 123089162}
   - component: {fileID: 123089161}
   m_Layer: 5
-  m_Name: Singleplayer
+  m_Name: Local Multiplayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -487,7 +487,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Multiplayer
+  m_text: Online Multiplayer
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1040,7 +1040,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Singleplayer
+  m_text: 'Local Multiplayer
 
 '
   m_isRightToLeft: 0
@@ -2030,7 +2030,7 @@ GameObject:
   - component: {fileID: 1505327330}
   - component: {fileID: 1505327329}
   m_Layer: 5
-  m_Name: Multiplayer
+  m_Name: Online Multiplayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

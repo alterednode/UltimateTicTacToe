@@ -8,21 +8,21 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: a57477913897c46af95d590f580878bd, type: 3}
-  svgType: 4
+  svgType: 0
   texturedSpriteMeshType: 0
-  svgPixelsPerUnit: 100
+  svgPixelsPerUnit: 75
   gradientResolution: 64
   alignment: 0
   customPivot: {x: 0, y: 0}
   generatePhysicsShape: 0
   viewportOptions: 0
   preserveViewport: 0
-  advancedMode: 0
-  predefinedResolutionIndex: 1
-  targetResolution: 1080
+  advancedMode: 1
+  predefinedResolutionIndex: 0
+  targetResolution: 2160
   resolutionMultiplier: 1
-  stepDistance: 10
-  samplingStepDistance: 100
+  stepDistance: 2.18
+  samplingStepDistance: 201.3
   maxCordDeviationEnabled: 0
   maxCordDeviation: 1
   maxTangentAngleEnabled: 0
