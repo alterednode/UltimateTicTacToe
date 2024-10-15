@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
     // Dictionary to store audio clips with string keys
     public Dictionary<string, AudioClip> audioClips;
 
-    public int volumeLevel = 50;
+    private int volumeLevel = 50;
 
     // Public array to assign clips and names in the Inspector
     public AudioClipEntry[] clipEntries;
@@ -43,12 +43,18 @@ public class AudioManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"Duplicate key '{entry.name}' found! Skipping.");
+                Debug.LogWarning("Duplicate key " + entry.name + " found! Skipping.");
             }
         }
     }
 
-    public void PlayClip(string clipName)
+    /// /// <summary>
+    /// Plays the audio clip with the specified name.
+    /// </summary>
+    /// <param name="clipName">The name of the audio clip to play.</param>
+    /// <param name="volume">The volume level of the audio clip (default is 1).</param>
+    /// 
+    public void PlayClip(string clipName, float volume = 1f)
     {
         // Check if the dictionary contains the specified key
         if (audioClips.ContainsKey(clipName))
@@ -59,7 +65,24 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"Sound '{clipName}' not found!");
+            Debug.LogError("Sound " + clipName + " not found!");
+        }
+    }
+
+    /// <summary>
+    /// Changes the volume level of the audio.
+    /// </summary>
+    /// <param name="newVolume">The new volume level to set. Out of 100, default is 50</param>
+    public void changeVolume(float newVolume)
+    {
+        volumeLevel = (int)newVolume;
+    }
+
+    public void addSoundClip(string name, AudioClip clip)
+    {
+        if (!audioClips.ContainsKey(name))
+        {
+            audioClips.Add(name, clip);
         }
     }
 }

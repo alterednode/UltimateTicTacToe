@@ -92,12 +92,12 @@ public class OnlineManager : MonoBehaviour
     {
         if (ws.State == WebSocketState.Open)
         {
-         //   Debug.Log("WebSocket status: open");
+            //   Debug.Log("WebSocket status: open");
             return true;
         }
         else
         {
-          //  Debug.LogError("WebSocket status: not open");
+            //  Debug.LogError("WebSocket status: not open");
             return false;
         }
     }
@@ -118,15 +118,16 @@ public class OnlineManager : MonoBehaviour
 
     void ForcePlace(byte location, bool isX)
     {
-        if (gameManager.canHumanPlayerPlay) {
+        if (gameManager.canHumanPlayerPlay)
+        {
             Debug.LogWarning("forcing placement while player can play, are you sure that is what is supposed to be happening?");
-                }
+        }
 
-        Transform smallGridContainingLocation = smallGrids.transform.GetChild(location/9);
+        Transform smallGridContainingLocation = smallGrids.transform.GetChild(location / 9);
         BoxClicked box = smallGridContainingLocation.GetChild(2).GetChild(location % 9).GetComponent<BoxClicked>();
 
         box.SpawnXorO(isX);
         box.UpdateScoreTracking();
-        
+
     }
 }

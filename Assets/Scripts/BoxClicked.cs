@@ -18,12 +18,12 @@ public class BoxClicked : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-	    smallGridHolder = GameObject.Find("Small Grids");
-	    
-	    controller1 = GameObject.Find("Controller Cursor 1").GetComponent<VirtualMouse>();
-	    controller2 = GameObject.Find("Controller Cursor 2").GetComponent<VirtualMouse>();
-    
-	   }
+        smallGridHolder = GameObject.Find("Small Grids");
+
+        controller1 = GameObject.Find("Controller Cursor 1").GetComponent<VirtualMouse>();
+        controller2 = GameObject.Find("Controller Cursor 2").GetComponent<VirtualMouse>();
+
+    }
 
     /// <summary>
     /// This shit makes it so that the player can only play on a trigger where

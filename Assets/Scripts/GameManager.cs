@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
             restartButton.SetActive(false);
         }
 
-		audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         if (Screen.width > Screen.height)
         {
             indicator.transform.position = Vector3.Lerp(
-                new Vector3(-5.62f, 0, 0),
+                new Vector3(-6f, 0, 0),
                 indicator.transform.position,
                 0.5f
             ); // if screen wider than tall, indicator on the left
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
         else
         {
             indicator.transform.position = Vector3.Lerp(
-                new Vector3(0, 5.4f, 0),
+                new Vector3(0, 6f, 0),
                 indicator.transform.position,
                 0.5f
             ); // if screen taller than wide, indicator on right
