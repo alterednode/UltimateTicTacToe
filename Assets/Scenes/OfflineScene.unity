@@ -499,7 +499,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -100, y: 100}
+  m_AnchoredPosition: {x: -100, y: 225}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &766624677
@@ -973,5 +973,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: NessecaryObjects
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 509484161939728976, guid: 4ae3196164278e8408a488523f7fb25a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4ae3196164278e8408a488523f7fb25a, type: 3}
