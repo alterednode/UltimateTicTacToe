@@ -8,12 +8,26 @@ public class VirtualButton : MonoBehaviour
     private VirtualMouse controller1;
     private VirtualMouse controller2;
 
+    public bool canAlwaysBeClicked = false;
+
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (!canAlwaysBeClicked)
+        {
+            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        }
+        //TODO: make controllers work on main menu
+        try
+        {
+            controller1 = GameObject.Find("Controller Cursor 1").GetComponent<VirtualMouse>();
+            controller2 = GameObject.Find("Controller Cursor 2").GetComponent<VirtualMouse>();
 
-        controller1 = GameObject.Find("Controller Cursor 1").GetComponent<VirtualMouse>();
-        controller2 = GameObject.Find("Controller Cursor 2").GetComponent<VirtualMouse>();
+        }
+        catch (System.Exception)
+        {
+            Debug.LogWarning("remember to make controllers work on main menu");
+        }
+ 
 
         buttonScript = GetComponent<Button>();
     }
