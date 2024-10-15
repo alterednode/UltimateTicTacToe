@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
             restartButton.SetActive(false);
         }
 
-		audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame

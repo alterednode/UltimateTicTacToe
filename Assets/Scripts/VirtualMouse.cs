@@ -102,7 +102,7 @@ public class VirtualMouse : MonoBehaviour
             if (fireController1 || fireController2)
             {
                 // if we don't hit anything when we click, we play the fail sound
-				gameManager.audioManager.PlayClip("ClickFail");
+                gameManager.audioManager.PlayClip("ClickFail");
             }
         }
     }
