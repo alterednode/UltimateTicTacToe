@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Net.WebSockets;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Text;
+using TMPro;
 
 public class OnlineManager : MonoBehaviour
 {
@@ -19,6 +19,9 @@ public class OnlineManager : MonoBehaviour
     static GameManager gameManager;
     static BigGridManager bigGridManager;
     static GameObject smallGrids;
+
+    static string uuid;
+    string version = "0.0.1";
 
     private void Awake()
     {
@@ -78,8 +81,14 @@ public class OnlineManager : MonoBehaviour
             {
                 var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
                 Debug.Log("Message from server: " + message);
+
+                MessageHandler( message);
             }
         }
+    }
+    void MessageHandler(String message)
+    {
+        
     }
     public void SendMessageToServer(string message)
     {
@@ -104,6 +113,18 @@ public class OnlineManager : MonoBehaviour
         {
             Debug.LogError("WebSocket is not open.");
         }
+    }
+
+
+    public void StartAuthentication()
+    {
+        TextMeshPro username = GameObject.Find("Username InputField (TMP)").transform.GetComponentInChildren<TextMeshPro>();
+        TextMeshPro password = GameObject.Find("Password InputField (TMP) (1)").transform.GetComponentInChildren<TextMeshPro>();
+        //   TextMeshPro status = GameObject.Find("Status").transform.GetComponentInChildren<TextMeshPro>();
+        //     TextMeshPro token = GameObject.Find("Token DO NOT SHOW THE USER THIS EVER THEY ARE STUPID").transform.GetComponentInChildren<TextMeshPro>();
+
+        
+
     }
 
     bool checkInternetConnection()
