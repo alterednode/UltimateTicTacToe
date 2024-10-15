@@ -11,7 +11,7 @@ public class OnlineManager : MonoBehaviour
 {
     public bool localhostoverride = false;
 
-    string serverURL = "ws://server.ulttictactoe.com:8080";
+    string serverURL = "wss://server.ulttictactoe.com:8080";
 
     public bool canReachGoogle = true;
     public bool canReachServer = true;
@@ -40,9 +40,9 @@ public class OnlineManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bigGridManager = GameObject.Find("BigGridManager").GetComponent<BigGridManager>();
+        bigGridManager = GameObject.Find("BigGrid").GetComponent<BigGridManager>();
 
-        smallGrids = GameObject.Find("SmallGrids");
+        smallGrids = GameObject.Find("Small Grids");
 
         Debug.Log("checking server connection");
         checkServerConnection();
