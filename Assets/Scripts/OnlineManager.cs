@@ -81,6 +81,30 @@ public class OnlineManager : MonoBehaviour
             }
         }
     }
+    public void SendMessageToServer(string message)
+    {
+        if (ws.State == WebSocketState.Open)
+        {
+            var messageBuffer = Encoding.UTF8.GetBytes(message);
+            var segment = new ArraySegment<byte>(messageBuffer);
+
+            ws.SendAsync(segment, WebSocketMessageType.Text, true, CancellationToken.None).ContinueWith(task =>
+            {
+                if (task.IsCompleted)
+                {
+                    Debug.Log("Message sent successfully. message sent: " + message);
+                }
+                else
+                {
+                    Debug.LogError("Error sending message: " + task.Exception.Message);
+                }
+            });
+        }
+        else
+        {
+            Debug.LogError("WebSocket is not open.");
+        }
+    }
 
     bool checkInternetConnection()
     {
