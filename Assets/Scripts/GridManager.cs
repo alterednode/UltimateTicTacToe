@@ -49,6 +49,9 @@ public class GridManager : MonoBehaviour
 		}
 		WinningSymbol.transform.localScale *= 4; // make the thing bigger
 		WinningSymbol.transform.position = transform.position; //reposition it to the right spot
+
+		//play win sound!
+		gameManager.audioManager.PlayClip("GameWin");
 	}
 
 
