@@ -91,10 +91,10 @@ public class OnlineManager : MonoBehaviour
     void MessageHandler(string json)
     {
      var message = JsonConverter.JsonToList(json).ToArray();
+        
 
 
-
-        switch (message[0].Value)
+        switch (message[0].Key)
         {
             case "Auth":
                 AuthHandler(message);
