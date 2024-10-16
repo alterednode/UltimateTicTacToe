@@ -891,7 +891,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1466447733}
         m_TargetAssemblyTypeName: OnlineManager, Assembly-CSharp
-        m_MethodName: StartAuthentication
+        m_MethodName: AttemptPasswordRegistration
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
