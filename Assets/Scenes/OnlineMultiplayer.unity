@@ -1183,7 +1183,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 349, y: -29}
+  m_AnchoredPosition: {x: 393, y: -25}
   m_SizeDelta: {x: 680.132, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &906699115
@@ -1999,6 +1999,7 @@ MonoBehaviour:
   localhostoverride: 0
   canReachGoogle: 1
   canReachServer: 1
+  uuid: 
 --- !u!1 &1526374068
 GameObject:
   m_ObjectHideFlags: 0
@@ -2145,7 +2146,7 @@ GameObject:
   - component: {fileID: 1784411039}
   - component: {fileID: 1784411038}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text for the UUID - the UUID TEXT OBJECT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

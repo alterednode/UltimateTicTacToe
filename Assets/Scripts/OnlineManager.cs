@@ -63,6 +63,16 @@ public class OnlineManager : MonoBehaviour
     void Update()
     {
         checkServerConnection();
+        try
+        {
+            GameObject.Find("Text for the UUID - the UUID TEXT OBJECT").GetComponent<TextMeshProUGUI>().text = "UUID: " + uuid;
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+        
     }
 
     async void Connect()
@@ -118,15 +128,12 @@ public class OnlineManager : MonoBehaviour
     private void InitalConnectionHandler(KeyValuePair<string, string>[] message)
     {
         
-        TextMeshPro uuidText = GameObject.Find("UUID").transform.GetChild(0).GetComponent<TextMeshPro>();
+        
         string uuidFromServer = message[1].Value;
 
         uuid = uuidFromServer;
 
-        Debug.Log("uuidfromserver: " + uuidFromServer);
-        Debug.Log(uuidText == null);
-        Debug.Log("uuidText: " + uuidText.text);
-        uuidText.text = "UUID: " + uuidFromServer;
+       
     }
 
     public void SendMessageToServer(string message)
@@ -157,8 +164,8 @@ public class OnlineManager : MonoBehaviour
 
     public void AttemptPasswordRegistration()
     {
-        TextMeshPro username = GameObject.Find("Username InputField (TMP)").transform.GetComponentInChildren<TextMeshPro>();
-        TextMeshPro password = GameObject.Find("Password InputField (TMP) (1)").transform.GetComponentInChildren<TextMeshPro>();
+        TMP_InputField username = GameObject.Find("Username InputField (TMP)").transform.GetComponentInChildren<TMP_InputField>();
+        TMP_InputField password = GameObject.Find("Password InputField (TMP) (1)").transform.GetComponentInChildren<TMP_InputField>();
         //   TextMeshPro status = GameObject.Find("Status").transform.GetComponentInChildren<TextMeshPro>();
         //     TextMeshPro token = GameObject.Find("Token DO NOT SHOW THE USER THIS EVER THEY ARE STUPID").transform.GetComponentInChildren<TextMeshPro>();
 
