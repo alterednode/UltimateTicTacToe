@@ -34,7 +34,11 @@ public static class JsonConverter
 
         try
         {
-            var wrapper = JsonUtility.FromJson<Wrapper>("{\"Items\":" + jsonString + "}");
+            var wrapper = JsonUtility.FromJson<Wrapper>($"{{\"Items\":{jsonString}}}");
+            if (wrapper == null || wrapper.Items == null)
+            {
+                throw new Exception("Parsed wrapper or Items is null");
+            }
             Debug.Log($"JsonToList: Wrapper parsed successfully. Item count: {wrapper.Items.Count}");
 
             foreach (var kvp in wrapper.Items)
@@ -54,6 +58,7 @@ public static class JsonConverter
     }
 
     // Helper class to deserialize JSON
+
     [Serializable]
     private class Wrapper
     {
