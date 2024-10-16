@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Text;
+using System.Text.RegularExpressions;
 
 public static class JsonConverter
 {
@@ -34,17 +35,22 @@ public static class JsonConverter
 
         try
         {
-            var wrapper = JsonUtility.FromJson<Wrapper>($"{{\"Items\":{jsonString}}}");
-            if (wrapper == null || wrapper.Items == null)
+            // Use regex to find matches for key-value pairs
+            var matches = Regex.Matches(jsonString, "\"(.*?)\":\"(.*?)\"");
+            if (matches.Count == 0)
             {
-                throw new Exception("Parsed wrapper or Items is null");
+                Debug.LogError("No matches found in the JSON string");
             }
-            Debug.Log($"JsonToList: Wrapper parsed successfully. Item count: {wrapper.Items.Count}");
 
-            foreach (var kvp in wrapper.Items)
+            foreach (Match match in matches)
             {
-                list.Add(new KeyValuePair<string, string>(kvp.Key, kvp.Value));
-                Debug.Log($"JsonToList: Added pair - Key: {kvp.Key}, Value: {kvp.Value}");
+                if (match.Groups.Count == 3)
+                {
+                    var key = match.Groups[1].Value;
+                    var value = match.Groups[2].Value;
+                    list.Add(new KeyValuePair<string, string>(key, value));
+                    Debug.Log($"JsonToList: Added pair - Key: {key}, Value: {value}");
+                }
             }
         }
         catch (Exception e)
@@ -55,13 +61,5 @@ public static class JsonConverter
 
         Debug.Log($"JsonToList: Output list count: {list.Count}");
         return list;
-    }
-
-    // Helper class to deserialize JSON
-
-    [Serializable]
-    private class Wrapper
-    {
-        public Dictionary<string, string> Items;
     }
 }
