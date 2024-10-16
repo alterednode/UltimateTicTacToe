@@ -6,7 +6,6 @@ using System.Net.WebSockets;
 using System.Threading;
 using System.Text;
 using TMPro;
-using System.Linq.Expressions;
 
 public class OnlineManager : MonoBehaviour
 {
@@ -92,16 +91,29 @@ public class OnlineManager : MonoBehaviour
     void MessageHandler(string json)
     {
      var message = JsonConverter.JsonToList(json).ToArray();
+
+
+
         switch (message[0].Value)
         {
-            case "auth":
+            case "Auth":
+                AuthHandler(message);
                 // Handle the 'auth' case here
+                break;
+            case "InitalConnection":
+                InitalConnectionHandler(message);
                 break;
 
                 // Add other cases as needed
         }
 
     }
+
+    private void InitalConnectionHandler(KeyValuePair<string, string>[] message)
+    {
+        GameObject.Find("UUID").GetComponentInChildren<TextMeshPro>().text = message[1].Value;
+    }
+
     public void SendMessageToServer(string message)
     {
         if (ws.State == WebSocketState.Open)
@@ -140,7 +152,7 @@ public class OnlineManager : MonoBehaviour
         {
             makePair("version", version),
             makePair("uuid", uuid),
-            makePair("request", "RegisterPassword"),
+            makePair("Auth", "RegisterPassword"),
             makePair("username", username.text),
             makePair("password", password.text)
         };
