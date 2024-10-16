@@ -136,8 +136,10 @@ public class OnlineManager : MonoBehaviour
        
     }
 
-    public void SendMessageToServer(string message)
+    public void SendMessageToServer(string message)        
     {
+
+        Debug.Log("attempting to send message. " + message);
         if (ws.State == WebSocketState.Open)
         {
             var messageBuffer = Encoding.UTF8.GetBytes(message);
@@ -180,6 +182,7 @@ public class OnlineManager : MonoBehaviour
         };
 
         string jsonString = JsonConverter.ListToJson(authData);
+     
         SendMessageToServer(jsonString);
 
     }
