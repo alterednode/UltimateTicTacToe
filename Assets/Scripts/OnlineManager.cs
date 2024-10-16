@@ -21,8 +21,8 @@ public class OnlineManager : MonoBehaviour
     static GameObject smallGrids;
 
     static readonly List<string> SERVERCOMMANDS = new List<string>{ "auth"};
-
-    static string uuid;
+ 
+    public  string uuid;
     string version = "0.0.1";
 
     private void Awake()
@@ -32,22 +32,28 @@ public class OnlineManager : MonoBehaviour
             serverURL = "ws://localhost:8080";
         }
 
+        
+
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.multiplayerEnabled = true;
         gameManager.canHumanPlayerPlay = false;
 
 
+      
 
-        ws = new ClientWebSocket();
-        Connect();
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+      
         bigGridManager = GameObject.Find("BigGrid").GetComponent<BigGridManager>();
 
         smallGrids = GameObject.Find("Small Grids");
+
+        ws = new ClientWebSocket();
+        Connect();
 
         Debug.Log("checking server connection");
         checkServerConnection();
@@ -111,8 +117,15 @@ public class OnlineManager : MonoBehaviour
 
     private void InitalConnectionHandler(KeyValuePair<string, string>[] message)
     {
-        TextMeshPro uuidText = GameObject.Find("UUID").GetComponentInChildren<TextMeshPro>();
+        
+        TextMeshPro uuidText = GameObject.Find("UUID").transform.GetChild(0).GetComponent<TextMeshPro>();
         string uuidFromServer = message[1].Value;
+
+        uuid = uuidFromServer;
+
+        Debug.Log("uuidfromserver: " + uuidFromServer);
+        Debug.Log(uuidText == null);
+        Debug.Log("uuidText: " + uuidText.text);
         uuidText.text = "UUID: " + uuidFromServer;
     }
 
