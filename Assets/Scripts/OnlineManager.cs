@@ -6,6 +6,7 @@ using System.Net.WebSockets;
 using System.Threading;
 using System.Text;
 using TMPro;
+using System.Linq.Expressions;
 
 public class OnlineManager : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class OnlineManager : MonoBehaviour
     static BigGridManager bigGridManager;
     static GameObject smallGrids;
 
-    static readonly List<String> SERVERCOMMANDS = new List<string>{ "auth"};
+    static readonly List<string> SERVERCOMMANDS = new List<string>{ "auth"};
 
     static string uuid;
     string version = "0.0.1";
@@ -88,11 +89,17 @@ public class OnlineManager : MonoBehaviour
             }
         }
     }
-    void MessageHandler(String message)
+    void MessageHandler(string json)
     {
-     
-        
+     var message = JsonConverter.JsonToList(json).ToArray();
+        switch (message[0].Value)
+        {
+            case "auth":
+                // Handle the 'auth' case here
+                break;
 
+                // Add other cases as needed
+        }
 
     }
     public void SendMessageToServer(string message)
@@ -121,7 +128,7 @@ public class OnlineManager : MonoBehaviour
     }
 
 
-    public void StartAuthentication()
+    public void AttemptPasswordRegistration()
     {
         TextMeshPro username = GameObject.Find("Username InputField (TMP)").transform.GetComponentInChildren<TextMeshPro>();
         TextMeshPro password = GameObject.Find("Password InputField (TMP) (1)").transform.GetComponentInChildren<TextMeshPro>();
@@ -133,7 +140,7 @@ public class OnlineManager : MonoBehaviour
         {
             makePair("version", version),
             makePair("uuid", uuid),
-            makePair("request", "register password"),
+            makePair("request", "RegisterPassword"),
             makePair("username", username.text),
             makePair("password", password.text)
         };
@@ -141,6 +148,31 @@ public class OnlineManager : MonoBehaviour
         string jsonString = JsonConverter.ListToJson(authData);
         SendMessageToServer(jsonString);
 
+    }
+
+    public void AuthHandler(KeyValuePair<string, string>[] message)
+    {
+        switch (message[0].Value)
+        {
+            case "RegisterPasswordFailed":
+                // Handle register password failure
+                break;
+            case "RegisterPasswordSuccess":
+                // Handle register password success
+                break;
+            case "LoginSuccess":
+                // Handle successful login
+                break;
+            case "LoginFailed":
+                // Handle failed login
+                break;
+            case "TokenExpired":
+                // Handle expired token
+                break;
+            case "UsernameAlreadyTaken":
+                // Handle password change requirement
+                break;
+        }
     }
 
     bool checkInternetConnection()
