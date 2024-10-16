@@ -20,6 +20,8 @@ public class OnlineManager : MonoBehaviour
     static BigGridManager bigGridManager;
     static GameObject smallGrids;
 
+    static readonly List<String> SERVERCOMMANDS = new List<string>{ "auth"};
+
     static string uuid;
     string version = "0.0.1";
 
@@ -88,7 +90,10 @@ public class OnlineManager : MonoBehaviour
     }
     void MessageHandler(String message)
     {
+     
         
+
+
     }
     public void SendMessageToServer(string message)
     {
@@ -123,7 +128,18 @@ public class OnlineManager : MonoBehaviour
         //   TextMeshPro status = GameObject.Find("Status").transform.GetComponentInChildren<TextMeshPro>();
         //     TextMeshPro token = GameObject.Find("Token DO NOT SHOW THE USER THIS EVER THEY ARE STUPID").transform.GetComponentInChildren<TextMeshPro>();
 
-        
+
+        var authData = new List<KeyValuePair<string, string>>
+        {
+            makePair("version", version),
+            makePair("uuid", uuid),
+            makePair("request", "register password"),
+            makePair("username", username.text),
+            makePair("password", password.text)
+        };
+
+        string jsonString = JsonConverter.ListToJson(authData);
+        SendMessageToServer(jsonString);
 
     }
 
@@ -175,4 +191,9 @@ public class OnlineManager : MonoBehaviour
         box.UpdateScoreTracking();
 
     }
+    public KeyValuePair<string, string> makePair(string k, string v)
+    {
+        return new KeyValuePair<string, string>(k, v);
+    }
+    
 }
