@@ -111,7 +111,9 @@ public class OnlineManager : MonoBehaviour
 
     private void InitalConnectionHandler(KeyValuePair<string, string>[] message)
     {
-        GameObject.Find("UUID").GetComponentInChildren<TextMeshPro>().text = message[1].Value;
+        TextMeshPro uuidText = GameObject.Find("UUID").GetComponentInChildren<TextMeshPro>();
+        string uuidFromServer = message[1].Value;
+        uuidText.text = "UUID: " + uuidFromServer;
     }
 
     public void SendMessageToServer(string message)
