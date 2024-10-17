@@ -123,6 +123,9 @@ public class OnlineManager : MonoBehaviour
                 AuthHandler(message);
                 // Handle the 'auth' case here
                 break;
+            case "ServerRejection":
+                ServerRejectionHandler(message);
+                break;
             case "InitalConnection":
                 InitalConnectionHandler(message);
                 break;
@@ -130,6 +133,16 @@ public class OnlineManager : MonoBehaviour
                 // Add other cases as needed
         }
 
+    }
+
+    private void ServerRejectionHandler(KeyValuePair<string, string>[] message)
+    {
+        Debug.Log("Sever Rejected message for reason: " + message[0].Value);
+        for (int i = 1; i < message.Length; i++) {
+
+            Debug.Log("Other information: " + message[i].Key + " : " + message[i].Value);
+        }
+        
     }
 
     private void InitalConnectionHandler(KeyValuePair<string, string>[] message)
