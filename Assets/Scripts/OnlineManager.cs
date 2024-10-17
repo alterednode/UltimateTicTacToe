@@ -106,7 +106,6 @@ public class OnlineManager : MonoBehaviour
             {
                 var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
                 Debug.Log("Message from server: " + message);
-
                 MessageHandler( message);
             }
         }

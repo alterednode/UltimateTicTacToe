@@ -29,7 +29,7 @@ public static class JsonConverter
     // Converts a JSON string to a List<KeyValuePair<string, string>>
     public static List<KeyValuePair<string, string>> JsonToList(string jsonString)
     {
-        Debug.Log($"JsonToList: Input JSON: {jsonString}");
+        
 
         var list = new List<KeyValuePair<string, string>>();
 
@@ -49,7 +49,7 @@ public static class JsonConverter
                     var key = match.Groups[1].Value;
                     var value = match.Groups[2].Value;
                     list.Add(new KeyValuePair<string, string>(key, value));
-                    Debug.Log($"JsonToList: Added pair - Key: {key}, Value: {value}");
+                    Debug.Log($"JsonToList: Pair - Key: {key}, Value: {value}");
                 }
             }
         }
@@ -59,7 +59,7 @@ public static class JsonConverter
             Debug.LogError($"JsonToList: Stack trace: {e.StackTrace}");
         }
 
-        Debug.Log($"JsonToList: Output list count: {list.Count}");
+       // Debug.Log($"JsonToList: Output list count: {list.Count}");
         return list;
     }
 }
