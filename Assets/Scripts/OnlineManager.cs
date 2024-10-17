@@ -59,6 +59,13 @@ public class OnlineManager : MonoBehaviour
         checkServerConnection();
     }
 
+   public void makeNewConnectionWithServer()
+    {
+        Debug.Log("dropping old connection with server and making new one");
+        ws = new ClientWebSocket();
+        Connect();
+    }
+
     // Update is called once per frame
     void Update()
     {
