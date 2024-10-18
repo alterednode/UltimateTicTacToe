@@ -64,7 +64,7 @@ public class BoxClicked : MonoBehaviour
 
         if (controllerManager.controller1.inUse && controllerManager.controller2.inUse)
         {
-            Debug.Log("two controllers detected");
+	        //Debug.Log("two controllers detected");
             if (xturn && fireController1)
             {
                 canWeContinueTheGame = true;
@@ -76,7 +76,7 @@ public class BoxClicked : MonoBehaviour
         }
         if (controllerManager.controller1.inUse != controllerManager.controller2.inUse)
         {
-            Debug.Log("Only one controller detected");
+	        //Debug.Log("Only one controller detected");
             if (fireController1 || fireController2)
             {
                 canWeContinueTheGame = true;

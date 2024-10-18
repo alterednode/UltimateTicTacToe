@@ -67,6 +67,55 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 3286163911610860551, guid: 6372a115415e774449b9db06edf814f9, type: 3}
   m_PreserveAspect: 0
+--- !u!1 &2614346574843200782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3198181465488541363}
+  - component: {fileID: 6305739537699133750}
+  m_Layer: 0
+  m_Name: UserSettings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3198181465488541363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2614346574843200782}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4370084002684196374}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6305739537699133750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2614346574843200782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 645a359ccd10c844b841fc2e9ce6ee88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingsItems: []
+  sceneCamera: {fileID: 4370084002442728810}
+  themedSprites:
+  - {fileID: 21300000, guid: 96bb09c175298bd46b03662cbb9755b1, type: 3}
+  - {fileID: 3286163911610860551, guid: 0aaaa88e407b860409735ce31c543617, type: 3}
+  - {fileID: 3286163911610860551, guid: 425b99ccf2275194188a93d215f730ba, type: 3}
 --- !u!1 &2659287626080069626
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,7 +656,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4370084002684196374}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &4370084002442728810
 Camera:
@@ -807,7 +856,6 @@ MonoBehaviour:
   focusOnThis: {fileID: 0}
   largeScale: 0
   lineScale: 0
-  moveSpeed: 12.5
 --- !u!1 &4370084002684196375
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,6 +884,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4370084002420406632}
+  - {fileID: 3198181465488541363}
   - {fileID: 4370084004066705040}
   - {fileID: 5673910887319003515}
   - {fileID: 4370084002442728853}
@@ -876,7 +925,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4370084002684196374}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4370084002686780103
 MonoBehaviour:
@@ -1146,7 +1195,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4370084002684196374}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4370084003164788922
 MonoBehaviour:
@@ -1337,7 +1386,7 @@ Transform:
   - {fileID: 3811009752470541780}
   - {fileID: 6817843875230253889}
   m_Father: {fileID: 4370084002684196374}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4370084004066705041
 GameObject:
@@ -1373,7 +1422,7 @@ Transform:
   - {fileID: 4370084003882144403}
   - {fileID: 4370084002646760466}
   m_Father: {fileID: 4370084002684196374}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4370084004066705043
 MonoBehaviour:
@@ -1453,7 +1502,7 @@ RectTransform:
   m_Children:
   - {fileID: 3639942937938255387}
   m_Father: {fileID: 4370084002684196374}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2578,7 +2627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2798569937444090056, guid: be1f11a5a5668794e9fb6c6ee18559e9, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2798569937444090056, guid: be1f11a5a5668794e9fb6c6ee18559e9, type: 3}
       propertyPath: m_AnchorMax.x
