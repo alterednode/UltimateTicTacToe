@@ -8,23 +8,27 @@ using System.Text;
 using TMPro;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.Net;
 
 public class OnlineManager : MonoBehaviour
 {
     public bool localhostoverride = false;
 
     string serverURL = "wss://server.ulttictactoe.com:8080";
+    string domain = "https://server.ulttictactoe.com";
 
-    public bool canReachGoogle = true;
+    public bool canReachGoogle = false;
+    public bool canReachServerHTTP = false;
+    private string googleDNS = "8.8.8.8";
     public bool canReachServer = true;
     private ClientWebSocket ws;
     static GameManager gameManager;
     static BigGridManager bigGridManager;
     static GameObject smallGrids;
 
-    static readonly List<string> SERVERCOMMANDS = new List<string>{ "auth"};
- 
-    public  string uuid;
+    static readonly List<string> SERVERCOMMANDS = new List<string> { "auth" };
+
+    public string uuid;
     string version = "0.0.1";
 
     private void Awake()
@@ -34,14 +38,14 @@ public class OnlineManager : MonoBehaviour
             serverURL = "ws://localhost:8080";
         }
 
-        
+
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.multiplayerEnabled = true;
         gameManager.canHumanPlayerPlay = false;
 
 
-      
+
 
 
     }
@@ -49,7 +53,7 @@ public class OnlineManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      
+
         bigGridManager = GameObject.Find("BigGrid").GetComponent<BigGridManager>();
 
         smallGrids = GameObject.Find("Small Grids");
@@ -57,11 +61,12 @@ public class OnlineManager : MonoBehaviour
         ws = new ClientWebSocket();
         Connect();
 
-        Debug.Log("checking server connection");
+        Debug.Log("checking internet and server connection");
+        checkInternetConnection();
         checkServerConnection();
     }
 
-   public void makeNewConnectionWithServer()
+    public void makeNewConnectionWithServer()
     {
         try
         {
@@ -90,7 +95,7 @@ public class OnlineManager : MonoBehaviour
 
             throw;
         }
-        
+
     }
 
     async void Connect()
@@ -117,14 +122,14 @@ public class OnlineManager : MonoBehaviour
             {
                 var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
                 Debug.Log("Message from server: " + message);
-                MessageHandler( message);
+                MessageHandler(message);
             }
         }
     }
     void MessageHandler(string json)
     {
-     var message = JsonConverter.JsonToList(json).ToArray();
-        
+        var message = JsonConverter.JsonToList(json).ToArray();
+
 
 
         switch (message[0].Key)
@@ -160,31 +165,32 @@ public class OnlineManager : MonoBehaviour
         
         }
         */
-        
+
     }
 
     private void ServerRejectionHandler(KeyValuePair<string, string>[] message)
     {
         Debug.Log("Sever Rejected message for reason: " + message[0].Value);
-        for (int i = 1; i < message.Length; i++) {
+        for (int i = 1; i < message.Length; i++)
+        {
 
             Debug.Log("Other information: " + message[i].Key + " : " + message[i].Value);
         }
-        
+
     }
 
     private void InitalConnectionHandler(KeyValuePair<string, string>[] message)
     {
-        
-        
+
+
         string uuidFromServer = message[1].Value;
 
         uuid = uuidFromServer;
 
-       
+
     }
 
-    public void SendMessageToServer(string message)        
+    public void SendMessageToServer(string message)
     {
 
         Debug.Log("attempting to send message. " + message);
@@ -230,7 +236,7 @@ public class OnlineManager : MonoBehaviour
         };
 
         string jsonString = JsonConverter.ListToJson(authData);
-     
+
         SendMessageToServer(jsonString);
 
     }
@@ -274,22 +280,71 @@ public class OnlineManager : MonoBehaviour
         }
     }
 
-    bool checkInternetConnection()
+    void checkInternetConnection()
     {
-        //TODO: ping Google or something
-        return false;
+        StartCoroutine(CheckInternet());
+    }
+
+    IEnumerator CheckInternet()
+    {
+        // Send a ping to Google's DNS
+        Ping ping = new Ping(googleDNS);
+
+        // Wait until the ping returns or times out
+        while (!ping.isDone)
+        {
+            yield return null;
+        }
+
+        // Check if the ping was successful
+        if (ping.time >= 0)
+        {
+            Debug.Log("Internet is available! Reached Google.");
+            canReachGoogle = true;
+        }
+        else
+        {
+            Debug.Log("No internet connection. Could not reach Google.");
+            canReachGoogle = false;
+        }
+
+
+        // Send an HTTP request to ulttictactoe.com
+        IPAddress[] addresses = Dns.GetHostAddresses(serverURL);
+
+        if (addresses.Length > 0)
+        {
+            // Use the first resolved IP address to ping
+            Ping pingTest = new Ping(addresses[0].ToString());
+            // Wait for the ping to complete
+            while (!pingTest.isDone)
+            {
+                yield return null;
+            }
+
+            if (pingTest.time >= 0)
+            {
+                Debug.Log("Ping to " + serverURL + " successful!");
+                canReachServerHTTP = true;
+            }
+            else
+            {
+                Debug.Log("Ping to " + serverURL + " failed.");
+                canReachServerHTTP = false;
+            }
+        }
     }
 
     bool checkServerConnection()
     {
         if (ws.State == WebSocketState.Open)
         {
-            //   Debug.Log("WebSocket status: open");
+            //Debug.Log("WebSocket status: open");
             return true;
         }
         else
         {
-            //  Debug.LogError("WebSocket status: not open");
+            //Debug.LogError("WebSocket status: not open");
             return false;
         }
     }
