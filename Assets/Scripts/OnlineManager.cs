@@ -230,7 +230,7 @@ public class OnlineManager : MonoBehaviour
         {
             makePair("version", version),
             makePair("uuid", uuid),
-            makePair("Game", "JoinMatchQueue")
+            makePair("Game", "JoinMatchmaking")
         };
 
         string message = JsonConverter.ListToJson(requestData);
