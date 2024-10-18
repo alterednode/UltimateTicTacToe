@@ -807,7 +807,7 @@ MonoBehaviour:
   focusOnThis: {fileID: 0}
   largeScale: 0
   lineScale: 0
-  moveTime: 0.08
+  moveSpeed: 12.5
 --- !u!1 &4370084002684196375
 GameObject:
   m_ObjectHideFlags: 0

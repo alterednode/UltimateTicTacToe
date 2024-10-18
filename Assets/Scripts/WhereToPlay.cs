@@ -8,7 +8,7 @@ public class WhereToPlay : MonoBehaviour
 	public float largeScale;
 	public float lineScale;
 
-	public float moveTime;
+	public float moveSpeed = 12.5f;
 
 	public const float bigGridLargeScale = 1;
 	public const float bigGridLineScale = 2;
@@ -26,11 +26,11 @@ public class WhereToPlay : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(largeScale, largeScale, 1), moveTime); // always set scale of the WhereToPlay object to what the large scale is
-		transform.position = Vector3.Lerp(transform.position, focusOnThis.transform.position, moveTime);    // always go to the focus on this position
+		transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(largeScale, largeScale, 1), moveSpeed * Time.deltaTime); // always set scale of the WhereToPlay object to what the large scale is
+		transform.position = Vector3.Lerp(transform.position, focusOnThis.transform.position, moveSpeed * Time.deltaTime);    // always go to the focus on this position
 		foreach (Transform child in transform)
 		{
-			child.localScale = Vector3.Lerp(child.localScale, new Vector3(child.localScale.x, lineScale, 1), moveTime); //adjusts the lines to be the right size
+			child.localScale = Vector3.Lerp(child.localScale, new Vector3(child.localScale.x, lineScale, 1), moveSpeed * Time.deltaTime); //adjusts the lines to be the right size
 		}
 	}
 
