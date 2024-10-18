@@ -9,6 +9,8 @@ public class UserSettings : MonoBehaviour
 
     public Camera sceneCamera;
 
+    public Sprite[] themedSprites;
+
     public void Start()
     {
         //set the theme to the default value if it hasn't been set yet
@@ -49,7 +51,32 @@ public class UserSettings : MonoBehaviour
     public void applyTheme()
     {
         int userThemeNum = PlayerPrefs.GetInt("Theme");
+
+        int userThemeInvertNum = (userThemeNum + 1) % themeColors.Length;
+
         byte themeColor = (byte)themeColors[userThemeNum];
+
+        byte themeInvertColor = (byte)themeColors[userThemeInvertNum];
         sceneCamera.backgroundColor = new Color32(themeColor, themeColor, themeColor, 255);
+
+        // Find all GameObjects with SpriteRenderer in the scene
+        SpriteRenderer[] allSpriteRenderers = FindObjectsOfType<SpriteRenderer>();
+
+
+        // Loop through all SpriteRenderers and check their sprite
+        foreach (SpriteRenderer spriteRenderer in allSpriteRenderers)
+        {
+            foreach (Sprite themedSprite in themedSprites)
+            {
+                // If the sprite matches the target sprite, change its color
+
+                if (spriteRenderer.sprite == themedSprite)
+                {
+                    spriteRenderer.color = new Color32(themeInvertColor, themeInvertColor, themeInvertColor, 255);
+                }
+            }
+        }
+
+
     }
 }
