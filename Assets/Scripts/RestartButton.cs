@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class hideMe : MonoBehaviour
+public class RestartButton : MonoBehaviour
 {
 	GameObject bigButton;
 	// Start is called before the first frame update
