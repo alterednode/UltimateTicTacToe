@@ -42,7 +42,7 @@ public class VirtualMouse : MonoBehaviour
         }
         catch
         {
-            Debug.Log("Cursor Indicator not found");
+	        Debug.Log("VirtualMouse: Cursor Indicator not found");
         }
     }
 
