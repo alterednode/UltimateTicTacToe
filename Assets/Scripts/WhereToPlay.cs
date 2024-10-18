@@ -8,7 +8,7 @@ public class WhereToPlay : MonoBehaviour
 	public float largeScale;
 	public float lineScale;
 
-	public float moveSpeed = 12.5f;
+	public const float moveSpeed = 12.5f;
 
 	public const float bigGridLargeScale = 1;
 	public const float bigGridLineScale = 2;
