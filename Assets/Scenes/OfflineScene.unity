@@ -975,26 +975,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: NessecaryObjects
       objectReference: {fileID: 0}
-    - target: {fileID: 5673910887319003513, guid: 4ae3196164278e8408a488523f7fb25a, type: 3}
-      propertyPath: m_UiScaleMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5673910887319003513, guid: 4ae3196164278e8408a488523f7fb25a, type: 3}
-      propertyPath: m_MatchWidthOrHeight
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5673910887319003513, guid: 4ae3196164278e8408a488523f7fb25a, type: 3}
-      propertyPath: m_ReferenceResolution.x
-      value: 1280
-      objectReference: {fileID: 0}
-    - target: {fileID: 5673910887319003513, guid: 4ae3196164278e8408a488523f7fb25a, type: 3}
-      propertyPath: m_ReferenceResolution.y
-      value: 720
-      objectReference: {fileID: 0}
-    - target: {fileID: 5673910887319003513, guid: 4ae3196164278e8408a488523f7fb25a, type: 3}
-      propertyPath: m_ReferencePixelsPerUnit
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5673910887319003514, guid: 4ae3196164278e8408a488523f7fb25a, type: 3}
       propertyPath: m_Camera
       value: 
