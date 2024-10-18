@@ -13,9 +13,10 @@ public class GUIConsoleDebugging : MonoBehaviour
 
     public Text consoleText;
 
-    //public int lines = 1;
+    public int currentLine = -10;
 
-    void Start(){
+    void Start()
+    {
         consoleText = GameObject.Find("ConsoleTextLog").GetComponent<Text>();
     }
     void OnEnable()
@@ -34,30 +35,20 @@ public class GUIConsoleDebugging : MonoBehaviour
         if (queue.Count >= maxLines) queue.Dequeue();
 
         queue.Enqueue(logString);
-        //lines++;
 
         var builder = new StringBuilder();
+
         foreach (string st in queue)
         {
-            builder.Append(st).Append("\n\n");
+
+            builder.Append(currentLine + 1 + ") " + st).Append("\n\n");
+            currentLine++;
+
+            //Debug.Log("Line: " + currentLine + " " + st);
         }
 
         currentText = builder.ToString();
 
         consoleText.text = currentText;
     }
-
-    // void OnGUI()
-    // {
-    //     GUI.Label(
-    //        new Rect(
-    //            5,                   // x, left offset
-    //            Screen.height - 150, // y, bottom offset
-    //            480f,                // width
-    //            720f                 // height
-    //        ),
-    //        currentText,             // the display text
-    //        GUI.skin.textArea        // use a multi-line text area
-    //     );
-    // }
 }
