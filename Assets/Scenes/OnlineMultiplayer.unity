@@ -135,6 +135,8 @@ GameObject:
   - component: {fileID: 7949760}
   - component: {fileID: 7949759}
   - component: {fileID: 7949758}
+  - component: {fileID: 7949761}
+  - component: {fileID: 7949762}
   m_Layer: 5
   m_Name: join Queue
   m_TagString: Untagged
@@ -256,6 +258,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7949756}
   m_CullTransparentMesh: 1
+--- !u!61 &7949761
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7949756}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 158.17, y: 26.76}
+  m_EdgeRadius: 0
+--- !u!114 &7949762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7949756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546544d3fa789e449b9e240321f5bdff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonScript: {fileID: 0}
+  canAlwaysBeClicked: 0
 --- !u!1 &122922641
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,9 +645,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1280, y: 720}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -620,17 +662,17 @@ Canvas:
   m_GameObject: {fileID: 698195634}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_RenderMode: 1
+  m_Camera: {fileID: 1747986263730848149}
+  m_PlaneDistance: 5
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!1 &783172856
 GameObject:
@@ -830,6 +872,8 @@ GameObject:
   - component: {fileID: 826779242}
   - component: {fileID: 826779241}
   - component: {fileID: 826779240}
+  - component: {fileID: 826779243}
+  - component: {fileID: 826779244}
   m_Layer: 5
   m_Name: Submit username and password
   m_TagString: Untagged
@@ -951,6 +995,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 826779238}
   m_CullTransparentMesh: 1
+--- !u!61 &826779243
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826779238}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 155.91, y: 27.59}
+  m_EdgeRadius: 0
+--- !u!114 &826779244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826779238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546544d3fa789e449b9e240321f5bdff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonScript: {fileID: 0}
+  canAlwaysBeClicked: 0
 --- !u!1 &844122233
 GameObject:
   m_ObjectHideFlags: 0
@@ -2368,6 +2452,8 @@ GameObject:
   - component: {fileID: 2047145316}
   - component: {fileID: 2047145315}
   - component: {fileID: 2047145314}
+  - component: {fileID: 2047145318}
+  - component: {fileID: 2047145317}
   m_Layer: 5
   m_Name: New Connection
   m_TagString: Untagged
@@ -2489,6 +2575,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2047145312}
   m_CullTransparentMesh: 1
+--- !u!114 &2047145317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047145312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546544d3fa789e449b9e240321f5bdff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonScript: {fileID: 0}
+  canAlwaysBeClicked: 0
+--- !u!61 &2047145318
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047145312}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 174.14, y: 26.74}
+  m_EdgeRadius: 0
 --- !u!1 &2074548763
 GameObject:
   m_ObjectHideFlags: 0
@@ -2907,5 +3033,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: NessecaryObjects
       objectReference: {fileID: 0}
+    - target: {fileID: 5673910887319003514, guid: 4ae3196164278e8408a488523f7fb25a, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1747986263730848149}
+    - target: {fileID: 5673910887319003514, guid: 4ae3196164278e8408a488523f7fb25a, type: 3}
+      propertyPath: m_PixelPerfect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673910887319003514, guid: 4ae3196164278e8408a488523f7fb25a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673910887319003514, guid: 4ae3196164278e8408a488523f7fb25a, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ae3196164278e8408a488523f7fb25a, type: 3}
+--- !u!20 &1747986263730848149 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4370084002442728810, guid: 4ae3196164278e8408a488523f7fb25a, type: 3}
+  m_PrefabInstance: {fileID: 1747986263730848148}
+  m_PrefabAsset: {fileID: 0}
