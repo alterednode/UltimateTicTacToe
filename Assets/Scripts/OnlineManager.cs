@@ -6,6 +6,8 @@ using System.Net.WebSockets;
 using System.Threading;
 using System.Text;
 using TMPro;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 public class OnlineManager : MonoBehaviour
 {
@@ -61,6 +63,15 @@ public class OnlineManager : MonoBehaviour
 
    public void makeNewConnectionWithServer()
     {
+        try
+        {
+            //I do not know if this actually closes the connection
+            ws.Abort();
+        }
+        catch
+        {
+
+        }
         Debug.Log("dropping old connection with server and making new one");
         ws = new ClientWebSocket();
         Connect();
@@ -315,5 +326,17 @@ public class OnlineManager : MonoBehaviour
     {
         return new KeyValuePair<string, string>(k, v);
     }
-    
+
+    public static int[] ExtractIntegers(string input)
+    {
+        // Regex pattern to match integers (including negative numbers)
+        const string pattern = @"-?\d+";
+
+        // Use LINQ to find all matches, convert them to integers, and return as array
+        return Regex.Matches(input, pattern)
+                    .Cast<Match>()
+                    .Select(m => int.Parse(m.Value))
+                    .ToArray();
+    }
+
 }
