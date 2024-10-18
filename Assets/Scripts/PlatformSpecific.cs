@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //this script is for all the platform specific tweaks required for this game. 60fps for iOS, and whatever else we run into later.
-public class PlatformSpecificLogic : MonoBehaviour
+public class PlatformSpecific : MonoBehaviour
 {
 
 	// Start is called before the first frame update
