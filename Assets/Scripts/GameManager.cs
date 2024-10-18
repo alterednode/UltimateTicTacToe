@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public bool multiplayerEnabled;
-    public bool canHumanPlayerPlay;
+    public bool multiplayerEnabled = false;
+    public bool canHumanPlayerPlay = true;
 
     public bool xPlayerTurn;
     public GameObject indicator;
@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        canHumanPlayerPlay = true;
+    //  canHumanPlayerPlay = true;
         xPlayerTurn = Random.value > 0.5f;
         c_xPlayerTurn = !xPlayerTurn;
         if (multiplayerEnabled == false)

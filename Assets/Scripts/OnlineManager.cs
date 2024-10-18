@@ -20,7 +20,7 @@ public class OnlineManager : MonoBehaviour
     public bool canReachGoogle = false;
     public bool canReachServerHTTP = false;
     private string googleDNS = "8.8.8.8";
-    public bool canReachServer = true;
+    public bool canReachServer = false;
     private ClientWebSocket ws;
     static GameManager gameManager;
     static BigGridManager bigGridManager;
@@ -56,6 +56,10 @@ public class OnlineManager : MonoBehaviour
 
         bigGridManager = GameObject.Find("BigGrid").GetComponent<BigGridManager>();
 
+
+
+
+
         smallGrids = GameObject.Find("Small Grids");
 
         ws = new ClientWebSocket();
@@ -85,7 +89,7 @@ public class OnlineManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkServerConnection();
+        canReachServer = checkServerConnection();
         try
         {
             GameObject.Find("Text for the UUID - the UUID TEXT OBJECT").GetComponent<TextMeshProUGUI>().text = "UUID: " + uuid;
