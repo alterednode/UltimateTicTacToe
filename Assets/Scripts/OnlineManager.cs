@@ -125,13 +125,31 @@ public class OnlineManager : MonoBehaviour
             case "ServerRejection":
                 ServerRejectionHandler(message);
                 break;
+            case "Game":
+                GameHandler(message);
+                break;
             case "InitalConnection":
                 InitalConnectionHandler(message);
+                break;
+            default:
+                Debug.LogError("Server sent incorrectly formatted message");
                 break;
 
                 // Add other cases as needed
         }
 
+    }
+
+    private void GameHandler(KeyValuePair<string, string>[] message)
+    {
+        /*
+        switch (message[0].Value) { 
+            case "qu"
+        
+        
+        }
+        */
+        
     }
 
     private void ServerRejectionHandler(KeyValuePair<string, string>[] message)
@@ -204,6 +222,20 @@ public class OnlineManager : MonoBehaviour
      
         SendMessageToServer(jsonString);
 
+    }
+
+    public void JoinMatchQueue()
+    {
+        var requestData = new List<KeyValuePair<string, string>>
+        {
+            makePair("version", version),
+            makePair("uuid", uuid),
+            makePair("Game", "JoinMatchQueue")
+        };
+
+        string message = JsonConverter.ListToJson(requestData);
+
+        SendMessageToServer(message);
     }
 
     public void AuthHandler(KeyValuePair<string, string>[] message)
