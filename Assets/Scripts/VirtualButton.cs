@@ -71,7 +71,14 @@ public class VirtualButton : MonoBehaviour
         }
         else
         {
-            buttonScript.onClick.Invoke();
+
+            bool fireController1 = Input.GetButtonDown("Fire1");
+            bool fireController2 = Input.GetButtonDown("Fire1Alt");
+
+            if (fireController1 || fireController2)
+            {
+                buttonScript.onClick.Invoke();
+            }
         }
     }
 }
