@@ -5,11 +5,21 @@ using UnityEngine;
 public class PhysicalMouse : MonoBehaviour
 {
     GameManager gameManager;
+    AudioManager audioManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        // if gamemanager, we're in a game. If not, we're in a menu
+        try
+        {
+            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        }
+        catch
+        {
+            Debug.Log("PhysicalMouse: GameManager not found");
+            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        }
     }
 
     // Update is called once per frame
@@ -23,6 +33,12 @@ public class PhysicalMouse : MonoBehaviour
             if (!Physics.Raycast(ray, out raycastHit, 100f))
             {
                 gameManager.audioManager.PlayClip("ClickFail");
+            }
+            else if (gameManager == null)
+            {
+                //only do this in a menu, otherwise this is gonna click always whenever you click
+                //sorry, this shit sucks ass, will fix later
+                audioManager.PlayClip("ClickSucceed");
             }
         }
     }

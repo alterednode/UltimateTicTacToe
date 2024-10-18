@@ -871,13 +871,14 @@ GameObject:
   - component: {fileID: 428112411}
   - component: {fileID: 428112410}
   - component: {fileID: 428112409}
+  - component: {fileID: 428112414}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &428112408
 RectTransform:
   m_ObjectHideFlags: 0
@@ -969,7 +970,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 428112412}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 428112414}
+        m_TargetAssemblyTypeName: UserSettings, Assembly-CSharp
+        m_MethodName: OpenSettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &428112412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1008,6 +1021,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428112407}
   m_CullTransparentMesh: 1
+--- !u!114 &428112414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428112407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 645a359ccd10c844b841fc2e9ce6ee88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingsItems:
+  - {fileID: 172448443}
+  - {fileID: 2064142864}
+  sceneCamera: {fileID: 340061065}
 --- !u!1 &440075123
 GameObject:
   m_ObjectHideFlags: 0
@@ -2210,6 +2239,7 @@ GameObject:
   - component: {fileID: 1584151307}
   - component: {fileID: 1584151306}
   - component: {fileID: 1584151308}
+  - component: {fileID: 1584151309}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -2232,6 +2262,8 @@ MonoBehaviour:
   clipEntries:
   - name: ClickSucceed
     clip: {fileID: 8300000, guid: f12fefebd555d954395c7f2d36b12d58, type: 3}
+  - name: ClickFail
+    clip: {fileID: 8300000, guid: 36c81d18bcf45c64d851a2cac086e37c, type: 3}
 --- !u!4 &1584151307
 Transform:
   m_ObjectHideFlags: 0
@@ -2342,6 +2374,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1584151309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584151305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dee9d20a804e600438d9a4bda4990288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1683547105
 GameObject:
   m_ObjectHideFlags: 0
@@ -2455,9 +2499,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 996788614}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: loadOnlineMultiplayer
+      - m_Target: {fileID: 428112414}
+        m_TargetAssemblyTypeName: UserSettings, Assembly-CSharp
+        m_MethodName: changeTheme
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3308,7 +3352,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2064142869}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 428112414}
+        m_TargetAssemblyTypeName: UserSettings, Assembly-CSharp
+        m_MethodName: CloseSettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2064142869
 MonoBehaviour:
   m_ObjectHideFlags: 0

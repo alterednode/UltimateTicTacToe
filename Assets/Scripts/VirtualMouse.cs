@@ -26,7 +26,7 @@ public class VirtualMouse : MonoBehaviour
         }
         catch
         {
-            Debug.Log("GameManager not found");
+            Debug.Log("VirtualMouse: GameManager not found");
         }
 
         controllerManager = GameObject.Find("ControllerManager").GetComponent<ControllerManager>();
