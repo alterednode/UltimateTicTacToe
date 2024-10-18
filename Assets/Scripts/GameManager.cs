@@ -19,9 +19,6 @@ public class GameManager : MonoBehaviour
 
     private bool c_xPlayerTurn;
 
-    public VirtualMouse controller1;
-    public VirtualMouse controller2;
-
     public AudioManager audioManager;
 
     // Start is called before the first frame update

@@ -9,14 +9,21 @@ public class VirtualMouse : MonoBehaviour
     public string vertAxisName;
     public bool inUse = false;
     GameManager gameManager;
+    ControllerManager controllerManager;
     GameObject cursorIndicator;
+
+    public VirtualMouse controller1;
+    public VirtualMouse controller2;
 
     private Vector3 cursorPosition;
 
     // Use this for initialization
     void Start()
     {
+
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        controllerManager = GameObject.Find("ControllerManager").GetComponent<ControllerManager>();
+
         cursorPosition = transform.position;
         cursorIndicator = GameObject.Find("CursorIndicator");
 
@@ -61,7 +68,7 @@ public class VirtualMouse : MonoBehaviour
         // Apply the new position to the cursor GameObject
         transform.position = cursorPosition;
 
-        if (gameManager.controller1.inUse && gameManager.controller2.inUse)
+        if (controllerManager.controller1.inUse && controllerManager.controller2.inUse)
         {
             //	Debug.Log("two controllers in use");
 
@@ -78,7 +85,7 @@ public class VirtualMouse : MonoBehaviour
                 return;
             }
         }
-        if (gameManager.controller1.inUse != gameManager.controller2.inUse)
+        if (controllerManager.controller1.inUse != controllerManager.controller2.inUse)
         {
             cursorIndicator.transform.position = transform.position;
             cursorIndicator.transform.GetChild(0).gameObject.SetActive(gameManager.xPlayerTurn);
