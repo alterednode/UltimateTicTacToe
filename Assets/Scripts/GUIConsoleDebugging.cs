@@ -13,7 +13,7 @@ public class GUIConsoleDebugging : MonoBehaviour
 
     public Text consoleText;
 
-    public int currentLine = -10;
+    private int currentLine = -10;
 
     void Start()
     {
