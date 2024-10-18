@@ -14,18 +14,21 @@ public class VirtualButton : MonoBehaviour
     {
         controllerManager = GameObject.Find("ControllerManager").GetComponent<ControllerManager>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
-        try
-        {
 
-            if (!canAlwaysBeClicked)
+
+        if (!canAlwaysBeClicked)
+        {
+            //try catch is likely unnecessary, but it's here just in case finding the gameManager fails
+            try
             {
                 gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
             }
+            catch
+            {
+                Debug.Log("GameManager not found");
+            }
         }
-        catch
-        {
-            Debug.Log("GameManager not found");
-        }
+
 
 
         buttonScript = GetComponent<Button>();
@@ -33,11 +36,12 @@ public class VirtualButton : MonoBehaviour
 
     void VOnMouseOver()
     {
-        // code pulled from BoxClicked.cs
 
+        // if gameManager, figure out who clicked and take action based on that.
         if (gameManager != null)
         {
 
+            // code pulled from BoxClicked.cs
 
             bool xturn = gameManager.xPlayerTurn;
 
@@ -72,6 +76,7 @@ public class VirtualButton : MonoBehaviour
             }
 
         }
+        //if no game manager, we don't care who clicked
         else
         {
 
@@ -80,6 +85,7 @@ public class VirtualButton : MonoBehaviour
 
             if (fireController1 || fireController2)
             {
+                //TODO: this sound gets cut off when loading scenes, add some delay on interaction? probably within the sceneLoader script
                 audioManager.PlayClip("ClickSucceed");
                 buttonScript.onClick.Invoke();
             }

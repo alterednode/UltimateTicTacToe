@@ -12,9 +12,6 @@ public class VirtualMouse : MonoBehaviour
     ControllerManager controllerManager;
     GameObject cursorIndicator;
 
-    public VirtualMouse controller1;
-    public VirtualMouse controller2;
-
     private Vector3 cursorPosition;
 
     // Use this for initialization

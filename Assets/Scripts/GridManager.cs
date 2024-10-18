@@ -53,9 +53,4 @@ public class GridManager : MonoBehaviour
 		//play win sound!
 		gameManager.audioManager.PlayClip("GameWin");
 	}
-
-
-
-
-
 }

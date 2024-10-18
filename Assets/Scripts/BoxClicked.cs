@@ -14,14 +14,15 @@ public class BoxClicked : MonoBehaviour
     private VirtualMouse controller1;
     private VirtualMouse controller2;
 
+    ControllerManager controllerManager;
+
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         smallGridHolder = GameObject.Find("Small Grids");
 
-        controller1 = GameObject.Find("Controller Cursor 1").GetComponent<VirtualMouse>();
-        controller2 = GameObject.Find("Controller Cursor 2").GetComponent<VirtualMouse>();
+        controllerManager = GameObject.Find("ControllerManager").GetComponent<ControllerManager>();
 
     }
 
@@ -55,13 +56,13 @@ public class BoxClicked : MonoBehaviour
         bool fireController1 = Input.GetButtonDown("Fire1");
         bool fireController2 = Input.GetButtonDown("Fire1Alt");
 
-        Debug.Log("got to the box");
+	    //Debug.Log("got to the box");
 
         bool canWeContinueTheGame = false;
 
         // this is bad code that can be improved, but it functions for now
 
-        if (controller1.inUse && controller2.inUse)
+        if (controllerManager.controller1.inUse && controllerManager.controller2.inUse)
         {
             Debug.Log("two controllers detected");
             if (xturn && fireController1)
@@ -73,7 +74,7 @@ public class BoxClicked : MonoBehaviour
                 canWeContinueTheGame = true;
             }
         }
-        if (controller1.inUse != controller2.inUse)
+        if (controllerManager.controller1.inUse != controllerManager.controller2.inUse)
         {
             Debug.Log("Only one controller detected");
             if (fireController1 || fireController2)
@@ -101,8 +102,6 @@ public class BoxClicked : MonoBehaviour
 
         UpdateScoreTracking();
 
-        //I don't think we still need to log this, do we?
-        //Debug.Log(gameObject.name + gameObject.transform.parent.parent.name);
 
         SpawnXorO(gameManager.xPlayerTurn);
 

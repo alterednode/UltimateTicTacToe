@@ -10,7 +10,7 @@ public class PhysicalMouse : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // if gamemanager, we're in a game. If not, we're in a menu
+        // if we find gamemanager, we're in a game. If not, we're in a menu
         try
         {
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -36,7 +36,7 @@ public class PhysicalMouse : MonoBehaviour
             }
             else if (gameManager == null)
             {
-                //only do this in a menu, otherwise this is gonna click always whenever you click
+                //only do this in a menu, otherwise this is gonna make this sound play whenever you click wherever
                 //sorry, this shit sucks ass, will fix later
                 audioManager.PlayClip("ClickSucceed");
             }

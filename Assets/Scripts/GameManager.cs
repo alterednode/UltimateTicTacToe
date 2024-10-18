@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
         // weird lerps to change position and scale
         currentPlayerThing.transform.position = Vector3.Lerp(
             currentPlayerThing.transform.position,
-            (indicator.transform.position + new Vector3(-.5f, 0, 0)),
+            indicator.transform.position + new Vector3(-.5f, 0, 0),
             0.08f
         );
         if (currentPlayerThing.transform.localScale.x < 2)
@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
         }
         notCurrentPlayerThing.transform.position = Vector3.Lerp(
             notCurrentPlayerThing.transform.position,
-            (indicator.transform.position + new Vector3(.5f, 0, 0)),
+            indicator.transform.position + new Vector3(.5f, 0, 0),
             0.08f
         );
         c_xPlayerTurn = xPlayerTurn;
@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
 
     public static void loadMainMenu()
     {
+        //used by buttons in game
         SceneManager.LoadScene("MainMenu");
     }
 

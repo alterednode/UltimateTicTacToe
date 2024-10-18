@@ -54,7 +54,7 @@ public class AudioManager : MonoBehaviour
     /// <param name="clipName">The name of the audio clip to play.</param>
     /// <param name="volume">The volume level of the audio clip (default is 1).</param>
     /// 
-    public void PlayClip(string clipName, float volume = 1f)
+    public void PlayClip(string clipName)
     {
         // Check if the dictionary contains the specified key
         if (audioClips.ContainsKey(clipName))
