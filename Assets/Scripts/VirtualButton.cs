@@ -6,12 +6,14 @@ public class VirtualButton : MonoBehaviour
     public Button buttonScript;
     GameManager gameManager;
     ControllerManager controllerManager;
+    AudioManager audioManager;
 
     public bool canAlwaysBeClicked = false;
 
     void Start()
     {
         controllerManager = GameObject.Find("ControllerManager").GetComponent<ControllerManager>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         try
         {
 
@@ -65,6 +67,7 @@ public class VirtualButton : MonoBehaviour
 
             if (canWeContinueTheGame)
             {
+                audioManager.PlayClip("ClickSucceed");
                 buttonScript.onClick.Invoke();
             }
 
@@ -77,6 +80,7 @@ public class VirtualButton : MonoBehaviour
 
             if (fireController1 || fireController2)
             {
+                audioManager.PlayClip("ClickSucceed");
                 buttonScript.onClick.Invoke();
             }
         }
