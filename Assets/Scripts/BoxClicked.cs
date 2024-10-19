@@ -100,6 +100,8 @@ public class BoxClicked : MonoBehaviour
 
         gameManager.audioManager.PlayClip("ClickSucceed");
 
+
+
         UpdateScoreTracking();
 
 
@@ -108,12 +110,23 @@ public class BoxClicked : MonoBehaviour
         //update who's turn it is.
         gameManager.xPlayerTurn = !gameManager.xPlayerTurn;
 
+        MoveWhereToPlay();
+
+        if (gameManager.multiplayerEnabled)
+        {
+            GameObject.Find("OnlineManager").GetComponent<OnlineManager>().humanPlayerPlayedAt(this.transform);
+        }
+
+    }
+
+    public void MoveWhereToPlay()
+    {
         GameObject
-            .Find("WhereToPlay")
-            .GetComponent<WhereToPlay>()
-            .SetLocationAndScale(
-                (smallGridHolder.transform.GetChild(transform.GetSiblingIndex())).transform
-            );
+           .Find("WhereToPlay")
+           .GetComponent<WhereToPlay>()
+           .SetLocationAndScale(
+               (smallGridHolder.transform.GetChild(transform.GetSiblingIndex())).transform
+           );
     }
 
 
