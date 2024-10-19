@@ -434,4 +434,18 @@ public class OnlineManager : MonoBehaviour
                     .ToArray();
     }
 
+    internal void humanPlayerPlayedAt(Transform transform)
+    {
+        int locationPlayed ;
+        int smallLocation = transform.GetSiblingIndex();
+        int offset = transform.parent.parent.GetSiblingIndex() * 9;
+        locationPlayed = smallLocation + offset;
+        Debug.Log("telling server player played at location " + locationPlayed);
+
+
+
+
+
+
+    }
 }

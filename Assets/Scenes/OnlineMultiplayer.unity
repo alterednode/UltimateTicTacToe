@@ -2094,8 +2094,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localhostoverride: 0
   canReachGoogle: 1
+  canReachServerHTTP: 0
   canReachServer: 1
   uuid: 
+  menuCanvas: {fileID: 698195634}
 --- !u!1 &1526374068
 GameObject:
   m_ObjectHideFlags: 0
