@@ -9,6 +9,7 @@ using TMPro;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Net;
+using UnityEditor.VersionControl;
 
 public class OnlineManager : MonoBehaviour
 {
@@ -30,6 +31,12 @@ public class OnlineManager : MonoBehaviour
 
     public string uuid;
     string version = "0.0.1";
+
+    // TODO: better method of doing this
+    bool showMenus=true;
+    public GameObject menuCanvas;
+    // that will likely never happen
+
 
     private void Awake()
     {
@@ -70,6 +77,29 @@ public class OnlineManager : MonoBehaviour
         checkServerConnection();
     }
 
+
+    // Update is called once per frame
+    void Update()
+    {
+        menuCanvas.SetActive(showMenus);
+
+        canReachServer = checkServerConnection();
+        if (!canReachServer)
+        {
+            showMenus = true;
+        }
+        try
+        {
+            GameObject.Find("Text for the UUID - the UUID TEXT OBJECT").GetComponent<TextMeshProUGUI>().text = "UUID: " + uuid;
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+
+    }
+
     public void makeNewConnectionWithServer()
     {
         try
@@ -86,21 +116,6 @@ public class OnlineManager : MonoBehaviour
         Connect();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        canReachServer = checkServerConnection();
-        try
-        {
-            GameObject.Find("Text for the UUID - the UUID TEXT OBJECT").GetComponent<TextMeshProUGUI>().text = "UUID: " + uuid;
-        }
-        catch (Exception)
-        {
-
-            throw;
-        }
-
-    }
 
     async void Connect()
     {
@@ -166,7 +181,7 @@ public class OnlineManager : MonoBehaviour
         switch (message[0].Value) {
 
             case "Quickmatch":
-                QuickmatchHandler();
+                QuickmatchHandler(message);
                 break;
             default:
                 Debug.LogError("Server sent response that this is not able to handle");
@@ -174,9 +189,25 @@ public class OnlineManager : MonoBehaviour
         }
     }
 
-    private void QuickmatchHandler()
+    private void QuickmatchHandler(KeyValuePair<string, string>[] message)
     {
-        throw new NotImplementedException();
+        //todo: check keys are valid or switch to using a dict
+
+
+
+
+        GameData game = new GameData(message[1].Value,
+        message[2].Value,
+        message[3].Value,
+       ExtractIntegersFromString( message[4].Value),
+       int.Parse( message[5].Value),
+       int.Parse( message[6].Value)==1);
+
+
+
+
+
+        
     }
 
     private void ServerRejectionHandler(KeyValuePair<string, string>[] message)
@@ -393,7 +424,7 @@ public class OnlineManager : MonoBehaviour
         return new KeyValuePair<string, string>(k, v);
     }
 
-    public static int[] ExtractIntegers(string input)
+    public static int[] ExtractIntegersFromString(string input)
     {
         // Regex pattern to match integers (including negative numbers)
         const string pattern = @"-?\d+";
