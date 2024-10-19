@@ -162,14 +162,21 @@ public class OnlineManager : MonoBehaviour
 
     private void GameHandler(KeyValuePair<string, string>[] message)
     {
-        /*
-        switch (message[0].Value) { 
-            case "qu"
-        
-        
-        }
-        */
 
+        switch (message[0].Value) {
+
+            case "Quickmatch":
+                QuickmatchHandler();
+                break;
+            default:
+                Debug.LogError("Server sent response that this is not able to handle");
+                break;
+        }
+    }
+
+    private void QuickmatchHandler()
+    {
+        throw new NotImplementedException();
     }
 
     private void ServerRejectionHandler(KeyValuePair<string, string>[] message)
