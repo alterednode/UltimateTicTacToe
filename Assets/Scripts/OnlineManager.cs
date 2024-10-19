@@ -193,21 +193,17 @@ public class OnlineManager : MonoBehaviour
     {
         //todo: check keys are valid or switch to using a dict
 
-
-
-
         GameData game = new GameData(message[1].Value,
         message[2].Value,
         message[3].Value,
-       ExtractIntegersFromString( message[4].Value),
-       int.Parse( message[5].Value),
-       int.Parse( message[6].Value)==1);
+        ExtractIntegersFromString( message[4].Value),
+        int.Parse( message[5].Value),
+        int.Parse( message[6].Value)==1);
+
+        gameManager.canHumanPlayerPlay = true;
 
 
 
-
-
-        
     }
 
     private void ServerRejectionHandler(KeyValuePair<string, string>[] message)
