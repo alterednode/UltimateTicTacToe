@@ -201,8 +201,11 @@ public class OnlineManager : MonoBehaviour
         int.Parse( message[6].Value)==1);
 
         loadedGame = game;
+
+
         //if you are player 0 and player 0 is allowed to play set true, if you are player 1 and player0toPlayNext false, also true, other combinations false
         gameManager.canHumanPlayerPlay = game.player0toPlayNext == (game.uuid0 == uuid);
+        gameManager.xPlayerTurn = gameManager.canHumanPlayerPlay;
     }
 
     private void ServerRejectionHandler(KeyValuePair<string, string>[] message)
