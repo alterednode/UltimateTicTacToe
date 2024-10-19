@@ -27,7 +27,7 @@ public class OnlineManager : MonoBehaviour
     static BigGridManager bigGridManager;
     static GameObject smallGrids;
 
-    static readonly List<string> SERVERCOMMANDS = new List<string> { "auth" };
+    public GameData loadedGame;
 
     public string uuid;
     string version = "0.0.1";
@@ -200,10 +200,9 @@ public class OnlineManager : MonoBehaviour
         int.Parse( message[5].Value),
         int.Parse( message[6].Value)==1);
 
-        gameManager.canHumanPlayerPlay = true;
-
-
-
+        loadedGame = game;
+        //if you are player 0 and player 0 is allowed to play set true, if you are player 1 and player0toPlayNext false, also true, other combinations false
+        gameManager.canHumanPlayerPlay = game.player0toPlayNext == (game.uuid0 == uuid);
     }
 
     private void ServerRejectionHandler(KeyValuePair<string, string>[] message)
