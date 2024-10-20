@@ -220,12 +220,17 @@ public class OnlineManager : MonoBehaviour
 
     private void QuickmatchHandler(KeyValuePair<string, string>[] message)
     {
+        Debug.Log("recieved quickmatch");
 
         GameData game = getGameDataFromMessage(message, 0);
 
         loadedGame = game;
 
-        GameObject.Find("Canvas_Menus").SetActive(false);
+        Debug.Log("set Loaded game");
+
+        GameObject.Find("Canvas_Menus").GetComponent<Canvas>().enabled = false;
+
+        Debug.Log("should have hidden canvas");
 
         //if you are player 0 and player 0 is allowed to play set true, if you are player 1 and player0toPlayNext false, also true, other combinations false
         gameManager.canHumanPlayerPlay = game.player0toPlayNext == (game.uuid0 == uuid);
@@ -491,7 +496,9 @@ public class OnlineManager : MonoBehaviour
         messageToServer.Add(makePair("Game", "MakeMove"));
         messageToServer.Add(makePair("gameid", loadedGame.gameId));
         messageToServer.Add(makePair("played", (playingAnX ? "1" : "-1")));
-        SendMessageToServer(JsonConverter.ListToJson(messageToServer));
+        string jsonToServer = JsonConverter.ListToJson(messageToServer);
+        Debug.Log("sendingThisToServer " + jsonToServer);
+        SendMessageToServer(jsonToServer);
 
         
 
