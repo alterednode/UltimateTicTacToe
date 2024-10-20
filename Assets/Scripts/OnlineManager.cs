@@ -399,9 +399,9 @@ public class OnlineManager : MonoBehaviour
 
     void checkInternetConnection()
     {
-        StartCoroutine(CheckInternet());
+  //      StartCoroutine(CheckInternet());
     }
-
+    /*
     IEnumerator CheckInternet()
     {
         // Send a ping to Google's DNS
@@ -450,7 +450,7 @@ public class OnlineManager : MonoBehaviour
                 canReachServerHTTP = false;
             }
         }
-    }
+    }*/
 
     bool checkServerConnection()
     {
