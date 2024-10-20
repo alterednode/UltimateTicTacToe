@@ -195,6 +195,8 @@ public class OnlineManager : MonoBehaviour
     private void MoveSentToThisUserHandler(KeyValuePair<string, string>[] message)
 
     {
+
+        Debug.Log("\n\n\nrecieved move!");
         GameData game = getGameDataFromMessage(message, 0);
 
         if (!game.gameId.Equals(loadedGame.gameId))
@@ -206,9 +208,13 @@ public class OnlineManager : MonoBehaviour
 
         
         int lastMoveState =  game.gameState[game.lastMove];
+        
+        BoxClicked boxScript =  GameObject.Find("Small Grids").transform.GetChild(game.lastMove / 9).GetChild(2).GetChild(game.lastMove % 9).GetComponent<BoxClicked>();
 
-        BoxClicked boxScript =  GameObject.Find("SmallGrids").transform.GetChild(game.lastMove / 9).GetChild(2).GetChild(game.lastMove % 9).GetComponent<BoxClicked>();
+        if (boxScript == null)
+            Debug.Log("Failed to get box script for some reason");
 
+        Debug.Log("running box scripts to simulate move");
         boxScript.SpawnXorO(lastMoveState==1);
         boxScript.UpdateScoreTracking(lastMoveState == 1);
         boxScript.MoveWhereToPlay();
@@ -500,12 +506,6 @@ public class OnlineManager : MonoBehaviour
         string jsonToServer = JsonConverter.ListToJson(messageToServer);
         Debug.Log("sendingThisToServer " + jsonToServer);
         SendMessageToServer(jsonToServer);
-
-        
-
-
-
-
 
 
     }
