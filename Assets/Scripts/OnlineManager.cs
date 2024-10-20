@@ -225,6 +225,9 @@ public class OnlineManager : MonoBehaviour
         if (boxScript == null)
             Debug.Log("Failed to get box script for some reason");
 
+
+        gameManager.audioManager.PlayClip("ClickSucceed");
+
         Debug.Log("running box scripts to simulate move");
 
         boxScript.SpawnXorO(lastMoveState==1);
@@ -255,8 +258,9 @@ public class OnlineManager : MonoBehaviour
         Debug.Log("should have hidden canvas");
 
         //if you are player 0 and player 0 is allowed to play set true, if you are player 1 and player0toPlayNext false, also true, other combinations false
-        gameManager.canHumanPlayerPlay = game.player0toPlayNext == (game.uuid0 == uuid);
-        gameManager.xPlayerTurn = gameManager.canHumanPlayerPlay;
+        gameManager.canHumanPlayerPlay = (game.player0toPlayNext == (game.uuid0 == uuid));
+        gameManager.xPlayerTurn = game.player0toPlayNext;
+
     }
 
     GameData getGameDataFromMessage(KeyValuePair<string, string>[] message, int lastIndexRead)
