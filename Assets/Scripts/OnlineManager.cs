@@ -225,6 +225,7 @@ public class OnlineManager : MonoBehaviour
 
         loadedGame = game;
 
+        GameObject.Find("Canvas_Menus").SetActive(false);
 
         //if you are player 0 and player 0 is allowed to play set true, if you are player 1 and player0toPlayNext false, also true, other combinations false
         gameManager.canHumanPlayerPlay = game.player0toPlayNext == (game.uuid0 == uuid);
