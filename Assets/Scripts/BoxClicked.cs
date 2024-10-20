@@ -104,6 +104,7 @@ public class BoxClicked : MonoBehaviour
 
         UpdateScoreTracking();
 
+        bool playingAnX = gameManager.xPlayerTurn;
 
         SpawnXorO(gameManager.xPlayerTurn);
 
@@ -116,7 +117,7 @@ public class BoxClicked : MonoBehaviour
         {
 
             gameManager.canHumanPlayerPlay = false;
-            GameObject.Find("OnlineManager").GetComponent<OnlineManager>().humanPlayerPlayedAt(this.transform);
+            GameObject.Find("OnlineManager").GetComponent<OnlineManager>().humanPlayerPlayedAt(this.transform, playingAnX);
             
         }
 
