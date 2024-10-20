@@ -102,7 +102,7 @@ public class BoxClicked : MonoBehaviour
 
 
 
-        UpdateScoreTracking();
+        UpdateScoreTracking(gameManager.xPlayerTurn);
 
         bool playingAnX = gameManager.xPlayerTurn;
 
@@ -146,11 +146,11 @@ public class BoxClicked : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void UpdateScoreTracking() // tells the Grid Manager which thing was clicked
+    public void UpdateScoreTracking(bool xPlayerPlayed) // tells the Grid Manager which thing was clicked
     {
         int intOfThis = transform.GetSiblingIndex();
 
-        if (gameManager.xPlayerTurn)
+        if (xPlayerPlayed)
         {
             transform
                 .parent.parent.gameObject.GetComponent<GridManager>()

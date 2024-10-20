@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System.Net;
 using UnityEditor.VersionControl;
+using static UnityEditor.FilePathAttribute;
 
 public class OnlineManager : MonoBehaviour
 {
@@ -198,18 +199,30 @@ public class OnlineManager : MonoBehaviour
     {
         GameData game = getGameDataFromMessage(message, 0);
 
-        if (game.gameId.Equals(loadedGame.gameId))
+        if (!game.gameId.Equals(loadedGame.gameId))
         {
-
+            Debug.LogWarning("This client was sent a move for an unloaded game");
+            return;
         }
 
 
+        
+        int lastMoveState =  game.gameState[game.lastMove];
+
+        BoxClicked boxScript =  GameObject.Find("SmallGrids").transform.GetChild(game.lastMove / 9).GetChild(2).GetChild(game.lastMove % 9).GetComponent<BoxClicked>();
+
+        boxScript.SpawnXorO(lastMoveState==1);
+        boxScript.UpdateScoreTracking(lastMoveState == 1);
+        boxScript.MoveWhereToPlay();
 
 
 
 
 
-        throw new NotImplementedException();
+
+
+
+        gameManager.canHumanPlayerPlay = true;
     }
 
     private void QuickmatchHandler(KeyValuePair<string, string>[] message)
@@ -443,7 +456,7 @@ public class OnlineManager : MonoBehaviour
     }
 
     void ForcePlace(byte location, bool isX)
-    {
+    {//TODO: look at similar implementation in the recieved move handler to finish this thing (if we need to)
         if (gameManager.canHumanPlayerPlay)
         {
             Debug.LogWarning("forcing placement while player can play, are you sure that is what is supposed to be happening?");
@@ -453,7 +466,7 @@ public class OnlineManager : MonoBehaviour
         BoxClicked box = smallGridContainingLocation.GetChild(2).GetChild(location % 9).GetComponent<BoxClicked>();
 
         box.SpawnXorO(isX);
-        box.UpdateScoreTracking();
+       // box.UpdateScoreTracking();
 
     }
     public KeyValuePair<string, string> makePair(string k, string v)
