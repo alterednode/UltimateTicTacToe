@@ -226,8 +226,13 @@ public class OnlineManager : MonoBehaviour
             Debug.Log("Failed to get box script for some reason");
 
         Debug.Log("running box scripts to simulate move");
+
         boxScript.SpawnXorO(lastMoveState==1);
         boxScript.UpdateScoreTracking(lastMoveState == 1);
+
+        //update who's turn it is.
+        gameManager.xPlayerTurn = !gameManager.xPlayerTurn;
+
         boxScript.MoveWhereToPlay();
 
 
