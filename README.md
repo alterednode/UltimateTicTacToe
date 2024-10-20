@@ -21,7 +21,7 @@ Supported operating systems include Windows, MacOS, iOS, and Android. An HTML5 w
 ### Forks and other operating systems
 - PS3 support can be found at a fork [here](https://github.com/Romano-Garmez/UltimateTicTacToePS3)
 - Support for older android devices lacking modern graphics features can be found at another fork [here](https://github.com/CNSeattle/UltimateTicTacToe)
-- Unity 5.3 webplayer support (note: this is different from HTML5!) can be found at a branch of the PS3 fork [here](https://github.com/Romano-Garmez/UltimateTicTacToePS3/tree/unity-5.3) (Please note that WebPlayer will not be getting any future builds)
+- Unity 5.3 webplayer support can be found at a fork [here](https://github.com/Romano-Garmez/UltimateTicTacToePS3/tree/unity-5.3) (Please note that this is different from HTML5, and will not be getting any future builds)
 
 ## Screenshots
 | Windows/Mac     | iOS/Android       |
