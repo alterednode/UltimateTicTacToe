@@ -453,7 +453,8 @@ public class OnlineManager : MonoBehaviour
         var messageToServer = initalData();
         messageToServer.Add(makePair("Game", "MakeMove"));
         messageToServer.Add(makePair("gameid", loadedGame.gameId));
-        messageToServer.Add(makePair("played", (playingAnX ? "X" : "O")));
+        messageToServer.Add(makePair("played", (playingAnX ? "1" : "-1")));
+        SendMessageToServer(JsonConverter.ListToJson(messageToServer));
 
         
 
