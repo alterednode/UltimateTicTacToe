@@ -3070,6 +3070,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2311303298026735579, guid: e0a881dc060c9db458814dae0f84aeeb, type: 3}
+      propertyPath: maxLines
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2311303298026735579, guid: e0a881dc060c9db458814dae0f84aeeb, type: 3}
       propertyPath: currentLine
       value: -10
       objectReference: {fileID: 0}
@@ -3123,7 +3127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2311303298659951481, guid: e0a881dc060c9db458814dae0f84aeeb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2311303298985707909, guid: e0a881dc060c9db458814dae0f84aeeb, type: 3}
       propertyPath: m_AnchorMax.x
