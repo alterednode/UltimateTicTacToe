@@ -2,13 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Net.WebSockets;
 using System.Threading;
 using System.Text;
 using TMPro;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Net;
+using NativeWebSocket;
 
 public class OnlineManager : MonoBehaviour
 {
@@ -21,7 +21,7 @@ public class OnlineManager : MonoBehaviour
     public bool canReachServerHTTP = false;
     private string googleDNS = "8.8.8.8";
     public bool canReachServer = false;
-    private ClientWebSocket ws;
+    private WebSocket ws;
     static GameManager gameManager;
     static BigGridManager bigGridManager;
     static GameObject smallGrids;
@@ -68,18 +68,23 @@ public class OnlineManager : MonoBehaviour
 
         smallGrids = GameObject.Find("Small Grids");
 
-        ws = new ClientWebSocket();
-        Connect();
 
-        Debug.Log("checking internet and server connection");
-        checkInternetConnection();
-        checkServerConnection();
+        Connect();
     }
 
 
     // Update is called once per frame
     void Update()
     {
+
+
+        
+#if !UNITY_WEBGL || UNITY_EDITOR
+            ws.DispatchMessageQueue();
+#endif
+        
+
+
         menuCanvas.SetActive(showMenus);
 
         canReachServer = checkServerConnection();
@@ -104,14 +109,13 @@ public class OnlineManager : MonoBehaviour
         try
         {
             //I do not know if this actually closes the connection
-            ws.Abort();
+            ws.Close();
         }
         catch
         {
 
         }
         Debug.Log("dropping old connection with server and making new one");
-        ws = new ClientWebSocket();
         Connect();
     }
 
@@ -120,9 +124,39 @@ public class OnlineManager : MonoBehaviour
     {
         try
         {
-            await ws.ConnectAsync(new Uri(serverURL), CancellationToken.None);
-            Debug.Log("Connected to server");
-            ReceiveMessages();
+            ws = new WebSocket(serverURL);
+
+
+
+
+
+            ws.OnOpen += () =>
+            {
+                Debug.Log("Connection open!");
+            };
+
+            ws.OnError += (e) =>
+            {
+                Debug.Log("Error! " + e);
+            };
+
+            ws.OnClose += (e) =>
+            {
+                Debug.Log("Connection closed!");
+            };
+
+            ws.OnMessage += (bytes) =>
+            {
+                // getting the message as a string
+                 var message = System.Text.Encoding.UTF8.GetString(bytes);
+                 Debug.Log("OnMessage! " + message);
+                MessageHandler(message);
+            };
+
+
+            // waiting for messages
+            await ws.Connect();
+
         }
         catch (Exception e)
         {
@@ -131,28 +165,6 @@ public class OnlineManager : MonoBehaviour
     }
 
 
-    async void ReceiveMessages()
-    {
-        var buffer = new byte[1024];
-        while (ws.State == WebSocketState.Open)
-        {
-            try
-            {
-                var result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-                if (result.MessageType == WebSocketMessageType.Text)
-                {
-                    var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                    Debug.Log("Message from server: " + message);
-                    MessageHandler(message);
-                    Array.Clear(buffer, 0, buffer.Length); // Clear buffer after processing
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError("Error receiving message: " + ex.Message);
-            }
-        }
-    }
 
 
     void MessageHandler(string json)
@@ -299,32 +311,19 @@ public class OnlineManager : MonoBehaviour
 
     }
 
-    public void SendMessageToServer(string message)
+    public async void SendMessageToServer(string message)
     {
 
         Debug.Log("attempting to send message. " + message);
-        if (ws.State == WebSocketState.Open)
-        {
-            var messageBuffer = Encoding.UTF8.GetBytes(message);
-            var segment = new ArraySegment<byte>(messageBuffer);
-
-            ws.SendAsync(segment, WebSocketMessageType.Text, true, CancellationToken.None).ContinueWith(task =>
-            {
-                if (task.IsCompleted)
-                {
-                    Debug.Log("Message sent successfully. message sent: " + message);
-                }
-                else
-                {
-                    Debug.LogError("Error sending message: " + task.Exception.Message);
-                }
-            });
+        if (ws.State == WebSocketState.Open) { 
+            await ws.SendText(message);
         }
         else
         {
             Debug.LogError("WebSocket is not open.");
         }
     }
+
 
 
     public void AttemptPasswordRegistration()
@@ -477,7 +476,7 @@ public class OnlineManager : MonoBehaviour
     {
         if (ws != null)
         {
-            ws.Dispose();
+            ws.CancelConnection();
         }
     }
 
