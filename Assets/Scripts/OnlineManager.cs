@@ -9,8 +9,6 @@ using TMPro;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Net;
-using UnityEditor.VersionControl;
-using static UnityEditor.FilePathAttribute;
 
 public class OnlineManager : MonoBehaviour
 {
@@ -214,11 +212,6 @@ public class OnlineManager : MonoBehaviour
         boxScript.SpawnXorO(lastMoveState==1);
         boxScript.UpdateScoreTracking(lastMoveState == 1);
         boxScript.MoveWhereToPlay();
-
-
-
-
-
 
 
 
