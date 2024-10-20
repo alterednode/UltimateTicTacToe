@@ -130,20 +130,31 @@ public class OnlineManager : MonoBehaviour
         }
     }
 
+
     async void ReceiveMessages()
     {
         var buffer = new byte[1024];
         while (ws.State == WebSocketState.Open)
         {
-            var result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-            if (result.MessageType == WebSocketMessageType.Text)
+            try
             {
-                var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                Debug.Log("Message from server: " + message);
-                MessageHandler(message);
+                var result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                if (result.MessageType == WebSocketMessageType.Text)
+                {
+                    var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                    Debug.Log("Message from server: " + message);
+                    MessageHandler(message);
+                    Array.Clear(buffer, 0, buffer.Length); // Clear buffer after processing
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Error receiving message: " + ex.Message);
             }
         }
     }
+
+
     void MessageHandler(string json)
     {
         var message = JsonConverter.JsonToList(json).ToArray();
