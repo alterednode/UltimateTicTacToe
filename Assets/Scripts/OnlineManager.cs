@@ -266,19 +266,28 @@ public class OnlineManager : MonoBehaviour
         //     TextMeshPro token = GameObject.Find("Token DO NOT SHOW THE USER THIS EVER THEY ARE STUPID").transform.GetComponentInChildren<TextMeshPro>();
 
 
-        var authData = new List<KeyValuePair<string, string>>
-        {
-            makePair("version", version),
-            makePair("uuid", uuid),
-            makePair("Auth", "RegisterPassword"),
-            makePair("username", username.text),
-            makePair("password", password.text)
-        };
+        var authData = initalData();
+         authData.Add(   makePair("Auth", "RegisterPassword"));
+         authData.Add( makePair("username", username.text)   );
+        authData.Add(makePair("password", password.text));
+        
+        
 
         string jsonString = JsonConverter.ListToJson(authData);
 
         SendMessageToServer(jsonString);
 
+    }
+
+    public List<KeyValuePair<string, string>> initalData()
+    {
+
+        var data = new List<KeyValuePair<string, string>>
+        {
+            makePair("version", version),
+            makePair("uuid", uuid),
+        };
+        return data;
     }
 
     public void JoinMatchQueue()

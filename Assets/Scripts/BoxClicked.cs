@@ -114,7 +114,10 @@ public class BoxClicked : MonoBehaviour
 
         if (gameManager.multiplayerEnabled)
         {
+
+            gameManager.canHumanPlayerPlay = false;
             GameObject.Find("OnlineManager").GetComponent<OnlineManager>().humanPlayerPlayedAt(this.transform);
+            
         }
 
     }
