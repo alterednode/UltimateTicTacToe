@@ -3171,7 +3171,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2311303299879909578, guid: e0a881dc060c9db458814dae0f84aeeb, type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 20
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2311303299879909579, guid: e0a881dc060c9db458814dae0f84aeeb, type: 3}
       propertyPath: m_AnchorMax.x
