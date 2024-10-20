@@ -443,13 +443,19 @@ public class OnlineManager : MonoBehaviour
                     .ToArray();
     }
 
-    internal void humanPlayerPlayedAt(Transform transform)
+    internal void humanPlayerPlayedAt(Transform transform, bool playingAnX)
     {
         int locationPlayed ;
         int smallLocation = transform.GetSiblingIndex();
         int offset = transform.parent.parent.GetSiblingIndex() * 9;
         locationPlayed = smallLocation + offset;
         Debug.Log("telling server player played at location " + locationPlayed);
+        var messageToServer = initalData();
+        messageToServer.Add(makePair("Game", "MakeMove"));
+        messageToServer.Add(makePair("gameid", loadedGame.gameId));
+        messageToServer.Add(makePair("played", (playingAnX ? "X" : "O")));
+
+        
 
 
 
