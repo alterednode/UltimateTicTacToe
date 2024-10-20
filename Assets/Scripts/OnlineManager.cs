@@ -183,22 +183,39 @@ public class OnlineManager : MonoBehaviour
             case "Quickmatch":
                 QuickmatchHandler(message);
                 break;
+
+            case "moveSentToThisUser":
+                MoveSentToThisUserHandler(message);
+                break;
             default:
                 Debug.LogError("Server sent response that this is not able to handle");
                 break;
         }
     }
 
+    private void MoveSentToThisUserHandler(KeyValuePair<string, string>[] message)
+
+    {
+        GameData game = getGameDataFromMessage(message, 0);
+
+        if (game.gameId.Equals(loadedGame.gameId))
+        {
+
+        }
+
+
+
+
+
+
+
+        throw new NotImplementedException();
+    }
+
     private void QuickmatchHandler(KeyValuePair<string, string>[] message)
     {
-        //todo: check keys are valid or switch to using a dict
 
-        GameData game = new GameData(message[1].Value,
-        message[2].Value,
-        message[3].Value,
-        ExtractIntegersFromString( message[4].Value),
-        int.Parse( message[5].Value),
-        int.Parse( message[6].Value)==1);
+        GameData game = getGameDataFromMessage(message, 0);
 
         loadedGame = game;
 
@@ -208,6 +225,19 @@ public class OnlineManager : MonoBehaviour
         gameManager.xPlayerTurn = gameManager.canHumanPlayerPlay;
     }
 
+    GameData getGameDataFromMessage(KeyValuePair<string, string>[] message, int lastIndexRead)
+    {
+
+
+        //todo: check keys are valid or switch to using a dict
+        return new GameData(message[1+ lastIndexRead].Value,
+        message[2+lastIndexRead].Value,
+        message[3+lastIndexRead].Value,
+        ExtractIntegersFromString(message[4+lastIndexRead].Value),
+        int.Parse(message[5+lastIndexRead].Value),
+        int.Parse(message[6+lastIndexRead].Value) == 1);
+        
+    }
     private void ServerRejectionHandler(KeyValuePair<string, string>[] message)
     {
         Debug.Log("Sever Rejected message for reason: " + message[0].Value);
