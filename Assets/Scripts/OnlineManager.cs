@@ -19,7 +19,7 @@ public class OnlineManager : MonoBehaviour
 
     public bool canReachGoogle = false;
     public bool canReachServerHTTP = false;
-    private string googleDNS = "8.8.8.8";
+    //private string googleDNS = "8.8.8.8";
     public bool canReachServer = false;
     private WebSocket ws;
     static GameManager gameManager;
@@ -92,6 +92,7 @@ public class OnlineManager : MonoBehaviour
     {
         try
         {
+            //TODO: figure out how to close the connection properly
             ws.Close();
         }
         catch
@@ -175,7 +176,7 @@ public class OnlineManager : MonoBehaviour
                 break;
             case "Status":
                 throw new NotImplementedException();
-                break;
+                //break; no need to break if throwing error
             default:
                 Debug.LogError("Server sent incorrectly formatted message");
                 break;
