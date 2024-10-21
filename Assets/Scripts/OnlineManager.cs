@@ -227,8 +227,7 @@ public class OnlineManager : MonoBehaviour
             Debug.Log("Failed to get box script for some reason");
 
 
-        // TODO: ROMAN PUT MULTIPLAYER SOUND HERE
-        gameManager.audioManager.PlayClip("ClickSucceed");
+        gameManager.audioManager.PlayClip("MultiplayerPlay");
 
         Debug.Log("running box scripts to simulate move");
 
