@@ -1918,6 +1918,7 @@ MonoBehaviour:
   canReachServer: 1
   uuid: 
   menuCanvas: {fileID: 698195634}
+  status: {fileID: 0}
 --- !u!1 &1468516748
 GameObject:
   m_ObjectHideFlags: 0
