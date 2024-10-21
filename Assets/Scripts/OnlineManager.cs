@@ -6,6 +6,7 @@ using TMPro;
 using System.Text.RegularExpressions;
 using System.Linq;
 using NativeWebSocket;
+using UnityEditor;
 
 public class OnlineManager : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class OnlineManager : MonoBehaviour
 
     bool inMatchmaking = false;
 
+    public TextMeshProUGUI status;
 
     private void Awake()
     {
@@ -60,7 +62,7 @@ public class OnlineManager : MonoBehaviour
 
 
         smallGrids = GameObject.Find("Small Grids");
-
+        status = GameObject.Find("Status").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         Connect();
     }
 
@@ -99,6 +101,12 @@ public class OnlineManager : MonoBehaviour
     }
 
 
+    void setStatus(string text)
+    {
+        status.text = text;
+    }
+
+
     async void Connect()
     {
         try
@@ -108,6 +116,7 @@ public class OnlineManager : MonoBehaviour
             ws.OnOpen += () =>
             {
                 Debug.Log("Connection open!");
+               setStatus( "Connected to server");
             };
 
             ws.OnError += (e) =>
@@ -118,6 +127,7 @@ public class OnlineManager : MonoBehaviour
             ws.OnClose += (e) =>
             {
                 Debug.Log("Connection closed!");
+                setStatus("disconnected");
                 StartCoroutine(ReconnectAfterDelay(1));
             };
 
@@ -367,7 +377,7 @@ public class OnlineManager : MonoBehaviour
             };
 
             text.text = "Enter Matchmaking";
-           
+            setStatus("Left Matchmaking queue");
 
         }
         else
@@ -382,6 +392,7 @@ public class OnlineManager : MonoBehaviour
             };
 
 
+            setStatus("Joined Matchmaking queue");
             text.text = "Leave Matchmaking";
         }
 
@@ -397,16 +408,20 @@ public class OnlineManager : MonoBehaviour
         switch (message[0].Value)
         {
             case "RegisterPasswordFailed":
+                setStatus("Failed to register password");
                 // Handle register password failure
                 break;
             case "RegisterPasswordSuccess":
+                setStatus("Registered password");
                 // Handle register password success
                 break;
             case "LoginSuccess":
                 uuid = message[1].Value;
+                setStatus("Login Successful");
                 // Handle successful login
                 break;
             case "LoginFailed":
+                setStatus("Login failed");
                 // Handle failed login
                 break;
             case "TokenExpired":
