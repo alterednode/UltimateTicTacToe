@@ -422,61 +422,6 @@ public class OnlineManager : MonoBehaviour
         }
     }
 
-    void checkInternetConnection()
-    {
-        //      StartCoroutine(CheckInternet());
-    }
-    /*
-    IEnumerator CheckInternet()
-    {
-        // Send a ping to Google's DNS
-        Ping ping = new Ping(googleDNS);
-
-        // Wait until the ping returns or times out
-        while (!ping.isDone)
-        {
-            yield return null;
-        }
-
-        // Check if the ping was successful
-        if (ping.time >= 0)
-        {
-            Debug.Log("Internet is available! Reached Google.");
-            canReachGoogle = true;
-        }
-        else
-        {
-            Debug.Log("No internet connection. Could not reach Google.");
-            canReachGoogle = false;
-        }
-
-
-        // Send an HTTP request to ulttictactoe.com
-        IPAddress[] addresses = Dns.GetHostAddresses(serverURL);
-
-        if (addresses.Length > 0)
-        {
-            // Use the first resolved IP address to ping
-            Ping pingTest = new Ping(addresses[0].ToString());
-            // Wait for the ping to complete
-            while (!pingTest.isDone)
-            {
-                yield return null;
-            }
-
-            if (pingTest.time >= 0)
-            {
-                Debug.Log("Ping to " + serverURL + " successful!");
-                canReachServerHTTP = true;
-            }
-            else
-            {
-                Debug.Log("Ping to " + serverURL + " failed.");
-                canReachServerHTTP = false;
-            }
-        }
-    }*/
-
     bool checkServerConnection()
     {
         if (ws.State == WebSocketState.Open)
