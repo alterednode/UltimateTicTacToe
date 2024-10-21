@@ -92,15 +92,6 @@ public class OnlineManager : MonoBehaviour
         {
             showMenus = true;
         }
-        try
-        {
-            GameObject.Find("Text for the UUID - the UUID TEXT OBJECT").GetComponent<TextMeshProUGUI>().text = "UUID: " + uuid;
-        }
-        catch (Exception)
-        {
-
-            throw;
-        }
 
     }
 
