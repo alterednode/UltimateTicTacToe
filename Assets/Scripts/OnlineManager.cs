@@ -32,7 +32,7 @@ public class OnlineManager : MonoBehaviour
     string version = "0.0.1";
 
     // TODO: better method of doing this
-    bool showMenus=true;
+    bool showMenus = true;
     public GameObject menuCanvas;
     // that will likely never happen
 
@@ -78,11 +78,11 @@ public class OnlineManager : MonoBehaviour
     {
 
 
-        
+
 #if !UNITY_WEBGL || UNITY_EDITOR
-            ws.DispatchMessageQueue();
+        ws.DispatchMessageQueue();
 #endif
-        
+
 
 
         menuCanvas.SetActive(showMenus);
@@ -117,10 +117,6 @@ public class OnlineManager : MonoBehaviour
         {
             ws = new WebSocket(serverURL);
 
-
-
-
-
             ws.OnOpen += () =>
             {
                 Debug.Log("Connection open!");
@@ -139,8 +135,8 @@ public class OnlineManager : MonoBehaviour
             ws.OnMessage += (bytes) =>
             {
                 // getting the message as a string
-                 var message = System.Text.Encoding.UTF8.GetString(bytes);
-                 Debug.Log("OnMessage! " + message);
+                var message = System.Text.Encoding.UTF8.GetString(bytes);
+                Debug.Log("OnMessage! " + message);
                 MessageHandler(message);
             };
 
@@ -191,7 +187,8 @@ public class OnlineManager : MonoBehaviour
     private void GameHandler(KeyValuePair<string, string>[] message)
     {
 
-        switch (message[0].Value) {
+        switch (message[0].Value)
+        {
 
             case "Quickmatch":
                 QuickmatchHandler(message);
@@ -220,10 +217,10 @@ public class OnlineManager : MonoBehaviour
         }
 
 
-        
-        int lastMoveState =  game.gameState[game.lastMove];
-        
-        BoxClicked boxScript =  GameObject.Find("Small Grids").transform.GetChild(game.lastMove / 9).GetChild(2).GetChild(game.lastMove % 9).GetComponent<BoxClicked>();
+
+        int lastMoveState = game.gameState[game.lastMove];
+
+        BoxClicked boxScript = GameObject.Find("Small Grids").transform.GetChild(game.lastMove / 9).GetChild(2).GetChild(game.lastMove % 9).GetComponent<BoxClicked>();
 
         if (boxScript == null)
             Debug.Log("Failed to get box script for some reason");
@@ -234,7 +231,7 @@ public class OnlineManager : MonoBehaviour
 
         Debug.Log("running box scripts to simulate move");
 
-        boxScript.SpawnXorO(lastMoveState==1);
+        boxScript.SpawnXorO(lastMoveState == 1);
         boxScript.UpdateScoreTracking(lastMoveState == 1);
 
         //update who's turn it is.
@@ -272,13 +269,13 @@ public class OnlineManager : MonoBehaviour
 
 
         //todo: check keys are valid or switch to using a dict
-        return new GameData(message[1+ lastIndexRead].Value,
-        message[2+lastIndexRead].Value,
-        message[3+lastIndexRead].Value,
-        ExtractIntegersFromString(message[4+lastIndexRead].Value),
-        int.Parse(message[5+lastIndexRead].Value),
-        int.Parse(message[6+lastIndexRead].Value) == 1);
-        
+        return new GameData(message[1 + lastIndexRead].Value,
+        message[2 + lastIndexRead].Value,
+        message[3 + lastIndexRead].Value,
+        ExtractIntegersFromString(message[4 + lastIndexRead].Value),
+        int.Parse(message[5 + lastIndexRead].Value),
+        int.Parse(message[6 + lastIndexRead].Value) == 1);
+
     }
     private void ServerRejectionHandler(KeyValuePair<string, string>[] message)
     {
@@ -306,7 +303,8 @@ public class OnlineManager : MonoBehaviour
     {
 
         Debug.Log("attempting to send message. " + message);
-        if (ws.State == WebSocketState.Open) { 
+        if (ws.State == WebSocketState.Open)
+        {
             await ws.SendText(message);
         }
         else
@@ -326,11 +324,11 @@ public class OnlineManager : MonoBehaviour
 
 
         var authData = initalData();
-         authData.Add(   makePair("Auth", "RegisterPassword"));
-         authData.Add( makePair("username", username.text)   );
+        authData.Add(makePair("Auth", "RegisterPassword"));
+        authData.Add(makePair("username", username.text));
         authData.Add(makePair("password", password.text));
-        
-        
+
+
 
         string jsonString = JsonConverter.ListToJson(authData);
 
@@ -390,7 +388,7 @@ public class OnlineManager : MonoBehaviour
 
     void checkInternetConnection()
     {
-  //      StartCoroutine(CheckInternet());
+        //      StartCoroutine(CheckInternet());
     }
     /*
     IEnumerator CheckInternet()
@@ -482,7 +480,7 @@ public class OnlineManager : MonoBehaviour
         BoxClicked box = smallGridContainingLocation.GetChild(2).GetChild(location % 9).GetComponent<BoxClicked>();
 
         box.SpawnXorO(isX);
-       // box.UpdateScoreTracking();
+        // box.UpdateScoreTracking();
 
     }
     public KeyValuePair<string, string> makePair(string k, string v)
@@ -504,7 +502,7 @@ public class OnlineManager : MonoBehaviour
 
     internal void humanPlayerPlayedAt(Transform transform, bool playingAnX)
     {
-        int locationPlayed ;
+        int locationPlayed;
         int smallLocation = transform.GetSiblingIndex();
         int offset = transform.parent.parent.GetSiblingIndex() * 9;
         locationPlayed = smallLocation + offset;
@@ -512,7 +510,7 @@ public class OnlineManager : MonoBehaviour
         var messageToServer = initalData();
         messageToServer.Add(makePair("Game", "MakeMove"));
         messageToServer.Add(makePair("gameid", loadedGame.gameId));
-        messageToServer.Add(makePair("location", ""+locationPlayed));
+        messageToServer.Add(makePair("location", "" + locationPlayed));
         messageToServer.Add(makePair("played", (playingAnX ? "1" : "-1")));
         string jsonToServer = JsonConverter.ListToJson(messageToServer);
         Debug.Log("sendingThisToServer " + jsonToServer);
