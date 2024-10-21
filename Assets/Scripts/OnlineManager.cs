@@ -36,6 +36,8 @@ public class OnlineManager : MonoBehaviour
     public GameObject menuCanvas;
     // that will likely never happen
 
+    bool inMatchmaking = false;
+
 
     private void Awake()
     {
@@ -72,9 +74,9 @@ public class OnlineManager : MonoBehaviour
     void Update()
     {
 
-        #if !UNITY_WEBGL || UNITY_EDITOR
+#if !UNITY_WEBGL || UNITY_EDITOR
         ws.DispatchMessageQueue();
-        #endif
+#endif
 
         menuCanvas.SetActive(showMenus);
 
@@ -120,6 +122,7 @@ public class OnlineManager : MonoBehaviour
             ws.OnClose += (e) =>
             {
                 Debug.Log("Connection closed!");
+                StartCoroutine(ReconnectAfterDelay(1));
             };
 
             ws.OnMessage += (bytes) =>
@@ -139,6 +142,12 @@ public class OnlineManager : MonoBehaviour
         {
             Debug.LogError("Connection error: " + e.Message);
         }
+    }
+
+    private IEnumerator ReconnectAfterDelay(int delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Connect();
     }
 
 
@@ -163,6 +172,9 @@ public class OnlineManager : MonoBehaviour
                 break;
             case "InitalConnection":
                 InitalConnectionHandler(message);
+                break;
+            case "Status":
+                throw new NotImplementedException();
                 break;
             default:
                 Debug.LogError("Server sent incorrectly formatted message");
@@ -302,7 +314,7 @@ public class OnlineManager : MonoBehaviour
         TMP_InputField password = GameObject.Find("Password InputField (TMP) (1)").transform.GetComponentInChildren<TMP_InputField>();
 
         var authData = initalData();
-        authData.Add(makePair("Auth", "RegisterPassword"));
+        authData.Add(makePair("Auth", "SignUp"));
         authData.Add(makePair("username", username.text));
         authData.Add(makePair("password", password.text));
 
@@ -318,7 +330,7 @@ public class OnlineManager : MonoBehaviour
         TMP_InputField password = GameObject.Find("Password InputField (TMP) (1)").transform.GetComponentInChildren<TMP_InputField>();
 
         var authData = initalData();
-        authData.Add(makePair("Auth", "RegisterPassword"));
+        authData.Add(makePair("Auth", "Login"));
         authData.Add(makePair("username", username.text));
         authData.Add(makePair("password", password.text));
 
@@ -338,15 +350,44 @@ public class OnlineManager : MonoBehaviour
         return data;
     }
 
-    public void JoinMatchQueue()
+    public void ToggleMatchmaking()
     {
-        var requestData = new List<KeyValuePair<string, string>>
+        List<KeyValuePair<string, string>> requestData =null;
+        TextMeshProUGUI text = GameObject.Find("Matchmaking button").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        if (text == null)
         {
+            Debug.LogError("Could not find Matchmaking button");
+        }
+        if (inMatchmaking)
+        {
+
+            requestData = new List<KeyValuePair<string, string>>
+            {
+            makePair("version", version),
+            makePair("uuid", uuid),
+            makePair("Game", "LeaveMatchmaking")
+            };
+
+            text.text = "Enter Matchmaking";
+           
+
+        }
+        else
+        {
+
+            requestData = new List<KeyValuePair<string, string>>
+            {
             makePair("version", version),
             makePair("uuid", uuid),
             makePair("Game", "JoinMatchmaking")
-        };
+            };
 
+
+            text.text = "Leave Matchmaking";
+        }
+
+
+        inMatchmaking = !inMatchmaking;
         string message = JsonConverter.ListToJson(requestData);
 
         SendMessageToServer(message);
