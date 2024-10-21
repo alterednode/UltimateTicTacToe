@@ -19,4 +19,16 @@ public class SceneLoader : MonoBehaviour
         Debug.Log("loading OnlineMultiplayer");
         SceneManager.LoadScene("OnlineMultiplayer");
     }
+
+    public static void loadMainMenu()
+    {
+        Debug.Log("loading MainMenu");
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public static void quitGame()
+    {
+        Debug.Log("Quitting Game");
+        Application.Quit();
+    }
 }
