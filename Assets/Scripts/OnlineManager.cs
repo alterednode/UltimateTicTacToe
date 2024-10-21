@@ -20,7 +20,6 @@ public class OnlineManager : MonoBehaviour
     public bool canReachServer = false;
     private WebSocket ws;
     static GameManager gameManager;
-    static BigGridManager bigGridManager;
     static GameObject smallGrids;
 
     public GameData loadedGame;
@@ -59,7 +58,6 @@ public class OnlineManager : MonoBehaviour
     void Start()
     {
 
-        bigGridManager = GameObject.Find("BigGrid").GetComponent<BigGridManager>();
 
         smallGrids = GameObject.Find("Small Grids");
 
