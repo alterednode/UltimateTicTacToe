@@ -2,12 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading;
-using System.Text;
 using TMPro;
 using System.Text.RegularExpressions;
 using System.Linq;
-using System.Net;
 using NativeWebSocket;
 
 public class OnlineManager : MonoBehaviour
