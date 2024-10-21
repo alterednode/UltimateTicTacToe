@@ -35,7 +35,7 @@ public class OnlineManager : MonoBehaviour
 
     bool inMatchmaking = false;
 
-    public TextMeshProUGUI status;
+    TextMeshProUGUI status;
 
     private void Awake()
     {
@@ -60,7 +60,6 @@ public class OnlineManager : MonoBehaviour
     void Start()
     {
 
-
         smallGrids = GameObject.Find("Small Grids");
         status = GameObject.Find("Status").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         Connect();
@@ -71,16 +70,16 @@ public class OnlineManager : MonoBehaviour
     void Update()
     {
 
-#if !UNITY_WEBGL || UNITY_EDITOR
+        #if !UNITY_WEBGL || UNITY_EDITOR
         ws.DispatchMessageQueue();
 #endif
 
-        menuCanvas.SetActive(showMenus);
+        canReachServer  =  checkServerConnection();
 
-        canReachServer = checkServerConnection();
+
         if (!canReachServer)
         {
-            showMenus = true;
+            menuCanvas.SetActive(true);
         }
 
     }
@@ -259,10 +258,10 @@ public class OnlineManager : MonoBehaviour
         loadedGame = game;
 
         Debug.Log("set Loaded game");
+        
+        menuCanvas.SetActive(false);
 
-        GameObject.Find("Canvas_Menus").GetComponent<Canvas>().enabled = false;
-
-        Debug.Log("should have hidden canvas");
+        Debug.Log("should have hidden mult menu canvas");
 
         //if you are player 0 and player 0 is allowed to play set true, if you are player 1 and player0toPlayNext false, also true, other combinations false
         gameManager.canHumanPlayerPlay = (game.player0toPlayNext == (game.uuid0 == uuid));
@@ -449,11 +448,6 @@ public class OnlineManager : MonoBehaviour
         }
     }
 
-    void LoadState(BitArray bitState)
-    {
-        //TODO: maybe change the method signature to use a different input
-        //TODO: implement this, just use the forcePlayMove
-    }
 
     private void OnDestroy()
     {
@@ -463,20 +457,7 @@ public class OnlineManager : MonoBehaviour
         }
     }
 
-    void ForcePlace(byte location, bool isX)
-    {//TODO: look at similar implementation in the recieved move handler to finish this thing (if we need to)
-        if (gameManager.canHumanPlayerPlay)
-        {
-            Debug.LogWarning("forcing placement while player can play, are you sure that is what is supposed to be happening?");
-        }
 
-        Transform smallGridContainingLocation = smallGrids.transform.GetChild(location / 9);
-        BoxClicked box = smallGridContainingLocation.GetChild(2).GetChild(location % 9).GetComponent<BoxClicked>();
-
-        box.SpawnXorO(isX);
-        // box.UpdateScoreTracking();
-
-    }
     public KeyValuePair<string, string> makePair(string k, string v)
     {
         return new KeyValuePair<string, string>(k, v);
