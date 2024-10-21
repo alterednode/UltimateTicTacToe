@@ -122,12 +122,14 @@ public class OnlineManager : MonoBehaviour
             ws.OnError += (e) =>
             {
                 Debug.Log("Error! " + e);
+                setStatus("unknown websocket error");
             };
 
             ws.OnClose += (e) =>
             {
+
                 Debug.Log("Connection closed!");
-                setStatus("disconnected");
+                setStatus("connecting . . .");
                 StartCoroutine(ReconnectAfterDelay(1));
             };
 
