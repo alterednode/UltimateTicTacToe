@@ -127,8 +127,9 @@ public class OnlineManager : MonoBehaviour
 
             ws.OnClose += (e) =>
             {
+
                 Debug.Log("Connection closed!");
-                setStatus("disconnected");
+                setStatus("connecting . . .");
                 StartCoroutine(ReconnectAfterDelay(1));
             };
 
