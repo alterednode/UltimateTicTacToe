@@ -1111,6 +1111,8 @@ GameObject:
   - component: {fileID: 1074392295}
   - component: {fileID: 1074392294}
   - component: {fileID: 1074392293}
+  - component: {fileID: 1074392297}
+  - component: {fileID: 1074392296}
   m_Layer: 5
   m_Name: Sign Up
   m_TagString: Untagged
@@ -1232,6 +1234,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1074392291}
   m_CullTransparentMesh: 1
+--- !u!65 &1074392296
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074392291}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 150, y: 50, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1074392297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074392291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546544d3fa789e449b9e240321f5bdff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonScript: {fileID: 0}
+  canAlwaysBeClicked: 1
 --- !u!1 &1084823554
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,6 +1719,8 @@ GameObject:
   - component: {fileID: 1291650687}
   - component: {fileID: 1291650686}
   - component: {fileID: 1291650685}
+  - component: {fileID: 1291650689}
+  - component: {fileID: 1291650688}
   m_Layer: 5
   m_Name: Login
   m_TagString: Untagged
@@ -1811,6 +1842,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1291650683}
   m_CullTransparentMesh: 1
+--- !u!65 &1291650688
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291650683}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 150, y: 50, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1291650689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291650683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546544d3fa789e449b9e240321f5bdff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonScript: {fileID: 0}
+  canAlwaysBeClicked: 1
 --- !u!1 &1466447731
 GameObject:
   m_ObjectHideFlags: 0
@@ -1872,6 +1930,8 @@ GameObject:
   - component: {fileID: 1468516752}
   - component: {fileID: 1468516751}
   - component: {fileID: 1468516750}
+  - component: {fileID: 1468516754}
+  - component: {fileID: 1468516753}
   m_Layer: 5
   m_Name: Matchmaking button
   m_TagString: Untagged
@@ -1993,6 +2053,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468516748}
   m_CullTransparentMesh: 1
+--- !u!65 &1468516753
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468516748}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 250, y: 50, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1468516754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468516748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546544d3fa789e449b9e240321f5bdff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonScript: {fileID: 0}
+  canAlwaysBeClicked: 1
 --- !u!1 &1559305646
 GameObject:
   m_ObjectHideFlags: 0

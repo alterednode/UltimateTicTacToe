@@ -7,6 +7,7 @@ public class VirtualButton : MonoBehaviour
     GameManager gameManager;
     ControllerManager controllerManager;
     AudioManager audioManager;
+    BoxCollider collider;
 
     public bool canAlwaysBeClicked = false;
 
