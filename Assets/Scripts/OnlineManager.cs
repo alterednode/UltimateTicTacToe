@@ -502,7 +502,8 @@ public class OnlineManager : MonoBehaviour
         locationPlayed = smallLocation + offset;
         Debug.Log("telling server player played at location " + locationPlayed);
         var messageToServer = initalData();
-        messageToServer.Add(makePair("Game", "MakeMove"));
+        messageToServer.Add(makePair("messageType", "Game"));
+        messageToServer.Add(makePair("gameType", "MakeMove"));
         messageToServer.Add(makePair("gameid", loadedGame.gameId));
         messageToServer.Add(makePair("location", "" + locationPlayed));
         messageToServer.Add(makePair("played", (playingAnX ? "1" : "-1")));
