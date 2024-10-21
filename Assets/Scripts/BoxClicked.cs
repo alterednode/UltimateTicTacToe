@@ -27,6 +27,7 @@ public class BoxClicked : MonoBehaviour
     }
 
     /// <summary>
+    /// This makes it so that the player can only play on a trigger where
     /// they both start and end their click there without leaving the trigger
     /// </summary>
 
