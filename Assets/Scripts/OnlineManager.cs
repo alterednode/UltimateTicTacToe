@@ -62,12 +62,7 @@ public class OnlineManager : MonoBehaviour
 
         bigGridManager = GameObject.Find("BigGrid").GetComponent<BigGridManager>();
 
-
-
-
-
         smallGrids = GameObject.Find("Small Grids");
-
 
         Connect();
     }
@@ -77,13 +72,9 @@ public class OnlineManager : MonoBehaviour
     void Update()
     {
 
-
-
-#if !UNITY_WEBGL || UNITY_EDITOR
+        #if !UNITY_WEBGL || UNITY_EDITOR
         ws.DispatchMessageQueue();
-#endif
-
-
+        #endif
 
         menuCanvas.SetActive(showMenus);
 
@@ -99,7 +90,6 @@ public class OnlineManager : MonoBehaviour
     {
         try
         {
-            //I do not know if this actually closes the connection
             ws.Close();
         }
         catch
@@ -157,7 +147,6 @@ public class OnlineManager : MonoBehaviour
     void MessageHandler(string json)
     {
         var message = JsonConverter.JsonToList(json).ToArray();
-
 
 
         switch (message[0].Key)
@@ -239,8 +228,6 @@ public class OnlineManager : MonoBehaviour
 
         boxScript.MoveWhereToPlay();
 
-
-
         gameManager.canHumanPlayerPlay = true;
     }
 
@@ -267,7 +254,6 @@ public class OnlineManager : MonoBehaviour
     GameData getGameDataFromMessage(KeyValuePair<string, string>[] message, int lastIndexRead)
     {
 
-
         //todo: check keys are valid or switch to using a dict
         return new GameData(message[1 + lastIndexRead].Value,
         message[2 + lastIndexRead].Value,
@@ -282,7 +268,6 @@ public class OnlineManager : MonoBehaviour
         Debug.Log("Sever Rejected message for reason: " + message[0].Value);
         for (int i = 1; i < message.Length; i++)
         {
-
             Debug.Log("Other information: " + message[i].Key + " : " + message[i].Value);
         }
 
@@ -290,13 +275,9 @@ public class OnlineManager : MonoBehaviour
 
     private void InitalConnectionHandler(KeyValuePair<string, string>[] message)
     {
-
-
         string uuidFromServer = message[1].Value;
 
         uuid = uuidFromServer;
-
-
     }
 
     public async void SendMessageToServer(string message)
@@ -315,25 +296,35 @@ public class OnlineManager : MonoBehaviour
 
 
 
-    public void AttemptPasswordRegistration()
+    public void AttemptSignUp()
     {
         TMP_InputField username = GameObject.Find("Username InputField (TMP)").transform.GetComponentInChildren<TMP_InputField>();
         TMP_InputField password = GameObject.Find("Password InputField (TMP) (1)").transform.GetComponentInChildren<TMP_InputField>();
-        //   TextMeshPro status = GameObject.Find("Status").transform.GetComponentInChildren<TextMeshPro>();
-        //     TextMeshPro token = GameObject.Find("Token DO NOT SHOW THE USER THIS EVER THEY ARE STUPID").transform.GetComponentInChildren<TextMeshPro>();
-
 
         var authData = initalData();
         authData.Add(makePair("Auth", "RegisterPassword"));
         authData.Add(makePair("username", username.text));
         authData.Add(makePair("password", password.text));
 
-
-
         string jsonString = JsonConverter.ListToJson(authData);
 
         SendMessageToServer(jsonString);
 
+    }
+
+    public void AttemptLogin()
+    {
+        TMP_InputField username = GameObject.Find("Username InputField (TMP)").transform.GetComponentInChildren<TMP_InputField>();
+        TMP_InputField password = GameObject.Find("Password InputField (TMP) (1)").transform.GetComponentInChildren<TMP_InputField>();
+
+        var authData = initalData();
+        authData.Add(makePair("Auth", "RegisterPassword"));
+        authData.Add(makePair("username", username.text));
+        authData.Add(makePair("password", password.text));
+
+        string jsonString = JsonConverter.ListToJson(authData);
+
+        SendMessageToServer(jsonString);
     }
 
     public List<KeyValuePair<string, string>> initalData()
@@ -372,6 +363,7 @@ public class OnlineManager : MonoBehaviour
                 // Handle register password success
                 break;
             case "LoginSuccess":
+                uuid = message[1].Value;
                 // Handle successful login
                 break;
             case "LoginFailed":
