@@ -313,7 +313,8 @@ public class OnlineManager : MonoBehaviour
         TMP_InputField password = GameObject.Find("Password InputField (TMP) (1)").transform.GetComponentInChildren<TMP_InputField>();
 
         var authData = initalData();
-        authData.Add(makePair("Auth", "SignUp"));
+        authData.Add(makePair("messageType", "Auth"));
+        authData.Add(makePair("authType", "SignUp"));
         authData.Add(makePair("username", username.text));
         authData.Add(makePair("password", password.text));
 
@@ -329,7 +330,8 @@ public class OnlineManager : MonoBehaviour
         TMP_InputField password = GameObject.Find("Password InputField (TMP) (1)").transform.GetComponentInChildren<TMP_InputField>();
 
         var authData = initalData();
-        authData.Add(makePair("Auth", "Login"));
+        authData.Add(makePair("messageType", "Auth"));
+        authData.Add(makePair("authType", "Login"));
         authData.Add(makePair("username", username.text));
         authData.Add(makePair("password", password.text));
 
@@ -364,7 +366,8 @@ public class OnlineManager : MonoBehaviour
             {
             makePair("version", version),
             makePair("uuid", uuid),
-            makePair("Game", "LeaveMatchmaking")
+            makePair("messageType","Game"),
+            makePair("gameType", "LeaveMatchmaking")
             };
 
             text.text = "Enter Matchmaking";
@@ -378,7 +381,8 @@ public class OnlineManager : MonoBehaviour
             {
             makePair("version", version),
             makePair("uuid", uuid),
-            makePair("Game", "JoinMatchmaking")
+            makePair("messageType","Game"),
+            makePair("gameType", "JoinMatchmaking")
             };
 
 
