@@ -137,13 +137,26 @@ public class BoxClicked : MonoBehaviour
 
     public void SpawnXorO(bool xPlayerTurn) // Instantiates a new O or X 
     {
+        //TODO: deal with custom themes better, this is definitely going to break if i change themes later
+        int[] themeColors = { 0xFFFFFF, 0x444444 };
+
+        //retrieve the theme from the playerprefs
+        int userThemeNum = PlayerPrefs.GetInt("Theme");
+
+        //get the invert of the theme for ui elements
+        int userThemeInvertNum = (userThemeNum + 1) % themeColors.Length;
+        byte themeInvertColor = (byte)themeColors[userThemeInvertNum];
+
         GameObject newPiece = Instantiate(
             gameManager.prefabXO[Convert.ToInt32(xPlayerTurn)]
         );
         newPiece.transform.position = gameObject.transform.position;
         newPiece.transform.parent = gameObject.transform.parent.parent;
+        newPiece.GetComponent<SpriteRenderer>().color = new Color32(themeInvertColor, themeInvertColor, themeInvertColor, 255);
 
         gameObject.SetActive(false);
+
+
     }
 
     public void UpdateScoreTracking(bool xPlayerPlayed) // tells the Grid Manager which thing was clicked
