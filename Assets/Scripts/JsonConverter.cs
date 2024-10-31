@@ -9,7 +9,6 @@ public static class JsonConverter
     // Converts a List<KeyValuePair<string, string>> to a JSON string
     public static string ListToJson(List<KeyValuePair<string, string>> list)
     {
-        Debug.Log($"ListToJson: Input list count: {list.Count}");
 
         StringBuilder sb = new StringBuilder();
         sb.Append("{");
@@ -22,7 +21,6 @@ public static class JsonConverter
         sb.Append("}");
 
         string result = sb.ToString();
-        Debug.Log($"ListToJson: Output JSON: {result}");
         return result;
     }
 
