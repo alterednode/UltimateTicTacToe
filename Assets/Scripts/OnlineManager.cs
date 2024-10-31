@@ -386,7 +386,7 @@ public class OnlineManager : MonoBehaviour
         return data;
     }
 
-    public void ToggleMatchmaking()
+    public void MatchButtonPressed()
     {
         List<KeyValuePair<string, string>> requestData =null;
         TextMeshProUGUI text = GameObject.Find("Matchmaking button").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
