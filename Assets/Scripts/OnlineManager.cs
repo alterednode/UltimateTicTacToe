@@ -70,6 +70,7 @@ public class OnlineManager : MonoBehaviour
         status = GameObject.Find("Status").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         Connect();
         
+
     }
 
 
