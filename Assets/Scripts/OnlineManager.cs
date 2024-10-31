@@ -33,11 +33,15 @@ public class OnlineManager : MonoBehaviour
     public GameObject menuCanvas;
     // that will likely never happen
 
-    bool inMatchmaking = false;
+    public bool inMatchmaking = false;
 
-    TextMeshProUGUI status;
+    public TextMeshProUGUI status;
 
-    public Transform opponentUsernameThing;
+    public TMP_InputField opponentUsernameThing;
+
+    public TextMeshProUGUI matchmakingButton;
+
+
 
     private void Awake()
     {
