@@ -388,31 +388,38 @@ public class OnlineManager : MonoBehaviour
 
     public void MatchButtonPressed()
     {
-        List<KeyValuePair<string, string>> requestData =null;
-        TextMeshProUGUI text = GameObject.Find("Matchmaking button").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        if (text == null)
-        {
-            Debug.LogError("Could not find Matchmaking button");
-        }
-        if (inMatchmaking)
-        {
 
-            requestData = new List<KeyValuePair<string, string>>
-            {
-            makePair("version", version),
-            makePair("uuid", uuid),
-            makePair("messageType","Game"),
-            makePair("gameType", "LeaveMatchmaking")
-            };
+        if (opponentUsernameThing.text.Length!=0)
+        {
+            RequestToInviteUserToGame(opponentUsernameThing.text);
+            setStatus("attempting to send match request to " +  opponentUsernameThing.text);
 
-            text.text = "Enter Matchmaking";
+        }else if (inMatchmaking)
+        {
+            RequestToLeaveMatchmaking();
+            matchmakingButton.text = "Enter Matchmaking";
             setStatus("Left Matchmaking queue");
-
         }
         else
         {
+            RequestToJoinMatchmaking();
+            setStatus("Joined Matchmaking queue");
+            matchmakingButton.text = "Leave Matchmaking";            
+        }
 
-            requestData = new List<KeyValuePair<string, string>>
+
+
+    }
+
+    public void RequestToInviteUserToGame(String username) 
+    {
+        throw new NotImplementedException();
+    }
+
+    public void RequestToJoinMatchmaking()
+    {
+        inMatchmaking = true;
+        List<KeyValuePair<string, string>> requestData = new List<KeyValuePair<string, string>>
             {
             makePair("version", version),
             makePair("uuid", uuid),
@@ -421,12 +428,25 @@ public class OnlineManager : MonoBehaviour
             };
 
 
-            setStatus("Joined Matchmaking queue");
-            text.text = "Leave Matchmaking";
-        }
+        string message = JsonConverter.ListToJson(requestData);
+
+        SendMessageToServer(message);
+    }
+
+    public void RequestToLeaveMatchmaking()
+    {
+        inMatchmaking = false;
 
 
-        inMatchmaking = !inMatchmaking;
+        List<KeyValuePair<string, string>> requestData = new List<KeyValuePair<string, string>>
+            {
+            makePair("version", version),
+            makePair("uuid", uuid),
+            makePair("messageType","Game"),
+            makePair("gameType", "LeaveMatchmaking")
+            };
+
+
         string message = JsonConverter.ListToJson(requestData);
 
         SendMessageToServer(message);
