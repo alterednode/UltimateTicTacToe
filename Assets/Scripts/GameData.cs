@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GameData
 {
-    public string gameId, uuid0, uuid1;
+    public string gameid, uuid0, uuid1;
     // TODO: could possibly optimize storage sapce of a Game object with byte array
     // instead of int
     public int[] gameState;
@@ -16,9 +16,9 @@ public class GameData
     // created timestamp
     // updated timestamp
 
-   public GameData(string gameId, string uuid0, string uuid1, int[] gameSate, int lastMove, bool player0toPlayNext)
+   public GameData(string gameid, string uuid0, string uuid1, int[] gameSate, int lastMove, bool player0toPlayNext)
     {
-        this.gameId = gameId;
+        this.gameid = gameid;
         this.uuid0 = uuid1;
         this.uuid1 = uuid0;
         this.gameState = gameSate;

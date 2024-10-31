@@ -218,7 +218,7 @@ public class OnlineManager : MonoBehaviour
         Debug.Log("\n\n\nrecieved move!");
         GameData game = getGameDataFromMessage(message, 0);
 
-        if (!game.gameId.Equals(loadedGame.gameId))
+        if (!game.gameid.Equals(loadedGame.gameid))
         {
             Debug.LogWarning("This client was sent a move for an unloaded game");
             return;
@@ -485,7 +485,7 @@ public class OnlineManager : MonoBehaviour
         var messageToServer = initalData();
         messageToServer.Add(makePair("messageType", "Game"));
         messageToServer.Add(makePair("gameType", "MakeMove"));
-        messageToServer.Add(makePair("gameid", loadedGame.gameId));
+        messageToServer.Add(makePair("gameid", loadedGame.gameid));
         messageToServer.Add(makePair("location", "" + locationPlayed));
         messageToServer.Add(makePair("played", (playingAnX ? "1" : "-1")));
         string jsonToServer = JsonConverter.ListToJson(messageToServer);
