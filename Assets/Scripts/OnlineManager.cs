@@ -91,6 +91,15 @@ public class OnlineManager : MonoBehaviour
         }
 
         string buttonTextForInviting = "Send Game Invite";
+        if (opponentUsernameThing.text.Length!=0)
+        {
+            if (inMatchmaking)
+            {
+                RequestToLeaveMatchmaking();
+                inMatchmaking = false ;
+                setStatus("left matchmaking");
+            }
+            matchmakingButton.text = buttonTextForInviting;
 
         }
         else
