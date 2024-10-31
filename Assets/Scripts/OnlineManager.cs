@@ -37,6 +37,8 @@ public class OnlineManager : MonoBehaviour
 
     TextMeshProUGUI status;
 
+    public Transform opponentUsernameThing;
+
     private void Awake()
     {
         if (localhostoverride)
@@ -63,6 +65,7 @@ public class OnlineManager : MonoBehaviour
         smallGrids = GameObject.Find("Small Grids");
         status = GameObject.Find("Status").transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         Connect();
+        
     }
 
 
@@ -82,6 +85,8 @@ public class OnlineManager : MonoBehaviour
             menuCanvas.SetActive(true);
         }
 
+
+        
     }
 
     public void makeNewConnectionWithServer()
