@@ -906,7 +906,7 @@ GameObject:
   - component: {fileID: 892873197}
   - component: {fileID: 892873196}
   m_Layer: 5
-  m_Name: Username InputField (TMP) (1)
+  m_Name: Opponent Username InputField (TMP) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2228,7 +2228,9 @@ MonoBehaviour:
   canReachServer: 1
   uuid: 
   menuCanvas: {fileID: 698195634}
-  opponentUsernameThing: {fileID: 0}
+  status: {fileID: 1559305648}
+  opponentUsernameThing: {fileID: 892873196}
+  matchmakingButton: {fileID: 735169478}
 --- !u!1 &1468516748
 GameObject:
   m_ObjectHideFlags: 0
@@ -2316,7 +2318,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1466447733}
         m_TargetAssemblyTypeName: OnlineManager, Assembly-CSharp
-        m_MethodName: ToggleMatchmaking
+        m_MethodName: MatchButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2469,7 +2471,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter Username
+  m_text: Enter Opponent's Username
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
