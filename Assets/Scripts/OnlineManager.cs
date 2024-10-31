@@ -90,7 +90,16 @@ public class OnlineManager : MonoBehaviour
             menuCanvas.SetActive(true);
         }
 
+        string buttonTextForInviting = "Send Game Invite";
 
+        }
+        else
+        {
+            //checks if the buttonText was just set to the invite text but all text was removed from the username box
+            if(matchmakingButton.text.Equals(buttonTextForInviting)) {
+                matchmakingButton.text = "Join Matchmaking";
+            }
+        }
         
     }
 
