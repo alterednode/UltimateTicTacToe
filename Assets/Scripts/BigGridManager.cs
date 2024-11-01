@@ -44,7 +44,11 @@ public class BigGridManager : MonoBehaviour
 			if (!isGameNotWon)
 			{
 
-				gameManager.restartButton.SetActive(true); // show reset button
+				//TODO: It would probably be better to have the gameManager have a method for this that will handle it elegantly itself or something
+				if (gameManager.restartButton != null)
+                {
+                    gameManager.restartButton.SetActive(true); // show reset button
+                }
 			}
 
 		}
