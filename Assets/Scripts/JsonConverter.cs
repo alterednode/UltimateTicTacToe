@@ -24,6 +24,25 @@ public static class JsonConverter
         return result;
     }
 
+    public static string DictionaryToJson(Dictionary<string, string> dict)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("{");
+
+        int count = 0;
+        foreach (var kvp in dict)
+        {
+            sb.AppendFormat("\"{0}\":\"{1}\"", kvp.Key, kvp.Value);
+            if (count < dict.Count - 1)
+                sb.Append(",");
+            count++;
+        }
+
+        sb.Append("}");
+        return sb.ToString();
+    }
+
+
     // Converts a JSON string to a List<KeyValuePair<string, string>>
     public static List<KeyValuePair<string, string>> JsonToList(string jsonString)
     {
@@ -59,5 +78,46 @@ public static class JsonConverter
 
        // Debug.Log($"JsonToList: Output list count: {list.Count}");
         return list;
+    }
+    public static Dictionary<string, string> JsonToDictionary(string jsonString)
+    {
+        var dictionary = new Dictionary<string, string>();
+
+        try
+        {
+            // Use regex to find matches for key-value pairs
+            var matches = Regex.Matches(jsonString, "\"(.*?)\":\"(.*?)\"");
+            if (matches.Count == 0)
+            {
+                Console.WriteLine("No matches found in the JSON string");
+            }
+
+            foreach (Match match in matches)
+            {
+                if (match.Groups.Count == 3)
+                {
+                    var key = match.Groups[1].Value;
+                    var value = match.Groups[2].Value;
+
+                    if (!dictionary.ContainsKey(key)) // Prevent duplicate keys
+                    {
+
+                        Debug.Log($"JsonToDict: Pair - Key: {key}, Value: {value}");
+                        dictionary[key] = value;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Duplicate key found: {key}. Skipping.");
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"JsonToDictionary: Error parsing JSON: {e.Message}");
+            Console.WriteLine($"JsonToDictionary: Stack trace: {e.StackTrace}");
+        }
+
+        return dictionary;
     }
 }
