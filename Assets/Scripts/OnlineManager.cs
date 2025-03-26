@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using NativeWebSocket;
 using UnityEditor;
+using UnityEngine.XR;
 
 public class OnlineManager : MonoBehaviour
 {
@@ -25,8 +26,11 @@ public class OnlineManager : MonoBehaviour
 
     public GameData loadedGame;
 
+    public string username;
     public string uuid;
-    string version = "0.0.1";
+    private string sessionToken;
+    private string refreshToken;
+    string version = "0.0.2";
 
     // TODO: better method of doing this
     bool showMenus = true;
@@ -190,25 +194,25 @@ public class OnlineManager : MonoBehaviour
 
     void MessageHandler(string json)
     {
-        var message = JsonConverter.JsonToList(json).ToArray();
+        var message = JsonConverter.JsonToDictionary(json);
+        
 
-
-        switch (message[0].Key)
+        switch (message["responseType"])
         {
-            case "Auth":
+            case "auth":
                 AuthHandler(message);
                 // Handle the 'auth' case here
                 break;
-            case "ServerRejection":
+            case "serverRejection":
                 ServerRejectionHandler(message);
                 break;
-            case "Game":
+            case "game":
                 GameHandler(message);
                 break;
-            case "InitalConnection":
+            case "initalConnection":
                 InitalConnectionHandler(message);
                 break;
-            case "Status":
+            case "status":
                 throw new NotImplementedException();
                 //break; no need to break if throwing error
             default:
@@ -220,31 +224,34 @@ public class OnlineManager : MonoBehaviour
 
     }
 
-    private void GameHandler(KeyValuePair<string, string>[] message)
+    private void GameHandler(Dictionary<string, string> message)
     {
 
-        switch (message[0].Value)
+        switch (message["gameResponse"])
         {
 
-            case "Quickmatch":
+            case "quickmatchStarted":
                 QuickmatchHandler(message);
                 break;
 
             case "moveSentToThisUser":
                 MoveSentToThisUserHandler(message);
                 break;
+            case "joinedMatchQueue":
+                //don't really need to do anythign
+                break;
             default:
-                Debug.LogError("Server sent response that this is not able to handle");
+                Debug.LogError("Server sent response that this is not able to handle: " + message["gameResponse"]);
                 break;
         }
     }
 
-    private void MoveSentToThisUserHandler(KeyValuePair<string, string>[] message)
+    private void MoveSentToThisUserHandler(Dictionary<string, string> message)
 
     {
 
         Debug.Log("\n\n\nrecieved move!");
-        GameData game = getGameDataFromMessage(message, 0);
+        GameData game = getGameDataFromMessage(message);
 
         if (!game.gameid.Equals(loadedGame.gameid))
         {
@@ -277,11 +284,11 @@ public class OnlineManager : MonoBehaviour
         gameManager.canHumanPlayerPlay = true;
     }
 
-    private void QuickmatchHandler(KeyValuePair<string, string>[] message)
+    private void QuickmatchHandler(Dictionary<string, string> message)
     {
         Debug.Log("recieved quickmatch");
 
-        GameData game = getGameDataFromMessage(message, 0);
+        GameData game = getGameDataFromMessage(message);
 
         loadedGame = game;
 
@@ -297,39 +304,53 @@ public class OnlineManager : MonoBehaviour
 
     }
 
-    GameData getGameDataFromMessage(KeyValuePair<string, string>[] message, int lastIndexRead)
+    GameData getGameDataFromMessage(Dictionary<string, string> message)
     {
-
-        //todo: check keys are valid or switch to using a dict
-        return new GameData(message[1 + lastIndexRead].Value,
-        message[2 + lastIndexRead].Value,
-        message[3 + lastIndexRead].Value,
-        ExtractIntegersFromString(message[4 + lastIndexRead].Value),
-        int.Parse(message[5 + lastIndexRead].Value),
-        int.Parse(message[6 + lastIndexRead].Value) == 1);
-
+        return new GameData(
+            message["gameID"],
+            message["player0"],
+            message["player1"],
+            ExtractIntegersFromString(message["gameState"]),
+            int.Parse(message["lastMove"]),
+            message["player0toPlayNext"].Equals("1")
+        ); ;
     }
-    private void ServerRejectionHandler(KeyValuePair<string, string>[] message)
+    private void ServerRejectionHandler(Dictionary<string, string> message)
     {
-        Debug.Log("Sever Rejected message for reason: " + message[0].Value);
-        for (int i = 1; i < message.Length; i++)
+
+        if (message.TryGetValue("reason", out string reasonForServerRejection))
         {
-            Debug.Log("Other information: " + message[i].Key + " : " + message[i].Value);
+            Debug.Log("Sever Rejected message for reason: " + reasonForServerRejection);
+
+            if (reasonForServerRejection.Equals("invalidSessionToken") || reasonForServerRejection.Equals("expiredSessionToken"))
+            {
+                //TODO: try and reauthenticate with token.
+            }
+        }
+        else
+        {
+            Debug.Log("no reason provided for server rejection, listing all information provided by server");
+            foreach (var kvp in message)
+            {
+                Debug.Log("Information: " + kvp.Key + " : " + kvp.Value);
+            }
+
         }
 
+
     }
 
-    private void InitalConnectionHandler(KeyValuePair<string, string>[] message)
+    private void InitalConnectionHandler(Dictionary<string, string> message)
     {
-        string uuidFromServer = message[1].Value;
+        string uuidFromServer = message["UUID"];
 
         uuid = uuidFromServer;
     }
 
     public async void SendMessageToServer(string message)
     {
+        Debug.Log("Attempting to send message: " + message);
 
-        Debug.Log("attempting to send message. " + message);
         if (ws.State == WebSocketState.Open)
         {
             await ws.SendText(message);
@@ -340,49 +361,40 @@ public class OnlineManager : MonoBehaviour
         }
     }
 
+    public void SendMessageToServer(Dictionary<string, string> dictMessage)
+    {
+        // Converts the dictionary to JSON and then sends the message
+        SendMessageToServer(JsonConverter.DictionaryToJson(dictMessage));
+    }
 
 
-    public void AttemptSignUp()
+
+
+    public void AuthenticateUsernameAndPassword()
     {
         TMP_InputField username = GameObject.Find("Username InputField (TMP)").transform.GetComponentInChildren<TMP_InputField>();
         TMP_InputField password = GameObject.Find("Password InputField (TMP) (1)").transform.GetComponentInChildren<TMP_InputField>();
 
         var authData = initalData();
-        authData.Add(makePair("messageType", "Auth"));
-        authData.Add(makePair("authType", "SignUp"));
-        authData.Add(makePair("username", username.text));
-        authData.Add(makePair("password", password.text));
+       
+        authData.Add("messageType", "authenticateUsernameAndPassword");
+        authData.Add("username", username.text);
+        authData.Add("password", password.text);
 
-        string jsonString = JsonConverter.ListToJson(authData);
 
-        SendMessageToServer(jsonString);
+        SendMessageToServer(authData);
 
     }
+    
 
-    public void AttemptLogin()
-    {
-        TMP_InputField username = GameObject.Find("Username InputField (TMP)").transform.GetComponentInChildren<TMP_InputField>();
-        TMP_InputField password = GameObject.Find("Password InputField (TMP) (1)").transform.GetComponentInChildren<TMP_InputField>();
-
-        var authData = initalData();
-        authData.Add(makePair("messageType", "Auth"));
-        authData.Add(makePair("authType", "Login"));
-        authData.Add(makePair("username", username.text));
-        authData.Add(makePair("password", password.text));
-
-        string jsonString = JsonConverter.ListToJson(authData);
-
-        SendMessageToServer(jsonString);
-    }
-
-    public List<KeyValuePair<string, string>> initalData()
+    public Dictionary<string, string> initalData()
     {
 
-        var data = new List<KeyValuePair<string, string>>
-        {
-            makePair("version", version),
-            makePair("uuid", uuid),
-        };
+        var data = new Dictionary<string, string>();
+
+        data.Add("version", version);
+        data.Add("uuid", uuid);
+        
         return data;
     }
 
@@ -419,18 +431,17 @@ public class OnlineManager : MonoBehaviour
     public void RequestToJoinMatchmaking()
     {
         inMatchmaking = true;
-        List<KeyValuePair<string, string>> requestData = new List<KeyValuePair<string, string>>
-            {
-            makePair("version", version),
-            makePair("uuid", uuid),
-            makePair("messageType","Game"),
-            makePair("gameType", "JoinMatchmaking")
-            };
+        Dictionary<string, string> requestData = new Dictionary<string, string>();
+            
+           requestData.Add("version", version);
+          requestData.Add("uuid", uuid);
+       requestData.Add("messageType", "game");
+          requestData.Add("gameMessageType", "joinMatchmaking");
+        requestData.Add("sessionToken", sessionToken);
+            
 
 
-        string message = JsonConverter.ListToJson(requestData);
-
-        SendMessageToServer(message);
+        SendMessageToServer(requestData);
     }
 
     public void RequestToLeaveMatchmaking()
@@ -438,49 +449,79 @@ public class OnlineManager : MonoBehaviour
         inMatchmaking = false;
 
 
-        List<KeyValuePair<string, string>> requestData = new List<KeyValuePair<string, string>>
-            {
-            makePair("version", version),
-            makePair("uuid", uuid),
-            makePair("messageType","Game"),
-            makePair("gameType", "LeaveMatchmaking")
-            };
+        Dictionary<string, string> requestData = new Dictionary<string, string>();
+
+        requestData.Add("version", version);
+        requestData.Add("uuid", uuid);
+        requestData.Add("messageType", "game");
+        requestData.Add("gameMessageType", "leaveMatchmaking");
+        requestData.Add("sessionToken", sessionToken);
 
 
-        string message = JsonConverter.ListToJson(requestData);
 
-        SendMessageToServer(message);
+        SendMessageToServer(requestData);
     }
 
-    public void AuthHandler(KeyValuePair<string, string>[] message)
+    public void AuthHandler(Dictionary<string, string> message)
     {
-        switch (message[0].Value)
+
+        string authStatus = message["authStatus"];
+
+        switch (authStatus)
         {
-            case "RegisterPasswordFailed":
-                setStatus("Failed to register password");
-                // Handle register password failure
-                break;
-            case "RegisterPasswordSuccess":
-                setStatus("Registered password");
-                // Handle register password success
-                break;
-            case "LoginSuccess":
-                uuid = message[1].Value;
-                setStatus("Login Successful");
-                // Handle successful login
-                break;
-            case "LoginFailed":
-                setStatus("Login failed");
-                // Handle failed login
-                break;
-            case "TokenExpired":
-                // Handle expired token
-                break;
-            case "UsernameAlreadyTaken":
-                // Handle password change requirement
-                break;
+            case "success":
+                Debug.Log("auth successful");
+                if (message.TryGetValue("uuid", out var uuidFromServer))
+                {
+                    Debug.Log("Assigned new uuid");
+                    uuid = uuidFromServer;
+                    PlayerPrefs.SetString("uuid", uuidFromServer);
+                }
+                if (message.TryGetValue("refreshToken", out var refreshTokenFromServer))
+                {
+                    Debug.Log("new refreshToken");
+                    refreshToken = refreshTokenFromServer;
+                    PlayerPrefs.SetString("refreshToken", refreshTokenFromServer);
+                }
+                if (message.TryGetValue("sessionToken", out var sessionTokenFromServer))
+                {
+                    Debug.Log("new session token - not storing permenantly");
+                    sessionToken = sessionTokenFromServer;
+                }
+                return;
+            case "failure":
+                if(message.TryGetValue("reason", out var reasonFromServer))
+                {
+                    switch (reasonFromServer)
+                    {
+                        case "expiredRefreshToken":
+                        case "invalidRefreshToken":
+                            ClearStoredTokenAndUUIDAndReload();
+                            return;
+                    }
+                }
+                return;
+            case "logoutSuccess":
+                ClearStoredTokenAndUUIDAndReload();
+                //currently nothing to do if this happens
+                return;
+
+
+
         }
     }
+
+    void ClearStoredTokenAndUUIDAndReload()
+    {
+
+            sessionToken = null;
+            refreshToken = null;
+            PlayerPrefs.DeleteKey("refreshToken");
+            PlayerPrefs.DeleteKey("uuid");
+
+            SceneLoader.loadOnlineMultiplayer();
+            return;
+        }
 
     bool checkServerConnection()
     {
@@ -531,14 +572,14 @@ public class OnlineManager : MonoBehaviour
         locationPlayed = smallLocation + offset;
         Debug.Log("telling server player played at location " + locationPlayed);
         var messageToServer = initalData();
-        messageToServer.Add(makePair("messageType", "Game"));
-        messageToServer.Add(makePair("gameType", "MakeMove"));
-        messageToServer.Add(makePair("gameid", loadedGame.gameid));
-        messageToServer.Add(makePair("location", "" + locationPlayed));
-        messageToServer.Add(makePair("played", (playingAnX ? "1" : "-1")));
-        string jsonToServer = JsonConverter.ListToJson(messageToServer);
-        Debug.Log("sendingThisToServer " + jsonToServer);
-        SendMessageToServer(jsonToServer);
+        messageToServer.Add("messageType", "Game");
+        messageToServer.Add("gameMessageType", "makeMove");
+        messageToServer.Add("sessionToken",sessionToken);
+        messageToServer.Add("gameid", loadedGame.gameid);
+        messageToServer.Add("location", "" + locationPlayed);
+        messageToServer.Add("played", (playingAnX ? "1" : "-1"));
+        Debug.Log("sendingThisToServer " + JsonConverter.DictionaryToJson( messageToServer));
+        SendMessageToServer(messageToServer);
 
 
     }

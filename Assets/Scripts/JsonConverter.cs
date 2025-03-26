@@ -102,12 +102,12 @@ public static class JsonConverter
                     if (!dictionary.ContainsKey(key)) // Prevent duplicate keys
                     {
 
-                        Debug.Log($"JsonToDict: Pair - Key: {key}, Value: {value}");
+                      //  Debug.Log($"JsonToDict: Pair - Key: {key}, Value: {value}");
                         dictionary[key] = value;
                     }
                     else
                     {
-                        Console.WriteLine($"Duplicate key found: {key}. Skipping.");
+                        Debug.LogError($"Duplicate key found: {key}. Skipping.");
                     }
                 }
             }
