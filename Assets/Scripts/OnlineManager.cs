@@ -572,7 +572,7 @@ public class OnlineManager : MonoBehaviour
         locationPlayed = smallLocation + offset;
         Debug.Log("telling server player played at location " + locationPlayed);
         var messageToServer = initalData();
-        messageToServer.Add("messageType", "Game");
+        messageToServer.Add("messageType", "game");
         messageToServer.Add("gameMessageType", "makeMove");
         messageToServer.Add("sessionToken",sessionToken);
         messageToServer.Add("gameid", loadedGame.gameid);
