@@ -7,11 +7,9 @@ This tic-tac-toe game consists of 9 smaller tic-tac-toe games. In order to win t
 
 For instance, if you play in the bottom right tile of a small board, your opponent will only be able to play within the bottom right game. It's hard to explain in text, but becomes pretty clear when you play. During your turn, you can only play where the green box is.
 
-## Multiplayer
-//TODO: update this to have more information once the server is made
+## Multiplayer Backend
 
-## Backend
-//TODO: update this to have more information once the server is made
+This is no longer being worked on for this version.
 
 The game uses a simple java web server coupled with a database found [here](https://github.com/alterednode/UltimateTicTacToeServer)
 
